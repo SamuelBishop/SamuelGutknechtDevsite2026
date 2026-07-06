@@ -8,3 +8,11 @@ Object.defineProperty(window, 'scrollTo', {
   value: vi.fn(),
   writable: true,
 })
+
+if (!('ResizeObserver' in globalThis)) {
+  globalThis.ResizeObserver = class {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  }
+}

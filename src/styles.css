@@ -77,6 +77,7 @@ button {
 }
 
 .site-frame {
+  position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -341,100 +342,78 @@ p {
   justify-self: end;
 }
 
-/* Global trail: a trail-runner follows a meandering path across the hills,
-   pinned to the bottom of the viewport, advancing as the whole page scrolls. */
+/* Global trail scene: a full-page background layer sitting behind the page
+   content. A dotted trail meanders across the whole document over a subtle
+   mountain landscape, ducking behind opaque components as it goes. A trail-
+   running shoe advances along the path as the page scrolls (driven in JS). */
 .trail-scene {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100vw;
-  height: clamp(190px, 27vh, 290px);
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   z-index: 0;
   pointer-events: none;
-  overflow: visible;
+  overflow: clip;
 }
-.trail-scene .hill {
+.trail-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.trail-scene .scene-hills path {
   fill: var(--pine);
-}
-.trail-scene .hill-back {
-  opacity: 0.06;
-}
-.trail-scene .hill-mid {
-  opacity: 0.09;
-}
-.trail-scene .hill-front {
-  opacity: 0.12;
-}
-.trail-scene .scene-ridge path {
-  fill: none;
-  stroke: var(--pine);
-  stroke-width: 1;
-  stroke-opacity: 0.12;
-  stroke-linecap: round;
 }
 .trail-scene .tree-body {
   fill: var(--pine);
-  opacity: 0.17;
+  opacity: 0.16;
 }
 .trail-scene .tree-trunk {
   fill: var(--pine);
-  opacity: 0.12;
+  opacity: 0.11;
 }
 .trail-scene .scene-bushes use {
   fill: var(--pine);
-  opacity: 0.13;
+  opacity: 0.12;
 }
 .trail-scene .scene-rocks use {
   fill: var(--pine);
-  opacity: 0.14;
+  opacity: 0.13;
 }
 .trail-scene .scene-grass path {
   fill: none;
   stroke: var(--pine);
   stroke-width: 1.1;
-  stroke-opacity: 0.16;
+  stroke-opacity: 0.15;
   stroke-linecap: round;
 }
 .trail-scene .trail-base {
   fill: none;
   stroke: var(--pine);
   stroke-width: 2;
-  stroke-opacity: 0.3;
+  stroke-opacity: 0.28;
   stroke-linecap: round;
   stroke-dasharray: 1.5 9;
 }
 .trail-scene .trail-line {
   fill: none;
+  stroke: var(--pine);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-opacity: 0.12;
+  stroke-dasharray: 1.5 9;
+}
+.trail-scene .trail-draw {
+  fill: none;
   stroke: var(--jade-signal);
   stroke-width: 2.4;
   stroke-linecap: round;
-  stroke-opacity: 0.55;
+  stroke-opacity: 0.6;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
 }
 
-/* Trail-runner shoe: an HTML overlay pinned low in the viewport that runs
-   left-to-right across the whole page as it scrolls, bobbing along the trail. */
-.trail-runner {
-  position: fixed;
-  left: 0;
-  bottom: clamp(30px, 5.2vh, 62px);
-  width: clamp(58px, 6vw, 84px);
-  height: auto;
-  z-index: 0;
-  pointer-events: none;
-  transform: translateX(2vw) translateY(2px) rotate(-3deg);
-  will-change: transform;
-}
-.runner-shoe {
-  display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
-.runner {
-  opacity: 0.96;
-}
+/* The shoe: a detailed side-profile trail runner. Reused for the runner that
+   follows the path and the static footprint marker at the trail's origin. */
 .runner .shoe-outsole {
   fill: var(--pine);
 }
@@ -480,48 +459,8 @@ p {
   stroke-width: 1.4;
   stroke-linecap: round;
 }
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: scroll()) {
-    .trail-scene .trail-line {
-      animation: draw-thread linear both;
-      animation-timeline: scroll(root block);
-    }
-    .trail-runner {
-      animation: run-across linear both;
-      animation-timeline: scroll(root block);
-    }
-  }
-}
-@keyframes draw-thread {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-@keyframes run-across {
-  0% {
-    transform: translateX(1vw) translateY(3px) rotate(-3deg);
-  }
-  14% {
-    transform: translateX(14vw) translateY(-3px) rotate(2deg);
-  }
-  28% {
-    transform: translateX(27vw) translateY(4px) rotate(-2deg);
-  }
-  42% {
-    transform: translateX(40vw) translateY(-2px) rotate(2deg);
-  }
-  56% {
-    transform: translateX(54vw) translateY(4px) rotate(-2deg);
-  }
-  70% {
-    transform: translateX(67vw) translateY(-3px) rotate(2deg);
-  }
-  84% {
-    transform: translateX(80vw) translateY(3px) rotate(-2deg);
-  }
-  100% {
-    transform: translateX(92vw) translateY(1px) rotate(1deg);
-  }
+.trail-scene .origin-shoe {
+  opacity: 0.5;
 }
 
 .hero h1 {
@@ -1063,9 +1002,6 @@ p {
   .hero-portrait {
     max-width: 260px;
     justify-self: start;
-  }
-  .trail-scene {
-    height: clamp(180px, 30vh, 260px);
   }
   .hero h1,
   .page-intro h1 {
