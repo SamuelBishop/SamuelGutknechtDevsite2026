@@ -1,23 +1,20 @@
+import { User } from 'lucide-react'
 import { SectionIntro } from '../components/SectionIntro'
 
 const principles = [
   [
-    '01',
     'Start with the user’s task',
     'The technology matters most when it makes the work clearer.',
   ],
   [
-    '02',
     'Treat quality as product work',
     'Accessibility, performance, and reliability belong in the experience.',
   ],
   [
-    '03',
     'Prefer clarity over cleverness',
     'Clear systems and steady collaboration tend to outlast novelty.',
   ],
   [
-    '04',
     'Stay close to implementation',
     'Good judgment depends on understanding the real tradeoffs.',
   ],
@@ -43,7 +40,13 @@ export function AboutPage() {
       >
         <p className="eyebrow">The work</p>
         <div className="split-copy">
-          <h2 id="story-heading">Front-end craft, widening outward.</h2>
+          <div>
+            <h2 id="story-heading">Front-end craft, widening outward.</h2>
+            <figure className="about-portrait media-placeholder portrait">
+              <User size={26} aria-hidden="true" />
+              <figcaption className="media-label">Portrait photo</figcaption>
+            </figure>
+          </div>
           <div className="prose-column">
             <p>
               My work has centered on front-end architecture, React, TypeScript,
@@ -70,9 +73,9 @@ export function AboutPage() {
         <p className="eyebrow">How I work</p>
         <h2 id="principles-heading">A few durable principles.</h2>
         <ol className="principles-grid">
-          {principles.map(([number, title, description]) => (
-            <li key={number}>
-              <span>{number}</span>
+          {principles.map(([title, description]) => (
+            <li key={title}>
+              <span className="waypoint" aria-hidden="true" />
               <h3>{title}</h3>
               <p>{description}</p>
             </li>

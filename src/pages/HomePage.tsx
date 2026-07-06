@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, User } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { ContactCallout } from '../components/ContactCallout'
 import { WorkCard } from '../components/WorkCard'
@@ -8,25 +8,31 @@ export function HomePage() {
   return (
     <>
       <section className="hero section-shell">
-        <p className="eyebrow">Senior software engineer · Microsoft</p>
-        <h1>
-          Building software consistently to solve real problems, including my
-          own.
-        </h1>
-        <p className="hero-copy">
-          I’m Samuel, a senior software engineer at Microsoft. Front-end and
-          product engineering are my home base: React, TypeScript, and complex
-          enterprise interfaces. I also work across data, cloud, and AI systems
-          when the work calls for it.
-        </p>
-        <div className="hero-actions">
-          <Link className="text-link" to="/work">
-            View selected work <ArrowRight aria-hidden="true" size={17} />
-          </Link>
-          <Link className="quiet-link" to="/about">
-            Learn more about me
-          </Link>
+        <div className="hero-text">
+          <p className="eyebrow">Senior software engineer · Microsoft</p>
+          <h1>
+            Building software consistently to solve real problems, including my
+            own.
+          </h1>
+          <p className="hero-copy">
+            I’m Samuel, a senior software engineer at Microsoft. Front-end and
+            product engineering are my home base: React, TypeScript, and complex
+            enterprise interfaces. I also work across data, cloud, and AI
+            systems when the work calls for it.
+          </p>
+          <div className="hero-actions">
+            <Link className="text-link" to="/work">
+              View selected work <ArrowRight aria-hidden="true" size={17} />
+            </Link>
+            <Link className="quiet-link" to="/about">
+              Learn more about me
+            </Link>
+          </div>
         </div>
+        <figure className="hero-portrait media-placeholder portrait">
+          <User size={30} aria-hidden="true" />
+          <figcaption className="media-label">Portrait photo</figcaption>
+        </figure>
       </section>
 
       <section
