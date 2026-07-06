@@ -80,6 +80,20 @@ button {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: clip;
+}
+.site-frame > .site-header {
+  position: relative;
+  z-index: 2;
+}
+.site-frame > main {
+  position: relative;
+  z-index: 1;
+}
+.site-frame > .site-footer {
+  position: relative;
+  z-index: 1;
+  background: var(--paper);
 }
 
 main {
@@ -308,54 +322,210 @@ p {
 
 .hero {
   position: relative;
-  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(240px, 26vw, 320px);
+  align-items: center;
+  gap: clamp(36px, 6vw, 84px);
   padding-top: clamp(90px, 12vw, 166px);
   padding-bottom: clamp(92px, 12vw, 150px);
 }
-.hero > *:not(.hero-topo) {
+.hero-text,
+.hero-portrait {
   position: relative;
   z-index: 1;
 }
-.hero-topo {
-  position: absolute;
-  top: -6%;
-  right: -8%;
+.hero-portrait {
+  width: 100%;
+  max-width: 320px;
+  margin: 0;
+  justify-self: end;
+}
+
+/* Global trail: a trail-runner follows a meandering path across the hills,
+   pinned to the bottom of the viewport, advancing as the whole page scrolls. */
+.trail-scene {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: clamp(190px, 27vh, 290px);
   z-index: 0;
-  width: min(600px, 58%);
-  height: auto;
-  color: var(--pine);
   pointer-events: none;
+  overflow: visible;
 }
-.hero-topo .contours {
-  stroke-width: 1.4;
-  stroke-opacity: 0.14;
+.trail-scene .hill {
+  fill: var(--pine);
 }
-.hero-topo .route {
-  stroke: var(--jade-signal);
-  stroke-width: 2.5;
+.trail-scene .hill-back {
+  opacity: 0.06;
+}
+.trail-scene .hill-mid {
+  opacity: 0.09;
+}
+.trail-scene .hill-front {
+  opacity: 0.12;
+}
+.trail-scene .scene-ridge path {
+  fill: none;
+  stroke: var(--pine);
+  stroke-width: 1;
+  stroke-opacity: 0.12;
   stroke-linecap: round;
-  stroke-opacity: 0.6;
-  stroke-dasharray: 900;
-  stroke-dashoffset: 900;
-  animation: trace-route 2.4s ease-out 0.3s forwards;
 }
-.hero-topo .route-dot {
+.trail-scene .tree-body {
+  fill: var(--pine);
+  opacity: 0.17;
+}
+.trail-scene .tree-trunk {
+  fill: var(--pine);
+  opacity: 0.12;
+}
+.trail-scene .scene-bushes use {
+  fill: var(--pine);
+  opacity: 0.13;
+}
+.trail-scene .scene-rocks use {
+  fill: var(--pine);
+  opacity: 0.14;
+}
+.trail-scene .scene-grass path {
+  fill: none;
+  stroke: var(--pine);
+  stroke-width: 1.1;
+  stroke-opacity: 0.16;
+  stroke-linecap: round;
+}
+.trail-scene .trail-base {
+  fill: none;
+  stroke: var(--pine);
+  stroke-width: 2;
+  stroke-opacity: 0.3;
+  stroke-linecap: round;
+  stroke-dasharray: 1.5 9;
+}
+.trail-scene .trail-line {
+  fill: none;
+  stroke: var(--jade-signal);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-opacity: 0.55;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+/* Trail-runner shoe: an HTML overlay pinned low in the viewport that runs
+   left-to-right across the whole page as it scrolls, bobbing along the trail. */
+.trail-runner {
+  position: fixed;
+  left: 0;
+  bottom: clamp(30px, 5.2vh, 62px);
+  width: clamp(58px, 6vw, 84px);
+  height: auto;
+  z-index: 0;
+  pointer-events: none;
+  transform: translateX(2vw) translateY(2px) rotate(-3deg);
+  will-change: transform;
+}
+.runner-shoe {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.runner {
+  opacity: 0.96;
+}
+.runner .shoe-outsole {
+  fill: var(--pine);
+}
+.runner .shoe-lugs {
+  fill: none;
+  stroke: var(--pine);
+  stroke-width: 1.5;
+  stroke-linecap: butt;
+  stroke-dasharray: 1.3 2.2;
+}
+.runner .shoe-midsole {
+  fill: var(--birch);
+  stroke: var(--pine);
+  stroke-width: 0.4;
+  stroke-opacity: 0.35;
+}
+.runner .shoe-midline {
+  fill: none;
+  stroke: var(--sage-mist);
+  stroke-width: 0.8;
+  stroke-linecap: round;
+}
+.runner .shoe-upper {
   fill: var(--jade-signal);
-  opacity: 0;
-  animation: mark-point 0.4s ease-out 2.4s forwards;
 }
-@keyframes trace-route {
+.runner .shoe-toe {
+  fill: none;
+  stroke: var(--pine);
+  stroke-width: 0.8;
+  stroke-linecap: round;
+  opacity: 0.5;
+}
+.runner .shoe-lace {
+  fill: none;
+  stroke: var(--birch);
+  stroke-width: 0.9;
+  stroke-linecap: round;
+  opacity: 0.9;
+}
+.runner .shoe-tab {
+  fill: none;
+  stroke: var(--jade-signal);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .trail-scene .trail-line {
+      animation: draw-thread linear both;
+      animation-timeline: scroll(root block);
+    }
+    .trail-runner {
+      animation: run-across linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+}
+@keyframes draw-thread {
   to {
     stroke-dashoffset: 0;
   }
 }
-@keyframes mark-point {
-  to {
-    opacity: 0.85;
+@keyframes run-across {
+  0% {
+    transform: translateX(1vw) translateY(3px) rotate(-3deg);
+  }
+  14% {
+    transform: translateX(14vw) translateY(-3px) rotate(2deg);
+  }
+  28% {
+    transform: translateX(27vw) translateY(4px) rotate(-2deg);
+  }
+  42% {
+    transform: translateX(40vw) translateY(-2px) rotate(2deg);
+  }
+  56% {
+    transform: translateX(54vw) translateY(4px) rotate(-2deg);
+  }
+  70% {
+    transform: translateX(67vw) translateY(-3px) rotate(2deg);
+  }
+  84% {
+    transform: translateX(80vw) translateY(3px) rotate(-2deg);
+  }
+  100% {
+    transform: translateX(92vw) translateY(1px) rotate(1deg);
   }
 }
+
 .hero h1 {
-  max-width: 1080px;
+  max-width: 720px;
 }
 .hero-copy {
   max-width: 720px;
@@ -886,16 +1056,16 @@ p {
     display: none;
   }
   .hero {
+    grid-template-columns: 1fr;
+    gap: 34px;
     padding-top: 74px;
   }
-  .hero-topo {
-    width: 72%;
-    right: -28%;
-    opacity: 0.55;
+  .hero-portrait {
+    max-width: 260px;
+    justify-self: start;
   }
-  .hero-topo .route,
-  .hero-topo .route-dot {
-    display: none;
+  .trail-scene {
+    height: clamp(180px, 30vh, 260px);
   }
   .hero h1,
   .page-intro h1 {
@@ -956,17 +1126,20 @@ p {
 
 /* Subtle, non-distracting motion */
 @media (prefers-reduced-motion: no-preference) {
-  .hero > .eyebrow {
+  .hero-text > .eyebrow {
     animation: rise 0.6s ease both;
   }
-  .hero > h1 {
+  .hero-text > h1 {
     animation: rise 0.7s ease 0.05s both;
   }
-  .hero > .hero-copy {
+  .hero-text > .hero-copy {
     animation: rise 0.7s ease 0.12s both;
   }
-  .hero > .hero-actions {
+  .hero-text > .hero-actions {
     animation: rise 0.7s ease 0.18s both;
+  }
+  .hero-portrait {
+    animation: rise 0.7s ease 0.24s both;
   }
 
   @supports (animation-timeline: view()) {

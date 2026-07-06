@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, User } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { ContactCallout } from '../components/ContactCallout'
 import { WorkCard } from '../components/WorkCard'
@@ -8,52 +8,31 @@ export function HomePage() {
   return (
     <>
       <section className="hero section-shell">
-        <svg
-          className="hero-topo"
-          viewBox="0 0 600 600"
-          aria-hidden="true"
-          preserveAspectRatio="xMidYMid slice"
-        >
-          <defs>
-            <path
-              id="ridge"
-              d="M0,-120 C70,-120 130,-70 130,0 C130,80 60,120 -10,120 C-90,120 -130,60 -130,-20 C-130,-90 -60,-120 0,-120 Z"
-            />
-          </defs>
-          <g className="contours" fill="none" stroke="currentColor">
-            <use href="#ridge" transform="translate(360 300) scale(0.45)" />
-            <use href="#ridge" transform="translate(360 300) scale(0.85)" />
-            <use href="#ridge" transform="translate(360 300) scale(1.25)" />
-            <use href="#ridge" transform="translate(360 300) scale(1.65)" />
-            <use href="#ridge" transform="translate(360 300) scale(2.05)" />
-            <use href="#ridge" transform="translate(360 300) scale(2.45)" />
-          </g>
-          <path
-            className="route"
-            d="M30,540 C170,500 210,380 320,352 C420,326 452,236 486,120"
-            fill="none"
-          />
-          <circle className="route-dot" cx="320" cy="352" r="6.5" />
-        </svg>
-        <p className="eyebrow">Senior software engineer · Microsoft</p>
-        <h1>
-          Building software consistently to solve real problems, including my
-          own.
-        </h1>
-        <p className="hero-copy">
-          I’m Samuel, a senior software engineer at Microsoft. Front-end and
-          product engineering are my home base: React, TypeScript, and complex
-          enterprise interfaces. I also work across data, cloud, and AI systems
-          when the work calls for it.
-        </p>
-        <div className="hero-actions">
-          <Link className="text-link" to="/work">
-            View selected work <ArrowRight aria-hidden="true" size={17} />
-          </Link>
-          <Link className="quiet-link" to="/about">
-            Learn more about me
-          </Link>
+        <div className="hero-text">
+          <p className="eyebrow">Senior software engineer · Microsoft</p>
+          <h1>
+            Building software consistently to solve real problems, including my
+            own.
+          </h1>
+          <p className="hero-copy">
+            I’m Samuel, a senior software engineer at Microsoft. Front-end and
+            product engineering are my home base: React, TypeScript, and complex
+            enterprise interfaces. I also work across data, cloud, and AI
+            systems when the work calls for it.
+          </p>
+          <div className="hero-actions">
+            <Link className="text-link" to="/work">
+              View selected work <ArrowRight aria-hidden="true" size={17} />
+            </Link>
+            <Link className="quiet-link" to="/about">
+              Learn more about me
+            </Link>
+          </div>
         </div>
+        <figure className="hero-portrait media-placeholder portrait">
+          <User size={30} aria-hidden="true" />
+          <figcaption className="media-label">Portrait photo</figcaption>
+        </figure>
       </section>
 
       <section
