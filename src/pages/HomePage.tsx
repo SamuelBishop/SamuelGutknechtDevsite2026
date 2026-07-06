@@ -10,14 +10,14 @@ export function HomePage() {
       <section className="hero section-shell">
         <p className="eyebrow">Senior software engineer · Microsoft</p>
         <h1>
-          Building software consistently—to solve my own problems, and hopefully
-          yours too.
+          Building software consistently to solve real problems, including my
+          own.
         </h1>
         <p className="hero-copy">
           I’m Samuel, a senior software engineer at Microsoft. Front-end and
-          product engineering are my home base—React, TypeScript, and complex
-          enterprise interfaces—and I’m increasingly an action-oriented
-          generalist as day-to-day development becomes AI-first.
+          product engineering are my home base: React, TypeScript, and complex
+          enterprise interfaces. I also work across data, cloud, and AI systems
+          when the work calls for it.
         </p>
         <div className="hero-actions">
           <Link className="text-link" to="/work">
@@ -35,13 +35,11 @@ export function HomePage() {
       >
         <p className="eyebrow">Current focus</p>
         <div className="split-copy">
-          <h2 id="focus-heading">
-            Where product judgment meets technical depth.
-          </h2>
+          <h2 id="focus-heading">Product judgment backed by working code.</h2>
           <p>
             I enjoy the part of engineering where product judgment and technical
             depth meet: shaping an interaction, finding the right abstraction,
-            and making sure the experience holds up in real-world use.
+            and making sure the experience holds up in real use.
           </p>
         </div>
       </section>
@@ -82,7 +80,7 @@ export function HomePage() {
             <h2>Usually headed toward higher ground.</h2>
             <p>
               I’m usually drawn toward trails, mountains, skiing, or a
-              camper/Tacoma project. Home is life with my wife and dog—and an
+              camper/Tacoma project. Home is life with my wife and dog, plus an
               ever-changing list of side projects.
             </p>
             <Link className="text-link" to="/about">

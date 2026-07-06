@@ -1,0 +1,4 @@
+interface:
+  display_name: 'De-AI Copy'
+  short_description: 'Make website copy human and plainspoken'
+  default_prompt: 'Use $de-ai-copy to audit and rewrite the user-facing copy in this project.'

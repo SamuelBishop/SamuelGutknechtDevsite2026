@@ -7,7 +7,7 @@ All copy is a working draft. Replace TODOs before launch and remove any work det
 ### Site identity
 
 - **Name:** Samuel Gutknecht
-- **Short descriptor:** Senior software engineer building thoughtful, reliable product experiences.
+- **Short descriptor:** Senior software engineer building clear, reliable product experiences.
 - **Primary navigation:** Home, About, Work, Projects, Resume
 
 ### Contact
@@ -21,15 +21,15 @@ All copy is a working draft. Replace TODOs before launch and remove any work det
 
 ### Hero
 
-**Heading:** Building software consistently—to solve my own problems, and hopefully yours too.
+**Heading:** Building software consistently to solve real problems, including my own.
 
-**Introduction:** I’m Samuel, a senior software engineer at Microsoft. Front-end and product engineering are my home base—React, TypeScript, and complex enterprise interfaces—and I’m increasingly an action-oriented generalist as day-to-day development becomes AI-first. I work across languages, data, cloud, and AI systems to ship experiences that stay dependable.
+**Introduction:** I’m Samuel, a senior software engineer at Microsoft. Front-end and product engineering are my home base: React, TypeScript, and complex enterprise interfaces. I also work across data, cloud, and AI systems when the work calls for it.
 
 **Primary links:** View selected work; Learn more about me
 
 ### Current focus
 
-I enjoy the part of engineering where product judgment and technical depth meet: shaping an interaction, finding the right abstraction, and making sure the experience holds up in real-world use.
+I enjoy the part of engineering where product judgment and technical depth meet: shaping an interaction, finding the right abstraction, and making sure the experience holds up in real use.
 
 <!-- TODO: Refine this paragraph with the current team or product area that is safe to name publicly. -->
 
@@ -39,7 +39,7 @@ Feature two or three approved items from the Work page. Each preview should expl
 
 ### Personal note
 
-Away from a screen, I’m usually drawn toward trails, mountains, skiing, or a camper/Tacoma project. Home is life with my wife and dog—and an ever-changing list of side projects.
+Away from a screen, I’m usually drawn toward trails, mountains, skiing, or a camper/Tacoma project. Home is life with my wife and dog, plus an ever-changing list of side projects.
 
 <!-- TODO: Add a personal photo and confirm the wording Samuel is comfortable publishing. -->
 
@@ -47,7 +47,7 @@ Away from a screen, I’m usually drawn toward trails, mountains, skiing, or a c
 
 ### Introduction
 
-I’m a software engineer who cares about useful products, well-made interfaces, and teams that turn complicated constraints into calm experiences. My work has centered on front-end architecture—React, TypeScript, and product engineering for enterprise and customer-service software—and it has been widening as AI reshapes how software gets built. I think of myself as an AI-native generalist: front-end remains my strongest craft, but I’m comfortable moving across the stack and into AI tooling to get the right thing shipped.
+I’m a software engineer who cares about useful products, clear interfaces, and teams that turn complicated constraints into calm experiences. My work has centered on front-end architecture, React, TypeScript, and product engineering for enterprise and customer-service software. It has been widening as AI changes how software gets built. Front-end remains my strongest craft, but I’m comfortable moving across the stack and into AI tooling when it helps ship the right thing.
 
 ### Career narrative
 
@@ -69,7 +69,7 @@ At Microsoft, I’ve contributed to experiences spanning rich-text editing, AI-a
 
 Trail running and ultrarunning keep me curious about endurance, landscapes, and incremental progress. I also enjoy mountains, skiing, camper and Tacoma projects, and building side projects for the pleasure of learning how things work.
 
-<!-- TODO: Add favorite places, race experiences, current build details, or photos—only where personally comfortable. -->
+<!-- TODO: Add favorite places, race experiences, current build details, or photos, only where personally comfortable. -->
 
 ## Work
 
@@ -129,9 +129,9 @@ Side projects, practical experiments, and things built to explore an idea. A sma
 - **One-line description:** TODO
 - **Why it exists:** TODO
 - **What Samuel built or learned:** TODO
-- **Status:** TODO — active, complete, paused, or archived
-- **Links:** TODO — repository, live demo, write-up, or none
-- **Media:** TODO — screenshot or photo with alt text
+- **Status:** TODO - active, complete, paused, or archived
+- **Links:** TODO - repository, live demo, write-up, or none
+- **Media:** TODO - screenshot or photo with alt text
 
 <!-- TODO: Select two to four real projects. Do not invent project names or capabilities. -->
 <!-- TODO: Decide whether a camper/Tacoma build belongs here as a documented physical project. -->
@@ -140,11 +140,11 @@ Side projects, practical experiments, and things built to explore an idea. A sma
 
 ### Summary
 
-Senior software engineer with front-end and product engineering as a core strength, now working as an action-oriented, AI-native generalist across the modern development stack. Experienced with React, TypeScript, and complex enterprise interfaces, and increasingly hands-on with languages, data, cloud, and AI systems to build clear, reliable products.
+Senior software engineer with front-end and product engineering as a core strength, now working across the modern development stack with a practical, generalist mindset. Experienced with React, TypeScript, and complex enterprise interfaces, and increasingly hands-on with languages, data, cloud, and AI systems to build clear, reliable products.
 
 ### Experience
 
-**Microsoft — Senior Software Engineer**
+**Microsoft | Senior Software Engineer**
 <!-- TODO: Add location, dates, progression, approved team/product context, and concise achievement bullets. -->
 
 <!-- TODO: Add previous roles with company, title, location, dates, and factual bullets. -->
@@ -157,7 +157,7 @@ Front-end engineering (React, TypeScript, JavaScript, web design); C#; Java; Pyt
 
 ### Education and additional details
 
-**University of Missouri** — B.S. Electrical and Computer Engineering, 2017–2021  
+**University of Missouri** | B.S. Electrical and Computer Engineering, 2017-2021  
 Graduated with honors. Minors in Mathematics and Computer Science.
 
 <!-- TODO: Add relevant certifications, speaking, writing, awards, or community work if applicable. -->

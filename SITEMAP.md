@@ -34,8 +34,8 @@ Keep the main navigation consistent and limited to: Home, About, Work, Projects,
 
 Add detail pages only when a work item or project has enough public material to support a useful narrative.
 
-- `/work/[slug]` — selected work detail
-- `/projects/[slug]` — side-project detail
+- `/work/[slug]` - selected work detail
+- `/projects/[slug]` - side-project detail
 
 <!-- TODO: Decide whether the initial release needs detail pages or whether cards are sufficient. -->
 <!-- TODO: Confirm preferred public contact and social links. -->

@@ -94,25 +94,25 @@ export const pageMetadata: Record<
   { title: string; description: string }
 > = {
   '/': {
-    title: 'Samuel Gutknecht — Software Engineer',
+    title: 'Samuel Gutknecht | Software Engineer',
     description:
-      'Senior software engineer building thoughtful, reliable product experiences.',
+      'Senior software engineer building clear, reliable product experiences.',
   },
   '/about': {
-    title: 'About — Samuel Gutknecht',
+    title: 'About | Samuel Gutknecht',
     description:
       'A little about how Samuel works and what matters beyond the screen.',
   },
   '/work': {
-    title: 'Selected Work — Samuel Gutknecht',
+    title: 'Selected Work | Samuel Gutknecht',
     description: 'Selected product and engineering work from Samuel Gutknecht.',
   },
   '/projects': {
-    title: 'Projects — Samuel Gutknecht',
+    title: 'Projects | Samuel Gutknecht',
     description: 'Side projects and practical experiments by Samuel Gutknecht.',
   },
   '/resume': {
-    title: 'Resume — Samuel Gutknecht',
+    title: 'Resume | Samuel Gutknecht',
     description: 'Experience, skills, and education for Samuel Gutknecht.',
   },
 }

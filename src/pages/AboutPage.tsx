@@ -31,7 +31,7 @@ export function AboutPage() {
         title="Engineering with a wide lens and a close eye."
       >
         <p>
-          I’m a software engineer who cares about useful products, well-made
+          I’m a software engineer who cares about useful products, clear
           interfaces, and teams that turn complicated constraints into calm
           experiences.
         </p>
@@ -46,15 +46,15 @@ export function AboutPage() {
           <h2 id="story-heading">Front-end craft, widening outward.</h2>
           <div className="prose-column">
             <p>
-              My work has centered on front-end architecture—React, TypeScript,
+              My work has centered on front-end architecture, React, TypeScript,
               and product engineering for enterprise and customer-service
-              software—and it has been widening as AI reshapes how software gets
+              software. It has been widening as AI changes how software gets
               built.
             </p>
             <p>
-              I think of myself as an AI-native generalist: front-end remains my
-              strongest craft, but I’m comfortable moving across the stack and
-              into AI tooling to get the right thing shipped.
+              Front-end remains my strongest craft, but I’m comfortable moving
+              across the stack and into AI tooling when it helps ship the right
+              thing.
             </p>
             <p>
               At Microsoft, I’ve contributed to experiences spanning rich-text

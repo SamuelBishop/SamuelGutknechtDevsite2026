@@ -9,7 +9,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const metadata = pageMetadata[pathname] ?? {
-      title: 'Page not found — Samuel Gutknecht',
+      title: 'Page not found | Samuel Gutknecht',
       description: 'The requested page could not be found.',
     }
     document.title = metadata.title

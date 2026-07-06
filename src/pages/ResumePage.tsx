@@ -7,8 +7,8 @@ export function ResumePage() {
       <SectionIntro eyebrow="Resume" title="Experience at a glance.">
         <p>
           Senior software engineer with front-end and product engineering as a
-          core strength, now working as an action-oriented, AI-native generalist
-          across the modern development stack.
+          core strength, now working across the modern development stack with a
+          practical, generalist mindset.
         </p>
       </SectionIntro>
 
