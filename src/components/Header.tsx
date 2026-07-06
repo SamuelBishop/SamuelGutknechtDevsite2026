@@ -2,18 +2,18 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { navigation } from '../content/siteContent'
+import { navRoutes } from '../content/routes'
 
 function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
-  return navigation.map((item) => (
+  return navRoutes.map((route) => (
     <NavLink
-      key={item.to}
-      to={item.to}
-      end={item.to === '/'}
+      key={route.path}
+      to={route.path}
+      end={route.path === '/'}
       onClick={onNavigate}
       className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
     >
-      {item.label}
+      {route.nav.label}
     </NavLink>
   ))
 }

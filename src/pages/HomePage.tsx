@@ -8,6 +8,33 @@ export function HomePage() {
   return (
     <>
       <section className="hero section-shell">
+        <svg
+          className="hero-topo"
+          viewBox="0 0 600 600"
+          aria-hidden="true"
+          preserveAspectRatio="xMidYMid slice"
+        >
+          <defs>
+            <path
+              id="ridge"
+              d="M0,-120 C70,-120 130,-70 130,0 C130,80 60,120 -10,120 C-90,120 -130,60 -130,-20 C-130,-90 -60,-120 0,-120 Z"
+            />
+          </defs>
+          <g className="contours" fill="none" stroke="currentColor">
+            <use href="#ridge" transform="translate(360 300) scale(0.45)" />
+            <use href="#ridge" transform="translate(360 300) scale(0.85)" />
+            <use href="#ridge" transform="translate(360 300) scale(1.25)" />
+            <use href="#ridge" transform="translate(360 300) scale(1.65)" />
+            <use href="#ridge" transform="translate(360 300) scale(2.05)" />
+            <use href="#ridge" transform="translate(360 300) scale(2.45)" />
+          </g>
+          <path
+            className="route"
+            d="M30,540 C170,500 210,380 320,352 C420,326 452,236 486,120"
+            fill="none"
+          />
+          <circle className="route-dot" cx="320" cy="352" r="6.5" />
+        </svg>
         <p className="eyebrow">Senior software engineer · Microsoft</p>
         <h1>
           Building software consistently to solve real problems, including my

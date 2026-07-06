@@ -1,12 +1,7 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { SiteLayout } from './components/SiteLayout'
-import { AboutPage } from './pages/AboutPage'
-import { HomePage } from './pages/HomePage'
-import { NotFoundPage } from './pages/NotFoundPage'
-import { ProjectsPage } from './pages/ProjectsPage'
-import { ResumePage } from './pages/ResumePage'
-import { WorkPage } from './pages/WorkPage'
+import { routes } from './content/routes'
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -22,12 +17,9 @@ function AnimatedRoutes() {
         transition={{ duration: reduceMotion ? 0 : 0.2, ease: 'easeOut' }}
       >
         <Routes location={location}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/work" element={<WorkPage />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/resume" element={<ResumePage />} />
-          <Route path="*" element={<NotFoundPage />} />
+          {routes.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
         </Routes>
       </motion.div>
     </AnimatePresence>

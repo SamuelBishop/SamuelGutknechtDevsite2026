@@ -1,24 +1,16 @@
-export type NavItem = { label: string; to: string }
-
 export type WorkItem = {
   title: string
+  kind: string
   context: string
   contribution: string
   focusAreas: string[]
   status: 'draft'
 }
 
-export const navigation: NavItem[] = [
-  { label: 'Home', to: '/' },
-  { label: 'About', to: '/about' },
-  { label: 'Work', to: '/work' },
-  { label: 'Projects', to: '/projects' },
-  { label: 'Resume', to: '/resume' },
-]
-
 export const workItems: WorkItem[] = [
   {
     title: 'Modern Rich Text Editor Experience',
+    kind: 'Front-end',
     context:
       'A modern editing experience within a complex product environment.',
     contribution:
@@ -33,6 +25,7 @@ export const workItems: WorkItem[] = [
   },
   {
     title: 'AI-Powered Service Experiences',
+    kind: 'AI UX',
     context:
       'AI-assisted experiences intended to help customer-service users work more effectively.',
     contribution:
@@ -47,6 +40,7 @@ export const workItems: WorkItem[] = [
   },
   {
     title: 'Conversation Control / Agent Experience',
+    kind: 'Agent UX',
     context:
       'Interfaces for managing conversations and agent workflows in a demanding service environment.',
     contribution:
@@ -56,6 +50,7 @@ export const workItems: WorkItem[] = [
   },
   {
     title: 'Developer, Support, and Reliability Work',
+    kind: 'Reliability',
     context:
       'Tools and improvements that make complex systems easier to diagnose, support, and operate.',
     contribution:
@@ -89,30 +84,3 @@ export const skills = [
   'Agent evaluations',
 ]
 
-export const pageMetadata: Record<
-  string,
-  { title: string; description: string }
-> = {
-  '/': {
-    title: 'Samuel Gutknecht | Software Engineer',
-    description:
-      'Senior software engineer building clear, reliable product experiences.',
-  },
-  '/about': {
-    title: 'About | Samuel Gutknecht',
-    description:
-      'A little about how Samuel works and what matters beyond the screen.',
-  },
-  '/work': {
-    title: 'Selected Work | Samuel Gutknecht',
-    description: 'Selected product and engineering work from Samuel Gutknecht.',
-  },
-  '/projects': {
-    title: 'Projects | Samuel Gutknecht',
-    description: 'Side projects and practical experiments by Samuel Gutknecht.',
-  },
-  '/resume': {
-    title: 'Resume | Samuel Gutknecht',
-    description: 'Experience, skills, and education for Samuel Gutknecht.',
-  },
-}
