@@ -41,6 +41,11 @@ type Band = {
   height: number
 }
 
+/* Natural aspect ratio of the generated scenes (1536 x 1024). Every scene is
+   rendered at this height for its width so all watercolors read at the same
+   scale regardless of how tall their host section is. */
+const SCENE_ASPECT = 1024 / 1536
+
 /* Vertical point in the viewport the shoe rides at (fraction from the top).
    Sits in the lower portion where the painted trail lives. */
 const RIDE = 0.72
@@ -54,6 +59,9 @@ export function TrailScene() {
   const wrapRef = useRef<HTMLDivElement>(null)
   const runnerRef = useRef<HTMLDivElement>(null)
   const [bands, setBands] = useState<Band[]>([])
+  /* Uniform pixel height every scene image is drawn at (width * aspect), so the
+     watercolors share one scale even though their sections differ in height. */
+  const [sceneH, setSceneH] = useState(0)
 
   /* Measure the mapped Home sections (tagged with data-trail-scene) and turn
      each into a full-width background band positioned behind that section. */
@@ -70,6 +78,7 @@ export function TrailScene() {
           document.querySelectorAll<HTMLElement>('[data-trail-scene]'),
         )
         const frameTop = frame.getBoundingClientRect().top + window.scrollY
+        setSceneH(Math.round(wrap.clientWidth * SCENE_ASPECT))
         const next = targets.map((el) => {
           const rect = el.getBoundingClientRect()
           return {
@@ -134,7 +143,20 @@ export function TrailScene() {
         return
       }
 
-      const p = clamp01((ref - active.top) / Math.max(1, active.height))
+      /* The scene image occupies the bottom `sceneH` of its section (clipped for
+         short sections). Ride the shoe across that painted region only, so it
+         never walks over the paper above a scene in tall sections. */
+      const sceneBottom = active.top + active.height
+      const sceneTop = Math.max(
+        active.top,
+        sceneBottom - (sceneH || active.height),
+      )
+      if (ref < sceneTop) {
+        runner.style.opacity = '0'
+        return
+      }
+
+      const p = clamp01((ref - sceneTop) / Math.max(1, sceneBottom - sceneTop))
       const marginX = Math.max(28, width * 0.07)
       const x = marginX + p * (width - marginX * 2)
       /* Gentle arc so the shoe rides the trail rather than sliding flat. */
@@ -151,7 +173,12 @@ export function TrailScene() {
     if (reduce) {
       /* Park the shoe near the start of the first scene, no scroll listener. */
       const first = bands[0]
-      const ref = first.top + first.height * 0.2
+      const firstBottom = first.top + first.height
+      const firstSceneTop = Math.max(
+        first.top,
+        firstBottom - (sceneH || first.height),
+      )
+      const ref = firstSceneTop + (firstBottom - firstSceneTop) * 0.2
       const width = wrap.clientWidth
       const marginX = Math.max(28, width * 0.07)
       runner.style.opacity = '0.9'
@@ -175,7 +202,7 @@ export function TrailScene() {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
     }
-  }, [bands])
+  }, [bands, sceneH])
 
   return (
     <div className="trail-scene" ref={wrapRef} aria-hidden="true">
@@ -191,6 +218,7 @@ export function TrailScene() {
             alt=""
             loading="eager"
             decoding="async"
+            style={sceneH ? { height: `${sceneH}px` } : undefined}
           />
           <span className="trail-band-veil" />
         </div>
