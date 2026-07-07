@@ -14,10 +14,20 @@ type Band = {
    host section is. */
 const SCENE_ASPECT = 1024 / 1536
 
+/* Portrait re-framings of the same five scenes (1280 x 1600), served on narrow
+   phones where the landscape strip collapses to a thin, mostly-dissolved sliver.
+   Same palette/shapes/feel, just cropped tall so the scene + its travelling
+   object fill the stage. Desktop never loads these. */
+const SCENE_ASPECT_PORTRAIT = 1600 / 1280
+
+/* Viewport width at or below which we switch to the portrait art + paths. */
+const PORTRAIT_MQ = '(max-width: 640px)'
+
 /* Fraction of each scene (measured from the bottom) shown inside the band. The
    painted trails all live in the lower ~82% of the art, so we reveal that strip
    and trim the emptier sky above. Every band is this same pixel height, which is
-   what makes all scenes read at one uniform scale. */
+   what makes all scenes read at one uniform scale. (Both orientations frame the
+   trail in this lower window, so one value serves both.) */
 const VISIBLE_FRAC = 0.82
 
 /* Viewport line (fraction from the top) used to decide which scene is active and
@@ -151,6 +161,132 @@ const TRAIL_PATHS: Record<number, Array<[number, number]>> = {
   ],
 }
 
+/* Portrait-framed trail paths (image space for the 1280 x 1600 crops). Derived
+   by transforming each calibrated landscape polyline through its scene's crop /
+   pad window, then verified against the painted dashes with the dot-overlay. */
+const TRAIL_PATHS_PORTRAIT: Record<number, Array<[number, number]>> = {
+  1: [
+    [0.0014, 0.9132],
+    [0.0205, 0.9239],
+    [0.0358, 0.9327],
+    [0.0532, 0.941],
+    [0.0869, 0.9453],
+    [0.1206, 0.9495],
+    [0.1516, 0.9522],
+    [0.1791, 0.9528],
+    [0.2084, 0.9535],
+    [0.2385, 0.9518],
+    [0.2691, 0.9495],
+    [0.3001, 0.9465],
+    [0.3338, 0.9393],
+    [0.3675, 0.9321],
+    [0.3997, 0.9238],
+    [0.4323, 0.9133],
+    [0.4629, 0.9036],
+    [0.5324, 0.8949],
+    [0.609, 0.8864],
+    [0.6902, 0.8784],
+    [0.7943, 0.8728],
+    [0.8983, 0.8673],
+  ],
+  2: [
+    [0.1692, 0.7352],
+    [0.2089, 0.7394],
+    [0.2486, 0.7437],
+    [0.2857, 0.7485],
+    [0.3235, 0.7536],
+    [0.3579, 0.7591],
+    [0.391, 0.7651],
+    [0.4213, 0.7716],
+    [0.4444, 0.7783],
+    [0.4651, 0.7853],
+    [0.4754, 0.7937],
+    [0.4854, 0.8018],
+    [0.4754, 0.8089],
+    [0.4651, 0.8162],
+    [0.4487, 0.8233],
+    [0.4309, 0.8303],
+    [0.4144, 0.8376],
+    [0.3999, 0.8447],
+    [0.391, 0.8525],
+    [0.3903, 0.8616],
+    [0.392, 0.8708],
+    [0.4019, 0.8814],
+  ],
+  3: [
+    [0.0011, 0.8364],
+    [0.0181, 0.8384],
+    [0.0351, 0.8404],
+    [0.0521, 0.8423],
+    [0.0887, 0.8433],
+    [0.1381, 0.8437],
+    [0.1875, 0.844],
+    [0.237, 0.8443],
+    [0.2864, 0.8446],
+    [0.3358, 0.8447],
+    [0.3853, 0.8447],
+    [0.4347, 0.8447],
+    [0.4841, 0.8447],
+    [0.5336, 0.8447],
+    [0.583, 0.8447],
+    [0.6324, 0.8447],
+    [0.6819, 0.8447],
+    [0.7313, 0.8447],
+    [0.7827, 0.8447],
+    [0.8383, 0.8447],
+    [0.8939, 0.8447],
+    [0.9496, 0.8447],
+  ],
+  4: [
+    [0.0016, 0.7576],
+    [0.0483, 0.7506],
+    [0.0971, 0.7422],
+    [0.1459, 0.7335],
+    [0.1994, 0.7241],
+    [0.2564, 0.7142],
+    [0.3133, 0.7055],
+    [0.3702, 0.6968],
+    [0.4247, 0.6885],
+    [0.4817, 0.6798],
+    [0.5386, 0.6711],
+    [0.59, 0.6629],
+    [0.6289, 0.6559],
+    [0.6625, 0.6474],
+    [0.6869, 0.6374],
+    [0.7038, 0.6285],
+    [0.716, 0.6199],
+    [0.7228, 0.6141],
+    [0.7268, 0.6097],
+    [0.7708, 0.5967],
+    [0.8277, 0.5807],
+    [0.9138, 0.5673],
+  ],
+  5: [
+    [0.0006, 0.8979],
+    [0.0458, 0.9085],
+    [0.0928, 0.9196],
+    [0.1397, 0.9308],
+    [0.1913, 0.9389],
+    [0.2435, 0.9467],
+    [0.296, 0.954],
+    [0.3325, 0.9559],
+    [0.3691, 0.9579],
+    [0.4097, 0.958],
+    [0.4566, 0.9552],
+    [0.5062, 0.9523],
+    [0.5532, 0.9454],
+    [0.6001, 0.9365],
+    [0.6471, 0.9276],
+    [0.6941, 0.916],
+    [0.741, 0.904],
+    [0.7897, 0.8923],
+    [0.8315, 0.8856],
+    [0.8732, 0.8789],
+    [0.915, 0.8763],
+    [0.9567, 0.8802],
+  ],
+}
+
 /* Object scale mapped from its height in the image: things low in the frame
    (near) render large, things high up (far) render small, so travelling toward
    a vanishing point reads as receding into the distance. */
@@ -230,6 +366,13 @@ const ARC_PATHS: Record<number, ArcPath> = Object.fromEntries(
   Object.entries(TRAIL_PATHS).map(([k, pts]) => [Number(k), buildArc(pts)]),
 )
 
+const ARC_PATHS_PORTRAIT: Record<number, ArcPath> = Object.fromEntries(
+  Object.entries(TRAIL_PATHS_PORTRAIT).map(([k, pts]) => [
+    Number(k),
+    buildArc(pts),
+  ]),
+)
+
 /* Sample a path at normalized distance t (0..1): return the point and the local
    tangent so the object can face and tilt along its direction of travel. */
 function sampleByT(
@@ -258,6 +401,20 @@ export function TrailScene() {
   /* Uniform pixel height every scene image is drawn at (width * aspect). The
      band reveals VISIBLE_FRAC of that, giving one shared scale for all scenes. */
   const [sceneH, setSceneH] = useState(0)
+  /* On narrow phones we serve the portrait re-framings + their derived paths, so
+     the scene fills the stage instead of collapsing to a thin strip. */
+  const [isPortrait, setIsPortrait] = useState(
+    () =>
+      typeof window !== 'undefined' && window.matchMedia(PORTRAIT_MQ).matches,
+  )
+
+  useEffect(() => {
+    const mq = window.matchMedia(PORTRAIT_MQ)
+    const onChange = () => setIsPortrait(mq.matches)
+    onChange()
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
 
   /* Measure the mapped Home sections (tagged with data-trail-scene) and turn
      each into a full-width background band. Geometry is stored relative to the
@@ -271,7 +428,8 @@ export function TrailScene() {
     const measure = () => {
       cancelAnimationFrame(raf)
       raf = requestAnimationFrame(() => {
-        const sceneHpx = Math.round(wrap.clientWidth * SCENE_ASPECT)
+        const aspect = isPortrait ? SCENE_ASPECT_PORTRAIT : SCENE_ASPECT
+        const sceneHpx = Math.round(wrap.clientWidth * aspect)
         const bandHpx = Math.round(sceneHpx * VISIBLE_FRAC)
         /* Guarantee each mapped section is at least as tall as its band, so the
            band (centered on the section) is fully contained and neighbouring
@@ -308,22 +466,23 @@ export function TrailScene() {
       window.removeEventListener('resize', measure)
       frame.style.removeProperty('--trail-band-h')
     }
-  }, [])
+  }, [isPortrait])
 
   /* Preload the scene images and the object sprites so nothing flashes in. */
   useEffect(() => {
+    const suffix = isPortrait ? '-portrait' : ''
     const seen = new Set<number>()
     bands.forEach((b) => {
       if (seen.has(b.scene)) return
       seen.add(b.scene)
       const img = new Image()
-      img.src = `/trail/scene-0${b.scene}.jpg`
+      img.src = `/trail/scene-0${b.scene}${suffix}.jpg`
     })
     OBJECT_KEYS.forEach((key) => {
       const img = new Image()
       img.src = `/trail/obj-${key}.png`
     })
-  }, [bands])
+  }, [bands, isPortrait])
 
   /* Drive the scene: the bands are positioned at document coordinates and scroll
      with the page (each shows the same lower strip of its scene, so all read at
@@ -343,6 +502,7 @@ export function TrailScene() {
       wrap.querySelectorAll<HTMLElement>('.trail-band'),
     )
     const bandH = Math.round(sceneH * VISIBLE_FRAC)
+    const arcPaths = isPortrait ? ARC_PATHS_PORTRAIT : ARC_PATHS
 
     /* The very first and very last bands can't be fully crossed by the focus
        line: at the top of the page it already sits partway down the opening
@@ -412,7 +572,7 @@ export function TrailScene() {
           break
         }
       }
-      const path = active ? ARC_PATHS[active.scene] : undefined
+      const path = active ? arcPaths[active.scene] : undefined
       if (!active || !path) {
         runner.style.opacity = '0'
         return
@@ -507,7 +667,7 @@ export function TrailScene() {
       window.removeEventListener('scroll', kick)
       window.removeEventListener('resize', kick)
     }
-  }, [bands, sceneH])
+  }, [bands, sceneH, isPortrait])
 
   const bandH = sceneH ? Math.round(sceneH * VISIBLE_FRAC) : 0
 
@@ -528,7 +688,7 @@ export function TrailScene() {
         >
           <img
             className="trail-band-img"
-            src={`/trail/scene-0${b.scene}.jpg`}
+            src={`/trail/scene-0${b.scene}${isPortrait ? '-portrait' : ''}.jpg`}
             alt=""
             loading="eager"
             decoding="async"

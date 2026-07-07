@@ -402,6 +402,29 @@ p {
       var(--paper) 100%
     );
 }
+/* On phones the portrait scenes fill the whole section and the full-width copy
+   sits directly over busier art, so deepen the paper wash a touch (and add a
+   faint floor at the far edge) to keep headings/body crisp while the scene stays
+   clearly visible. */
+@media (max-width: 640px) {
+  .trail-band-veil {
+    background:
+      linear-gradient(
+        104deg,
+        var(--paper) 0%,
+        rgba(243, 245, 239, 0.74) 40%,
+        rgba(243, 245, 239, 0.32) 72%,
+        rgba(243, 245, 239, 0.1) 100%
+      ),
+      linear-gradient(
+        to bottom,
+        var(--paper) 0%,
+        rgba(243, 245, 239, 0) 22%,
+        rgba(243, 245, 239, 0) 92%,
+        var(--paper) 100%
+      );
+  }
+}
 
 /* The traversal object: a small sprite overlaid on the active scene. The outer
    element is positioned/scaled/flipped along the path by JS; the inner image
