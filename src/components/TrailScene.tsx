@@ -318,6 +318,15 @@ export function TrailScene() {
     )
     const bandH = Math.round(sceneH * VISIBLE_FRAC)
 
+    /* The very first and very last bands can't be fully crossed by the focus
+       line: at the top of the page it already sits partway down the opening
+       band, and at the bottom it can never reach past partway through the final
+       band. We remap those two bands' progress against the reachable scroll
+       range (below) so the opening object still begins at the head of its trail
+       and the final object still finishes at the end of its trail. */
+    const firstBand = bands[0]
+    const lastBand = bands[bands.length - 1]
+
     /* Swap the object sprite + sizing class only when the scene changes. */
     const setObject = (scene: number) => {
       const spec = OBJECTS[scene] ?? OBJECTS[1]
@@ -384,7 +393,29 @@ export function TrailScene() {
       }
 
       const spec = setObject(active.scene)
-      const p = staticP ?? activeP
+
+      /* Stretch the opening / closing band's raw progress across the range the
+         page can actually scroll, so neither the first object starts mid-trail
+         nor the last object stops mid-trail. `pAtTop` is the progress the first
+         band shows at scrollY 0; `pAtBottom` is the furthest the last band can
+         reach at max scroll. Interior bands have full runway on both sides, so
+         their bounds fall outside [0,1] and the remap is a no-op. */
+      const maxScroll = Math.max(0, document.documentElement.scrollHeight - vh)
+      let progress = activeP
+      if (active === firstBand) {
+        const pAtTop = clamp01(
+          (centerVp - frameTop - bandTopLocal(firstBand)) / bandH,
+        )
+        if (pAtTop < 1) progress = clamp01((activeP - pAtTop) / (1 - pAtTop))
+      }
+      if (active === lastBand) {
+        const pAtBottom = clamp01(
+          (centerVp - frameTop - bandTopLocal(lastBand) + maxScroll) / bandH,
+        )
+        if (pAtBottom > 0) progress = clamp01(activeP / pAtBottom)
+      }
+
+      const p = staticP ?? progress
       const s = sampleByT(path, p)
       const scale = nyToScale(s.y)
 
