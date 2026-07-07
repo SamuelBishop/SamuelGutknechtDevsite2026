@@ -69,18 +69,18 @@ const TRAIL_PATHS: Record<number, Array<[number, number]>> = {
     [0.49, 0.86],
     [0.55, 0.805],
   ],
-  // Mountains: dirt S-path from the foreground, bulging left, then receding
-  // up-right into the trees where it fades.
+  // Mountains: dirt S-path starting high where it emerges from the trees, then
+  // descending down-left and out toward the foreground (top -> bottom travel).
   2: [
-    [0.42, 1.0],
-    [0.37, 0.9],
-    [0.31, 0.845],
-    [0.25, 0.822],
-    [0.275, 0.8],
-    [0.33, 0.786],
-    [0.4, 0.776],
-    [0.46, 0.767],
     [0.5, 0.76],
+    [0.46, 0.767],
+    [0.4, 0.776],
+    [0.33, 0.786],
+    [0.275, 0.8],
+    [0.25, 0.822],
+    [0.31, 0.845],
+    [0.37, 0.9],
+    [0.42, 1.0],
   ],
   // Tinkerer: wavy dashed floor line along the left side of the workshop.
   3: [
