@@ -12,7 +12,8 @@
     "format:write": "prettier --write .",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "generate:trail": "node scripts/generate-trail-scenes.mjs"
+    "generate:trail": "node scripts/generate-trail-scenes.mjs",
+    "generate:shoe": "node scripts/generate-shoe.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",

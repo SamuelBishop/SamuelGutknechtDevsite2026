@@ -1,38 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 
-/* Trail-running shoe drawn in side profile, pointing to the right so it reads as
-   moving left -> right across each scene. Origin is roughly the ground contact
-   point. Reused as a small overlay that rides across the active scene. */
-function Shoe({ className }: { className: string }) {
-  return (
-    <g className={className}>
-      <path
-        className="shoe-outsole"
-        d="M-15,-1 L13.5,-1 C15,-1 15.6,-0.2 15,0.6 L-14.2,0.6 C-15.6,0.6 -16,-0.4 -15,-1 Z"
-      />
-      <path className="shoe-lugs" d="M-14,1 L14,0.4" />
-      <path
-        className="shoe-midsole"
-        d="M-15.5,-1.2 C-16.4,-3 -15.8,-4.4 -13,-4.6 L10.5,-4.6 C13.8,-4.6 15.8,-3.4 15.2,-1.2 C15.4,-1 -15.7,-1 -15.5,-1.2 Z"
-      />
-      <path className="shoe-midline" d="M-14.5,-2.4 L14.2,-2.4" />
-      <path
-        className="shoe-upper"
-        d="M-14,-4.6 C-14.6,-7.6 -14.2,-9.2 -12,-9.3 C-10.5,-9.4 -9.6,-8.4 -8.5,-7.6 C-7.4,-6.8 -6.6,-6.4 -6,-6.5 C-5,-6.6 -3,-7.9 -1,-8.6 C2,-9.5 5,-9.7 9,-9.5 C12.6,-9.3 15.4,-7.2 14.8,-4.6 L-14,-4.6 Z"
-      />
-      <path className="shoe-toe" d="M10.5,-5 C12.8,-5.6 14.2,-6.8 14.6,-8.4" />
-      <path
-        className="shoe-lace"
-        d="M0,-6.4 L3,-8 M2,-5.9 L5,-7.6 M4,-5.4 L7,-7.4"
-      />
-      <path
-        className="shoe-tab"
-        d="M-13.4,-9.1 C-15,-9.6 -15,-11 -13.4,-11.2"
-      />
-    </g>
-  )
-}
-
 type Band = {
   /* Scene image index (1-based) -> /trail/scene-0N.jpg. */
   scene: number
@@ -123,6 +90,49 @@ function sampleByY(
   return { x: lerp(x0, x1, f), dx: x1 - x0, dy: y1 - y0 }
 }
 
+/* Smooth each hand-traced polyline into a flowing curve so the shoe follows a
+   continuous path instead of visibly kinking at every A -> B -> C waypoint. A
+   Catmull-Rom spline passes through the original points while rounding the turns;
+   we densify to short segments so sampleByY reads a smooth curve and tangent. */
+function catmullRom(points: Array<[number, number]>, perSeg = 20) {
+  if (points.length < 3)
+    return points.map(([x, y]) => [x, y] as [number, number])
+  const out: Array<[number, number]> = []
+  for (let i = 0; i < points.length - 1; i++) {
+    const p0 = points[i === 0 ? 0 : i - 1]
+    const p1 = points[i]
+    const p2 = points[i + 1]
+    const p3 = points[i + 2 < points.length ? i + 2 : points.length - 1]
+    for (let t = 0; t < perSeg; t++) {
+      const u = t / perSeg
+      const u2 = u * u
+      const u3 = u2 * u
+      const x =
+        0.5 *
+        (2 * p1[0] +
+          (-p0[0] + p2[0]) * u +
+          (2 * p0[0] - 5 * p1[0] + 4 * p2[0] - p3[0]) * u2 +
+          (-p0[0] + 3 * p1[0] - 3 * p2[0] + p3[0]) * u3)
+      const y =
+        0.5 *
+        (2 * p1[1] +
+          (-p0[1] + p2[1]) * u +
+          (2 * p0[1] - 5 * p1[1] + 4 * p2[1] - p3[1]) * u2 +
+          (-p0[1] + 3 * p1[1] - 3 * p2[1] + p3[1]) * u3)
+      out.push([x, y])
+    }
+  }
+  out.push(points[points.length - 1])
+  return out
+}
+
+const SMOOTH_PATHS: Record<
+  number,
+  Array<[number, number]>
+> = Object.fromEntries(
+  Object.entries(TRAIL_PATHS).map(([k, pts]) => [Number(k), catmullRom(pts)]),
+)
+
 export function TrailScene() {
   const wrapRef = useRef<HTMLDivElement>(null)
   const runnerRef = useRef<HTMLDivElement>(null)
@@ -209,7 +219,7 @@ export function TrailScene() {
           break
         }
       }
-      const path = active ? TRAIL_PATHS[active.scene] : undefined
+      const path = active ? SMOOTH_PATHS[active.scene] : undefined
       if (!active || !path || imgH === 0) {
         runner.style.opacity = '0'
         return
@@ -227,9 +237,8 @@ export function TrailScene() {
 
       const s = sampleByY(path, nyTarget)
       const x = s.x * width
-      /* Small footfall bob, strongest mid-trail. */
-      const bob = Math.sin(prog * Math.PI) * -6
-      const y = ref + bob
+      /* The sole sits on the ride line; the CSS gait provides the running hop. */
+      const y = ref
 
       /* Perspective: bigger in the foreground (prog -> 1), smaller far away. */
       const scale = lerp(SCALE_FAR, SCALE_NEAR, prog)
@@ -258,7 +267,7 @@ export function TrailScene() {
     if (reduce) {
       /* Park the shoe partway along the first scene's trail, no scroll listener. */
       const first = bands[0]
-      const path = TRAIL_PATHS[first.scene]
+      const path = SMOOTH_PATHS[first.scene]
       const imgH = sceneH || first.height
       const imgTop = first.top + first.height - imgH
       if (path) {
@@ -313,9 +322,12 @@ export function TrailScene() {
       ))}
 
       <div className="trail-runner" ref={runnerRef}>
-        <svg viewBox="-18 -13 36 16" width="34" height="15">
-          <Shoe className="runner" />
-        </svg>
+        <img
+          className="trail-runner-shoe"
+          src="/trail/shoe.png"
+          alt=""
+          decoding="async"
+        />
       </div>
     </div>
   )
