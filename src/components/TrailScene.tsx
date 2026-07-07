@@ -245,11 +245,18 @@ export function TrailScene() {
     const measure = () => {
       cancelAnimationFrame(raf)
       raf = requestAnimationFrame(() => {
+        const sceneHpx = Math.round(wrap.clientWidth * SCENE_ASPECT)
+        const bandHpx = Math.round(sceneHpx * VISIBLE_FRAC)
+        /* Guarantee each mapped section is at least as tall as its band, so the
+           band (centered on the section) is fully contained and neighbouring
+           scenes can never overlap. Set before reading rects so the reflow below
+           reports the grown, non-overlapping geometry. */
+        frame.style.setProperty('--trail-band-h', `${bandHpx}px`)
+        setSceneH(sceneHpx)
         const targets = Array.from(
           document.querySelectorAll<HTMLElement>('[data-trail-scene]'),
         )
         const frameTop = frame.getBoundingClientRect().top + window.scrollY
-        setSceneH(Math.round(wrap.clientWidth * SCENE_ASPECT))
         const next = targets.map((el) => {
           const rect = el.getBoundingClientRect()
           return {
@@ -273,6 +280,7 @@ export function TrailScene() {
       cancelAnimationFrame(raf)
       ro.disconnect()
       window.removeEventListener('resize', measure)
+      frame.style.removeProperty('--trail-band-h')
     }
   }, [])
 

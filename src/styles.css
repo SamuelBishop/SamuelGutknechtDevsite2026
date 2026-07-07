@@ -355,6 +355,13 @@ p {
   pointer-events: none;
   overflow: clip;
 }
+/* Each mapped Home section is held to at least its band's height (set from JS as
+   --trail-band-h). This makes short sections grow to fit their background scene,
+   so every band stays fully inside its own section and neighbouring scenes never
+   overlap. Taller sections keep their natural height. */
+[data-trail-scene] {
+  min-height: var(--trail-band-h, 0px);
+}
 .trail-band {
   position: absolute;
   left: 0;
@@ -373,7 +380,9 @@ p {
   opacity: 0.72;
 }
 /* Wash the upper-left toward paper so headings/body copy stay readable on top
-   of the artwork, with a gentle overall lift for right-column text. */
+   of the artwork, with a gentle overall lift for right-column text. The vertical
+   gradient also fades the band's very top and bottom back to paper, dissolving
+   the image's hard clip edges so they never seam against the section dividers. */
 .trail-band-veil {
   position: absolute;
   inset: 0;
@@ -385,7 +394,13 @@ p {
       rgba(243, 245, 239, 0.28) 68%,
       rgba(243, 245, 239, 0.16) 100%
     ),
-    linear-gradient(to bottom, var(--paper) 0%, rgba(243, 245, 239, 0) 26%);
+    linear-gradient(
+      to bottom,
+      var(--paper) 0%,
+      rgba(243, 245, 239, 0) 26%,
+      rgba(243, 245, 239, 0) 96%,
+      var(--paper) 100%
+    );
 }
 
 /* The traversal object: a small sprite overlaid on the active scene. The outer
