@@ -56,72 +56,98 @@ const OBJECT_KEYS = Array.from(
    Playwright dot-overlay so the object rides the actual line in each scene. The
    object is driven along this polyline by arc-length as the reader scrolls. */
 const TRAIL_PATHS: Record<number, Array<[number, number]>> = {
-  // Coder: dashed line from the left edge, dipping into a smile arc across the
-  // desktop, ending at the base of the monitor.
+  // Coder: enters on the desk-top dashes at the left edge, drops behind the pot
+  // into the dashed "smile" under the desk front, then (the dashes stop mid-desk)
+  // continues up along the desk front to the right edge.
   1: [
-    [0.0, 0.74],
-    [0.055, 0.75],
-    [0.11, 0.755],
-    [0.19, 0.775],
-    [0.27, 0.8],
-    [0.345, 0.865],
-    [0.42, 0.915],
-    [0.49, 0.86],
-    [0.55, 0.805],
+    [0.0, 0.725],
+    [0.06, 0.735],
+    [0.115, 0.765],
+    [0.15, 0.783],
+    [0.22, 0.85],
+    [0.275, 0.905],
+    [0.3, 0.932],
+    [0.355, 0.945],
+    [0.4, 0.947],
+    [0.45, 0.94],
+    [0.505, 0.918],
+    [0.555, 0.888],
+    [0.68, 0.862],
+    [0.85, 0.845],
+    [1.0, 0.837],
   ],
-  // Mountains: dirt S-path starting high where it emerges from the trees, then
-  // descending down-left and out toward the foreground (top -> bottom travel).
+  // Mountains: follows the dashed centerline of the tan trail from where it
+  // emerges up near the tree line, curving down-right then back down-left, and
+  // out through the bottom edge in the foreground (top -> bottom travel).
   2: [
-    [0.5, 0.76],
-    [0.46, 0.767],
-    [0.4, 0.776],
-    [0.33, 0.786],
-    [0.275, 0.8],
-    [0.25, 0.822],
-    [0.31, 0.845],
-    [0.37, 0.9],
-    [0.42, 1.0],
+    [0.235, 0.8],
+    [0.295, 0.812],
+    [0.35, 0.826],
+    [0.4, 0.843],
+    [0.435, 0.862],
+    [0.45, 0.885],
+    [0.435, 0.905],
+    [0.408, 0.925],
+    [0.386, 0.945],
+    [0.385, 0.97],
+    [0.4, 1.0],
   ],
-  // Tinkerer: wavy dashed floor line along the left side of the workshop.
+  // Tinkerer: rides the dashed hump up from the left edge to the desk corner
+  // where the dashes stop, then continues along the desk front-top edge to the
+  // right edge.
   3: [
-    [0.0, 0.895],
-    [0.045, 0.83],
-    [0.09, 0.78],
-    [0.135, 0.8],
-    [0.175, 0.775],
-    [0.22, 0.755],
-    [0.26, 0.74],
-    [0.3, 0.73],
+    [0.0, 0.865],
+    [0.035, 0.855],
+    [0.06, 0.838],
+    [0.09, 0.802],
+    [0.115, 0.778],
+    [0.145, 0.758],
+    [0.185, 0.746],
+    [0.22, 0.75],
+    [0.255, 0.765],
+    [0.285, 0.788],
+    [0.34, 0.8],
+    [0.5, 0.802],
+    [0.66, 0.802],
+    [0.82, 0.802],
+    [1.0, 0.802],
   ],
-  // Runner: hugs the green track just outside the infield, sweeping up the
-  // inner lane at the bend.
+  // Runner: follows the near (lower) arm of the dashed lane in from the left
+  // edge, around the bend at its vertex where the dashes stop, then continues
+  // along the track's curve out through the right edge.
   4: [
-    [0.0, 0.845],
-    [0.08, 0.85],
-    [0.17, 0.86],
-    [0.26, 0.87],
-    [0.34, 0.87],
-    [0.41, 0.855],
-    [0.47, 0.805],
-    [0.51, 0.72],
-    [0.535, 0.635],
-    [0.545, 0.58],
+    [0.0, 0.825],
+    [0.06, 0.808],
+    [0.12, 0.788],
+    [0.19, 0.765],
+    [0.26, 0.745],
+    [0.33, 0.725],
+    [0.4, 0.705],
+    [0.45, 0.688],
+    [0.48, 0.665],
+    [0.495, 0.645],
+    [0.5, 0.635],
+    [0.57, 0.598],
+    [0.68, 0.568],
+    [0.83, 0.565],
+    [1.0, 0.595],
   ],
-  // Lifelong Learner: gentle wave following the grey dashed line across the desk.
+  // Lifelong Learner: gentle double-wave following the grey dashed line clear
+  // across the desk, from the left edge to the right edge.
   5: [
-    [0.0, 0.905],
-    [0.08, 0.885],
-    [0.15, 0.85],
-    [0.23, 0.842],
-    [0.3, 0.85],
-    [0.38, 0.885],
-    [0.46, 0.908],
-    [0.53, 0.915],
-    [0.61, 0.908],
-    [0.7, 0.875],
-    [0.79, 0.858],
-    [0.88, 0.852],
-    [0.98, 0.855],
+    [0.0, 0.94],
+    [0.08, 0.912],
+    [0.15, 0.872],
+    [0.23, 0.837],
+    [0.31, 0.872],
+    [0.4, 0.912],
+    [0.5, 0.94],
+    [0.57, 0.947],
+    [0.66, 0.937],
+    [0.75, 0.905],
+    [0.84, 0.862],
+    [0.92, 0.838],
+    [1.0, 0.852],
   ],
 }
 
