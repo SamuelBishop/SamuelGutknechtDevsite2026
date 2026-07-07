@@ -46,14 +46,82 @@ type Band = {
    scale regardless of how tall their host section is. */
 const SCENE_ASPECT = 1024 / 1536
 
-/* Vertical point in the viewport the shoe rides at (fraction from the top).
-   Sits in the lower portion where the painted trail lives. */
+/* Vertical point in the viewport the reference line rides at (fraction from the
+   top). Sits in the lower portion where the painted trail lives. */
 const RIDE = 0.72
-/* Fraction of a scene over which the shoe fades in on the left / out on the
-   right, so it hands off between stacked scenes. */
-const FADE = 0.12
+/* Fraction of the trail over which the shoe fades in at the start / out at the
+   end, so it hands off between stacked scenes. */
+const FADE = 0.14
+
+/* Hand-traced trail for each scene image, as normalized [x, y] points in image
+   space (0..1, y down), ordered foreground (bottom) -> vanishing point (top).
+   The shoe is driven along this polyline so it runs on the painted trail. */
+const TRAIL_PATHS: Record<number, Array<[number, number]>> = {
+  1: [
+    [0.3, 1.0],
+    [0.31, 0.9],
+    [0.31, 0.82],
+    [0.39, 0.76],
+    [0.5, 0.71],
+    [0.57, 0.66],
+    [0.56, 0.63],
+  ],
+  2: [
+    [0.6, 1.0],
+    [0.53, 0.9],
+    [0.43, 0.83],
+    [0.36, 0.79],
+    [0.4, 0.74],
+    [0.45, 0.7],
+    [0.44, 0.67],
+  ],
+  3: [
+    [0.56, 1.0],
+    [0.57, 0.88],
+    [0.51, 0.79],
+    [0.45, 0.73],
+    [0.47, 0.68],
+    [0.5, 0.65],
+    [0.48, 0.63],
+  ],
+  4: [
+    [0.42, 1.0],
+    [0.45, 0.9],
+    [0.47, 0.81],
+    [0.5, 0.74],
+    [0.53, 0.69],
+    [0.55, 0.66],
+  ],
+}
+
+/* Shoe scale at the foreground (near) and vanishing-point (far) ends of a trail,
+   so it shrinks with distance as it heads into the scene. */
+const SCALE_NEAR = 1.05
+const SCALE_FAR = 0.42
 
 const clamp01 = (n: number) => (n < 0 ? 0 : n > 1 ? 1 : n)
+const clamp = (n: number, lo: number, hi: number) =>
+  n < lo ? lo : n > hi ? hi : n
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t
+
+/* Given a normalized image-y, find where the trail sits horizontally at that
+   height (the paths are ordered foreground -> vanishing, i.e. decreasing y), and
+   return the local tangent so the shoe can face its direction of travel. */
+function sampleByY(
+  path: Array<[number, number]>,
+  ny: number,
+): { x: number; dx: number; dy: number } {
+  const n = path.length
+  const yNear = path[0][1]
+  const yFar = path[n - 1][1]
+  const cy = Math.min(yNear, Math.max(yFar, ny))
+  let i = 0
+  while (i < n - 2 && cy < path[i + 1][1]) i++
+  const [x0, y0] = path[i]
+  const [x1, y1] = path[i + 1]
+  const f = y0 === y1 ? 0 : (y0 - cy) / (y0 - y1)
+  return { x: lerp(x0, x1, f), dx: x1 - x0, dy: y1 - y0 }
+}
 
 export function TrailScene() {
   const wrapRef = useRef<HTMLDivElement>(null)
@@ -116,8 +184,10 @@ export function TrailScene() {
     })
   }, [bands])
 
-  /* Drive the shoe: as the reader scrolls through a scene, map progress to a
-     horizontal position (left -> right) and crossfade at the boundaries. */
+  /* Drive the shoe: for the active scene, map the scroll ride line to a height
+     inside the image, look up the painted trail's x at that height, and place the
+     shoe there so it runs down the trail — shrinking toward the vanishing point
+     and fading out at each end. */
   useEffect(() => {
     const runner = runnerRef.current
     const wrap = wrapRef.current
@@ -130,6 +200,7 @@ export function TrailScene() {
       const frameTop = frame.getBoundingClientRect().top + window.scrollY
       const ref = rideY - frameTop
       const width = wrap.clientWidth
+      const imgH = sceneH || 0
 
       let active: Band | null = null
       for (const b of bands) {
@@ -138,51 +209,68 @@ export function TrailScene() {
           break
         }
       }
-      if (!active) {
+      const path = active ? TRAIL_PATHS[active.scene] : undefined
+      if (!active || !path || imgH === 0) {
         runner.style.opacity = '0'
         return
       }
 
-      /* The scene image occupies the bottom `sceneH` of its section (clipped for
-         short sections). Ride the shoe across that painted region only, so it
-         never walks over the paper above a scene in tall sections. */
-      const sceneBottom = active.top + active.height
-      const sceneTop = Math.max(
-        active.top,
-        sceneBottom - (sceneH || active.height),
-      )
-      if (ref < sceneTop) {
-        runner.style.opacity = '0'
-        return
-      }
+      /* Map the scroll ride line to a height inside the scene image, then look up
+         where the painted trail sits at that height. The shoe stays on the ride
+         line (so it is always visible) while hugging the trail's horizontal
+         curve, and shrinks as the trail recedes toward the vanishing point. */
+      const imgTop = active.top + active.height - imgH
+      const yNear = path[0][1]
+      const yFar = path[path.length - 1][1]
+      const nyTarget = (ref - imgTop) / imgH
+      const prog = clamp01((nyTarget - yFar) / Math.max(0.001, yNear - yFar))
 
-      const p = clamp01((ref - sceneTop) / Math.max(1, sceneBottom - sceneTop))
-      const marginX = Math.max(28, width * 0.07)
-      const x = marginX + p * (width - marginX * 2)
-      /* Gentle arc so the shoe rides the trail rather than sliding flat. */
-      const bob = Math.sin(p * Math.PI) * -10
+      const s = sampleByY(path, nyTarget)
+      const x = s.x * width
+      /* Small footfall bob, strongest mid-trail. */
+      const bob = Math.sin(prog * Math.PI) * -6
       const y = ref + bob
 
+      /* Perspective: bigger in the foreground (prog -> 1), smaller far away. */
+      const scale = lerp(SCALE_FAR, SCALE_NEAR, prog)
+      /* Travel runs foreground-ward as the reader scrolls down, i.e. the reverse
+         of the stored near->far order. Face that direction and add a gentle tilt
+         from the trail's screen-space slope. */
+      const dxScreen = -s.dx * width
+      const dyScreen = -s.dy * imgH
+      const faceSign = dxScreen < 0 ? -1 : 1
+      const tilt = clamp(
+        (Math.atan2(dyScreen * 0.35, Math.abs(dxScreen) + 0.001) * 180) /
+          Math.PI,
+        -18,
+        18,
+      )
+
       const opacity =
-        Math.min(clamp01(p / FADE), clamp01((1 - p) / FADE)) * 0.95
+        Math.min(clamp01(prog / FADE), clamp01((1 - prog) / FADE)) * 0.95
       runner.style.opacity = opacity.toFixed(3)
-      runner.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`
+      runner.style.transform =
+        `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) ` +
+        `rotate(${tilt.toFixed(1)}deg) scale(${(faceSign * scale).toFixed(3)}, ${scale.toFixed(3)})`
     }
 
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduce) {
-      /* Park the shoe near the start of the first scene, no scroll listener. */
+      /* Park the shoe partway along the first scene's trail, no scroll listener. */
       const first = bands[0]
-      const firstBottom = first.top + first.height
-      const firstSceneTop = Math.max(
-        first.top,
-        firstBottom - (sceneH || first.height),
-      )
-      const ref = firstSceneTop + (firstBottom - firstSceneTop) * 0.2
-      const width = wrap.clientWidth
-      const marginX = Math.max(28, width * 0.07)
-      runner.style.opacity = '0.9'
-      runner.style.transform = `translate(${marginX.toFixed(1)}px, ${ref.toFixed(1)}px)`
+      const path = TRAIL_PATHS[first.scene]
+      const imgH = sceneH || first.height
+      const imgTop = first.top + first.height - imgH
+      if (path) {
+        const prog = 0.55
+        const ny = lerp(path[path.length - 1][1], path[0][1], prog)
+        const s = sampleByY(path, ny)
+        const scale = lerp(SCALE_FAR, SCALE_NEAR, prog)
+        runner.style.opacity = '0.9'
+        runner.style.transform =
+          `translate(${(s.x * wrap.clientWidth).toFixed(1)}px, ${(imgTop + ny * imgH).toFixed(1)}px) ` +
+          `scale(${scale.toFixed(3)}, ${scale.toFixed(3)})`
+      }
       return
     }
 
