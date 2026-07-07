@@ -22,7 +22,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
-      <TrailScene />
+      {pathname === '/' && <TrailScene />}
       <Header />
       <main id="main-content">{children}</main>
       <Footer />

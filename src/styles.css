@@ -342,10 +342,9 @@ p {
   justify-self: end;
 }
 
-/* Global trail scene: a full-page background layer sitting behind the page
-   content. A dotted trail meanders across the whole document over a subtle
-   mountain landscape, ducking behind opaque components as it goes. A trail-
-   running shoe advances along the path as the page scrolls (driven in JS). */
+/* Trail scene: a stack of static, painterly watercolor bands — one behind each
+   mapped Home section — with a single small shoe that rides horizontally across
+   whichever scene is in view as the page scrolls (positioned in JS). */
 .trail-scene {
   position: absolute;
   inset: 0;
@@ -355,65 +354,52 @@ p {
   pointer-events: none;
   overflow: clip;
 }
-.trail-svg {
+.trail-band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+.trail-band-img {
   display: block;
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  opacity: 0.72;
 }
-.trail-scene .scene-hills path {
-  fill: var(--pine);
-}
-.trail-scene .tree-body {
-  fill: var(--pine);
-  opacity: 0.16;
-}
-.trail-scene .tree-trunk {
-  fill: var(--pine);
-  opacity: 0.11;
-}
-.trail-scene .scene-bushes use {
-  fill: var(--pine);
-  opacity: 0.12;
-}
-.trail-scene .scene-rocks use {
-  fill: var(--pine);
-  opacity: 0.13;
-}
-.trail-scene .scene-grass path {
-  fill: none;
-  stroke: var(--pine);
-  stroke-width: 1.1;
-  stroke-opacity: 0.15;
-  stroke-linecap: round;
-}
-.trail-scene .trail-base {
-  fill: none;
-  stroke: var(--pine);
-  stroke-width: 2;
-  stroke-opacity: 0.28;
-  stroke-linecap: round;
-  stroke-dasharray: 1.5 9;
-}
-.trail-scene .trail-line {
-  fill: none;
-  stroke: var(--pine);
-  stroke-width: 1.4;
-  stroke-linecap: round;
-  stroke-opacity: 0.12;
-  stroke-dasharray: 1.5 9;
-}
-.trail-scene .trail-draw {
-  fill: none;
-  stroke: var(--jade-signal);
-  stroke-width: 2.4;
-  stroke-linecap: round;
-  stroke-opacity: 0.6;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
+/* Wash the upper-left toward paper so headings/body copy stay readable on top
+   of the artwork, with a gentle overall lift for right-column text. */
+.trail-band-veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      100deg,
+      var(--paper) 0%,
+      rgba(243, 245, 239, 0.72) 30%,
+      rgba(243, 245, 239, 0.28) 68%,
+      rgba(243, 245, 239, 0.16) 100%
+    ),
+    linear-gradient(to bottom, var(--paper) 0%, rgba(243, 245, 239, 0) 26%);
 }
 
-/* The shoe: a detailed side-profile trail runner. Reused for the runner that
-   follows the path and the static footprint marker at the trail's origin. */
+/* The shoe: a small side-profile trail runner overlaid on the active scene. */
+.trail-runner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 15px;
+  margin: -8px 0 0 -17px;
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 0.2s ease-out;
+}
+.trail-runner svg {
+  display: block;
+  overflow: visible;
+}
 .runner .shoe-outsole {
   fill: var(--pine);
 }
@@ -458,9 +444,6 @@ p {
   stroke: var(--jade-signal);
   stroke-width: 1.4;
   stroke-linecap: round;
-}
-.trail-scene .origin-shoe {
-  opacity: 0.5;
 }
 
 .hero h1 {

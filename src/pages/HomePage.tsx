@@ -7,7 +7,7 @@ import { workItems } from '../content/siteContent'
 export function HomePage() {
   return (
     <>
-      <section className="hero section-shell">
+      <section className="hero section-shell" data-trail-scene="1">
         <div className="hero-text">
           <p className="eyebrow">Senior software engineer · Microsoft</p>
           <h1>
@@ -38,6 +38,7 @@ export function HomePage() {
       <section
         className="current-focus section-shell ruled-section"
         aria-labelledby="focus-heading"
+        data-trail-scene="2"
       >
         <p className="eyebrow">Current focus</p>
         <div className="split-copy">
@@ -53,6 +54,7 @@ export function HomePage() {
       <section
         className="section-shell ruled-section"
         aria-labelledby="selected-work-heading"
+        data-trail-scene="3"
       >
         <div className="section-heading-row">
           <div>
@@ -97,7 +99,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <div className="section-shell callout-wrap">
+      <div className="section-shell callout-wrap" data-trail-scene="4">
         <ContactCallout />
       </div>
     </>
