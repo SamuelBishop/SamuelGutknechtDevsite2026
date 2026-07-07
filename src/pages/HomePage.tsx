@@ -38,7 +38,7 @@ export function HomePage() {
       <section
         className="current-focus section-shell ruled-section"
         aria-labelledby="focus-heading"
-        data-trail-scene="2"
+        data-trail-scene="3"
       >
         <p className="eyebrow">Current focus</p>
         <div className="split-copy">
@@ -54,7 +54,7 @@ export function HomePage() {
       <section
         className="section-shell ruled-section"
         aria-labelledby="selected-work-heading"
-        data-trail-scene="3"
+        data-trail-scene="4"
       >
         <div className="section-heading-row">
           <div>
@@ -74,32 +74,23 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="personal-band">
-        <div className="section-shell personal-grid">
-          <div className="landscape-mark" aria-hidden="true">
-            <span className="sun" />
-            <svg viewBox="0 0 480 240" role="presentation">
-              <path d="M-20 208 106 86l68 68 53-53 121 112 73-80 79 74" />
-              <path d="M-20 226 132 143l62 44 77-34 84 66 58-48 87 55" />
-            </svg>
-          </div>
-          <div>
-            <p className="eyebrow">Away from the screen</p>
-            <h2>Usually headed toward higher ground.</h2>
-            <p>
-              I’m usually drawn toward trails, mountains, skiing, or a
-              camper/Tacoma project. Home is life with my wife and dog, plus an
-              ever-changing list of side projects.
-            </p>
-            <Link className="text-link" to="/about">
-              More about life outside work{' '}
-              <ArrowRight aria-hidden="true" size={17} />
-            </Link>
-          </div>
+      <section className="personal-band" data-trail-scene="2">
+        <div className="section-shell personal-copy">
+          <p className="eyebrow">Away from the screen</p>
+          <h2>Usually headed toward higher ground.</h2>
+          <p>
+            I’m usually drawn toward trails, mountains, skiing, or a
+            camper/Tacoma project. Home is life with my wife and dog, plus an
+            ever-changing list of side projects.
+          </p>
+          <Link className="text-link" to="/about">
+            More about life outside work{' '}
+            <ArrowRight aria-hidden="true" size={17} />
+          </Link>
         </div>
       </section>
 
-      <div className="section-shell callout-wrap" data-trail-scene="4">
+      <div className="section-shell callout-wrap" data-trail-scene="5">
         <ContactCallout />
       </div>
     </>

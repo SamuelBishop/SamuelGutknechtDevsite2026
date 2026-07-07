@@ -9,91 +9,146 @@ type Band = {
 }
 
 /* Natural aspect ratio of the generated scenes (1536 x 1024). Every scene is
-   rendered at this height for its width so all watercolors read at the same
-   scale regardless of how tall their host section is. */
+   drawn at this height for its width, then clipped to a shared band height so
+   all illustrations read at the exact same scale regardless of how tall their
+   host section is. */
 const SCENE_ASPECT = 1024 / 1536
 
-/* Vertical point in the viewport the reference line rides at (fraction from the
-   top). Sits in the lower portion where the painted trail lives. */
-const RIDE = 0.72
-/* Fraction of the trail over which the shoe fades in at the start / out at the
-   end, so it hands off between stacked scenes. */
+/* Fraction of each scene (measured from the bottom) shown inside the band. The
+   painted trails all live in the lower ~82% of the art, so we reveal that strip
+   and trim the emptier sky above. Every band is this same pixel height, which is
+   what makes all scenes read at one uniform scale. */
+const VISIBLE_FRAC = 0.82
+
+/* Viewport line (fraction from the top) used to decide which scene is active and
+   how far the object has progressed along its trail. */
+const FOCUS = 0.52
+
+/* Width in viewport px over which two neighbouring scenes cross-dissolve as the
+   focus line moves from one band to the next. */
+const FADE_VP = 170
+
+/* Fraction of the path over which the object fades in at the start / out at the
+   end, so it hands off cleanly between scenes. */
 const FADE = 0.14
 
-/* Hand-traced trail for each scene image, as normalized [x, y] points in image
-   space (0..1, y down), ordered foreground (bottom) -> vanishing point (top).
-   The shoe is driven along this polyline so it runs on the painted trail. */
+/* The object that traverses each scene, keyed by scene identity:
+   1 Coder -> mouse cursor, 2 Mountains -> running shoe, 3 Tinkerer -> tiny
+   robot, 4 Runner -> runner silhouette, 5 Lifelong Learner -> paper airplane.
+   `flip` mirrors the art to face its travel direction (only for objects with a
+   clear left/right heading); `lift` floats the object above the path line (for
+   the cursor and the gliding plane). */
+type SceneObject = { key: string; flip: boolean; lift: number }
+const OBJECTS: Record<number, SceneObject> = {
+  1: { key: 'cursor', flip: false, lift: 4 },
+  2: { key: 'shoe', flip: true, lift: 0 },
+  3: { key: 'robot', flip: false, lift: 0 },
+  4: { key: 'runner', flip: true, lift: 0 },
+  5: { key: 'plane', flip: false, lift: 26 },
+}
+const OBJECT_KEYS = Array.from(
+  new Set(Object.values(OBJECTS).map((o) => o.key)),
+)
+
+/* Hand-traced path for each scene image, as normalized [x, y] points in image
+   space (0..1, y down), ordered from the START of the route (foreground / near)
+   to its END (far / receding). Calibrated against the painted trails with a
+   Playwright dot-overlay so the object rides the actual line in each scene. The
+   object is driven along this polyline by arc-length as the reader scrolls. */
 const TRAIL_PATHS: Record<number, Array<[number, number]>> = {
+  // Coder: dashed line from the left edge, dipping into a smile arc across the
+  // desktop, ending at the base of the monitor.
   1: [
-    [0.3, 1.0],
-    [0.31, 0.9],
-    [0.31, 0.82],
-    [0.39, 0.76],
-    [0.5, 0.71],
-    [0.57, 0.66],
-    [0.56, 0.63],
+    [0.0, 0.74],
+    [0.055, 0.75],
+    [0.11, 0.755],
+    [0.19, 0.775],
+    [0.27, 0.8],
+    [0.345, 0.865],
+    [0.42, 0.915],
+    [0.49, 0.86],
+    [0.55, 0.805],
   ],
+  // Mountains: dirt S-path from the foreground, bulging left, then receding
+  // up-right into the trees where it fades.
   2: [
-    [0.6, 1.0],
-    [0.53, 0.9],
-    [0.43, 0.83],
-    [0.36, 0.79],
-    [0.4, 0.74],
-    [0.45, 0.7],
-    [0.44, 0.67],
-  ],
-  3: [
-    [0.56, 1.0],
-    [0.57, 0.88],
-    [0.51, 0.79],
-    [0.45, 0.73],
-    [0.47, 0.68],
-    [0.5, 0.65],
-    [0.48, 0.63],
-  ],
-  4: [
     [0.42, 1.0],
-    [0.45, 0.9],
-    [0.47, 0.81],
-    [0.5, 0.74],
-    [0.53, 0.69],
-    [0.55, 0.66],
+    [0.37, 0.9],
+    [0.31, 0.845],
+    [0.25, 0.822],
+    [0.275, 0.8],
+    [0.33, 0.786],
+    [0.4, 0.776],
+    [0.46, 0.767],
+    [0.5, 0.76],
+  ],
+  // Tinkerer: wavy dashed floor line along the left side of the workshop.
+  3: [
+    [0.0, 0.895],
+    [0.045, 0.83],
+    [0.09, 0.78],
+    [0.135, 0.8],
+    [0.175, 0.775],
+    [0.22, 0.755],
+    [0.26, 0.74],
+    [0.3, 0.73],
+  ],
+  // Runner: hugs the green track just outside the infield, sweeping up the
+  // inner lane at the bend.
+  4: [
+    [0.0, 0.845],
+    [0.08, 0.85],
+    [0.17, 0.86],
+    [0.26, 0.87],
+    [0.34, 0.87],
+    [0.41, 0.855],
+    [0.47, 0.805],
+    [0.51, 0.72],
+    [0.535, 0.635],
+    [0.545, 0.58],
+  ],
+  // Lifelong Learner: gentle wave following the grey dashed line across the desk.
+  5: [
+    [0.0, 0.905],
+    [0.08, 0.885],
+    [0.15, 0.85],
+    [0.23, 0.842],
+    [0.3, 0.85],
+    [0.38, 0.885],
+    [0.46, 0.908],
+    [0.53, 0.915],
+    [0.61, 0.908],
+    [0.7, 0.875],
+    [0.79, 0.858],
+    [0.88, 0.852],
+    [0.98, 0.855],
   ],
 }
 
-/* Shoe scale at the foreground (near) and vanishing-point (far) ends of a trail,
-   so it shrinks with distance as it heads into the scene. */
-const SCALE_NEAR = 1.05
-const SCALE_FAR = 0.42
+/* Object scale mapped from its height in the image: things low in the frame
+   (near) render large, things high up (far) render small, so travelling toward
+   a vanishing point reads as receding into the distance. */
+const NY_NEAR = 1.0
+const NY_FAR = 0.55
+const SCALE_NEAR = 1.0
+const SCALE_FAR = 0.5
 
 const clamp01 = (n: number) => (n < 0 ? 0 : n > 1 ? 1 : n)
 const clamp = (n: number, lo: number, hi: number) =>
   n < lo ? lo : n > hi ? hi : n
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t
 
-/* Given a normalized image-y, find where the trail sits horizontally at that
-   height (the paths are ordered foreground -> vanishing, i.e. decreasing y), and
-   return the local tangent so the shoe can face its direction of travel. */
-function sampleByY(
-  path: Array<[number, number]>,
-  ny: number,
-): { x: number; dx: number; dy: number } {
-  const n = path.length
-  const yNear = path[0][1]
-  const yFar = path[n - 1][1]
-  const cy = Math.min(yNear, Math.max(yFar, ny))
-  let i = 0
-  while (i < n - 2 && cy < path[i + 1][1]) i++
-  const [x0, y0] = path[i]
-  const [x1, y1] = path[i + 1]
-  const f = y0 === y1 ? 0 : (y0 - cy) / (y0 - y1)
-  return { x: lerp(x0, x1, f), dx: x1 - x0, dy: y1 - y0 }
-}
+const nyToScale = (ny: number) =>
+  clamp(
+    lerp(SCALE_FAR, SCALE_NEAR, (ny - NY_FAR) / (NY_NEAR - NY_FAR)),
+    SCALE_FAR,
+    SCALE_NEAR,
+  )
 
-/* Smooth each hand-traced polyline into a flowing curve so the shoe follows a
+/* Smooth each hand-traced polyline into a flowing curve so the object follows a
    continuous path instead of visibly kinking at every A -> B -> C waypoint. A
-   Catmull-Rom spline passes through the original points while rounding the turns;
-   we densify to short segments so sampleByY reads a smooth curve and tangent. */
+   Catmull-Rom spline passes through the original points while rounding the
+   turns; we densify to short segments for a smooth arc-length parameterization. */
 function catmullRom(points: Array<[number, number]>, perSeg = 20) {
   if (points.length < 3)
     return points.map(([x, y]) => [x, y] as [number, number])
@@ -126,23 +181,61 @@ function catmullRom(points: Array<[number, number]>, perSeg = 20) {
   return out
 }
 
-const SMOOTH_PATHS: Record<
-  number,
-  Array<[number, number]>
-> = Object.fromEntries(
-  Object.entries(TRAIL_PATHS).map(([k, pts]) => [Number(k), catmullRom(pts)]),
+/* A smoothed path with cumulative arc lengths, so it can be sampled by a
+   normalized distance t (0..1) at a roughly constant travel speed. */
+type ArcPath = {
+  pts: Array<[number, number]>
+  cum: number[]
+  total: number
+}
+
+function buildArc(points: Array<[number, number]>): ArcPath {
+  const pts = catmullRom(points)
+  const cum = [0]
+  for (let i = 1; i < pts.length; i++) {
+    const dx = pts[i][0] - pts[i - 1][0]
+    const dy = pts[i][1] - pts[i - 1][1]
+    cum[i] = cum[i - 1] + Math.hypot(dx, dy)
+  }
+  return { pts, cum, total: cum[cum.length - 1] || 1 }
+}
+
+const ARC_PATHS: Record<number, ArcPath> = Object.fromEntries(
+  Object.entries(TRAIL_PATHS).map(([k, pts]) => [Number(k), buildArc(pts)]),
 )
+
+/* Sample a path at normalized distance t (0..1): return the point and the local
+   tangent so the object can face and tilt along its direction of travel. */
+function sampleByT(
+  path: ArcPath,
+  t: number,
+): { x: number; y: number; dx: number; dy: number } {
+  const { pts, cum, total } = path
+  const d = clamp01(t) * total
+  let i = 0
+  while (i < cum.length - 2 && cum[i + 1] < d) i++
+  const seg = cum[i + 1] - cum[i]
+  const f = seg <= 0 ? 0 : (d - cum[i]) / seg
+  const [x0, y0] = pts[i]
+  const [x1, y1] = pts[i + 1]
+  return { x: lerp(x0, x1, f), y: lerp(y0, y1, f), dx: x1 - x0, dy: y1 - y0 }
+}
 
 export function TrailScene() {
   const wrapRef = useRef<HTMLDivElement>(null)
   const runnerRef = useRef<HTMLDivElement>(null)
+  const objRef = useRef<HTMLImageElement>(null)
+  /* Remember which object is mounted so we only swap the <img> when the active
+     scene actually changes, not on every animation frame. */
+  const objKeyRef = useRef<string>('')
   const [bands, setBands] = useState<Band[]>([])
-  /* Uniform pixel height every scene image is drawn at (width * aspect), so the
-     watercolors share one scale even though their sections differ in height. */
+  /* Uniform pixel height every scene image is drawn at (width * aspect). The
+     band reveals VISIBLE_FRAC of that, giving one shared scale for all scenes. */
   const [sceneH, setSceneH] = useState(0)
 
   /* Measure the mapped Home sections (tagged with data-trail-scene) and turn
-     each into a full-width background band positioned behind that section. */
+     each into a full-width background band. Geometry is stored relative to the
+     positioned trail-scene layer. */
   useEffect(() => {
     const wrap = wrapRef.current
     const frame = wrap?.parentElement
@@ -183,7 +276,7 @@ export function TrailScene() {
     }
   }, [])
 
-  /* Preload the scene images so bands appear without a flash of empty space. */
+  /* Preload the scene images and the object sprites so nothing flashes in. */
   useEffect(() => {
     const seen = new Set<number>()
     bands.forEach((b) => {
@@ -192,72 +285,117 @@ export function TrailScene() {
       const img = new Image()
       img.src = `/trail/scene-0${b.scene}.jpg`
     })
+    OBJECT_KEYS.forEach((key) => {
+      const img = new Image()
+      img.src = `/trail/obj-${key}.png`
+    })
   }, [bands])
 
-  /* Drive the shoe: for the active scene, map the scroll ride line to a height
-     inside the image, look up the painted trail's x at that height, and place the
-     shoe there so it runs down the trail — shrinking toward the vanishing point
-     and fading out at each end. */
+  /* Drive the scene: the bands are positioned at document coordinates and scroll
+     with the page (each shows the same lower strip of its scene, so all read at
+     one uniform scale). We cross-dissolve between neighbouring scenes as the
+     focus line crosses from one band to the next, and ride the active scene's
+     object along its painted trail as that band scrolls through the focus line. */
   useEffect(() => {
     const runner = runnerRef.current
     const wrap = wrapRef.current
-    if (!runner || !wrap || bands.length === 0) return
+    const obj = objRef.current
+    if (!runner || !wrap || !obj || bands.length === 0 || sceneH === 0) return
 
     const frame = wrap.parentElement
     if (!frame) return
 
-    const place = (rideY: number) => {
-      const frameTop = frame.getBoundingClientRect().top + window.scrollY
-      const ref = rideY - frameTop
-      const width = wrap.clientWidth
-      const imgH = sceneH || 0
+    const bandEls = Array.from(
+      wrap.querySelectorAll<HTMLElement>('.trail-band'),
+    )
+    const bandH = Math.round(sceneH * VISIBLE_FRAC)
 
+    /* Swap the object sprite + sizing class only when the scene changes. */
+    const setObject = (scene: number) => {
+      const spec = OBJECTS[scene] ?? OBJECTS[1]
+      if (objKeyRef.current === spec.key) return spec
+      objKeyRef.current = spec.key
+      obj.src = `/trail/obj-${spec.key}.png`
+      runner.className = `trail-runner is-${spec.key}`
+      return spec
+    }
+
+    /* Local top of a band within the trail layer: its uniform strip is centered
+       vertically on its host section. */
+    const bandTopLocal = (b: Band) => b.top + (b.height - bandH) / 2
+
+    /* Map a normalized image-space y (0..1) to a local y offset within the band.
+       The scene image is bottom-anchored and taller than the band, so only its
+       lower VISIBLE_FRAC shows; a trail point at image-y `ny` lands here. */
+    const imgYToBand = (ny: number) => bandH * (1 - (1 - ny) / VISIBLE_FRAC)
+
+    /* Cross-fade every band by how close the focus line is to it, then place the
+       active scene's object on its painted trail. Bands are laid out in document
+       space (CSS `top`) and scroll natively; `objScroll` lags `realScroll` a
+       little so the object trails the scrollbar and then catches up. When
+       `staticP` is set the object is parked at that progress (reduced motion). */
+    const render = (
+      realScroll: number,
+      objScroll: number,
+      staticP?: number,
+    ) => {
+      const vh = window.innerHeight
+      const width = wrap.clientWidth
+      const frameTop = frame.getBoundingClientRect().top + realScroll
+      const centerVp = FOCUS * vh
+
+      bands.forEach((b, i) => {
+        const el = bandEls[i]
+        if (!el) return
+        const topVp = frameTop + bandTopLocal(b) - realScroll
+        const edge = Math.min(centerVp - topVp, topVp + bandH - centerVp)
+        el.style.opacity = clamp01(0.5 + edge / FADE_VP).toFixed(3)
+      })
+
+      /* Active band for the object: the one whose strip spans the focus line. */
       let active: Band | null = null
+      let activeP = 0
+      let activeWeight = 0
       for (const b of bands) {
-        if (ref >= b.top && ref <= b.top + b.height) {
+        const topVp = frameTop + bandTopLocal(b) - objScroll
+        const p = (centerVp - topVp) / bandH
+        if (p >= 0 && p <= 1) {
           active = b
+          activeP = p
+          activeWeight = clamp01(
+            0.5 +
+              Math.min(centerVp - topVp, topVp + bandH - centerVp) / FADE_VP,
+          )
           break
         }
       }
-      const path = active ? SMOOTH_PATHS[active.scene] : undefined
-      if (!active || !path || imgH === 0) {
+      const path = active ? ARC_PATHS[active.scene] : undefined
+      if (!active || !path) {
         runner.style.opacity = '0'
         return
       }
 
-      /* Map the scroll ride line to a height inside the scene image, then look up
-         where the painted trail sits at that height. The shoe stays on the ride
-         line (so it is always visible) while hugging the trail's horizontal
-         curve, and shrinks as the trail recedes toward the vanishing point. */
-      const imgTop = active.top + active.height - imgH
-      const yNear = path[0][1]
-      const yFar = path[path.length - 1][1]
-      const nyTarget = (ref - imgTop) / imgH
-      const prog = clamp01((nyTarget - yFar) / Math.max(0.001, yNear - yFar))
+      const spec = setObject(active.scene)
+      const p = staticP ?? activeP
+      const s = sampleByT(path, p)
+      const scale = nyToScale(s.y)
 
-      const s = sampleByY(path, nyTarget)
+      /* Position in document space; the element scrolls with the page. */
       const x = s.x * width
-      /* The sole sits on the ride line; the CSS gait provides the running hop. */
-      const y = ref
+      const y = bandTopLocal(active) + imgYToBand(s.y) - spec.lift * scale
 
-      /* Perspective: bigger in the foreground (prog -> 1), smaller far away. */
-      const scale = lerp(SCALE_FAR, SCALE_NEAR, prog)
-      /* Travel runs foreground-ward as the reader scrolls down, i.e. the reverse
-         of the stored near->far order. Face that direction and add a gentle tilt
-         from the trail's screen-space slope. */
-      const dxScreen = -s.dx * width
-      const dyScreen = -s.dy * imgH
-      const faceSign = dxScreen < 0 ? -1 : 1
+      /* Face + tilt along the route's screen-space tangent. */
+      const dxScreen = s.dx * width
+      const dyScreen = (s.dy * bandH) / VISIBLE_FRAC
+      const faceSign = spec.flip && dxScreen < 0 ? -1 : 1
       const tilt = clamp(
-        (Math.atan2(dyScreen * 0.35, Math.abs(dxScreen) + 0.001) * 180) /
-          Math.PI,
+        (Math.atan2(dyScreen, Math.abs(dxScreen) + 0.001) * 180) / Math.PI,
         -18,
         18,
       )
 
-      const opacity =
-        Math.min(clamp01(prog / FADE), clamp01((1 - prog) / FADE)) * 0.95
-      runner.style.opacity = opacity.toFixed(3)
+      const pFade = Math.min(clamp01(p / FADE), clamp01((1 - p) / FADE))
+      runner.style.opacity = (pFade * activeWeight * 0.97).toFixed(3)
       runner.style.transform =
         `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) ` +
         `rotate(${tilt.toFixed(1)}deg) scale(${(faceSign * scale).toFixed(3)}, ${scale.toFixed(3)})`
@@ -265,47 +403,38 @@ export function TrailScene() {
 
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduce) {
-      /* Park the shoe partway along the first scene's trail, no scroll listener. */
-      const first = bands[0]
-      const path = SMOOTH_PATHS[first.scene]
-      const imgH = sceneH || first.height
-      const imgTop = first.top + first.height - imgH
-      if (path) {
-        const prog = 0.55
-        const ny = lerp(path[path.length - 1][1], path[0][1], prog)
-        const s = sampleByY(path, ny)
-        const scale = lerp(SCALE_FAR, SCALE_NEAR, prog)
-        runner.style.opacity = '0.9'
-        runner.style.transform =
-          `translate(${(s.x * wrap.clientWidth).toFixed(1)}px, ${(imgTop + ny * imgH).toFixed(1)}px) ` +
-          `scale(${scale.toFixed(3)}, ${scale.toFixed(3)})`
+      /* No scroll-driven traversal: park the object mid-trail on whichever scene
+         is active and only update the gentle background cross-fade on scroll. */
+      const draw = () => render(window.scrollY, window.scrollY, 0.5)
+      draw()
+      window.addEventListener('scroll', draw, { passive: true })
+      window.addEventListener('resize', draw)
+      return () => {
+        window.removeEventListener('scroll', draw)
+        window.removeEventListener('resize', draw)
       }
-      return
     }
 
-    /* Ease the shoe toward the scroll position instead of snapping to it, so it
-       lags a little behind the scrollbar and then catches up. `target` tracks the
-       scroll ride line; `current` chases it a fraction each frame (a simple
-       critically-damped-ish lerp), and the rAF loop idles once they converge. */
-    const targetRide = () => window.scrollY + window.innerHeight * RIDE
-    let target = targetRide()
-    let current = target
+    /* Ease the object's scroll position instead of snapping to it, so it lags a
+       little behind the scrollbar and then catches up. The background bands stay
+       locked to the real scroll for a crisp feel. */
+    let lag = window.scrollY
     let raf = 0
-    const FOLLOW = 0.08 // fraction of the remaining gap closed per frame (lower = more lag)
+    const FOLLOW = 0.08
 
     const tick = () => {
-      const gap = target - current
-      current += gap * FOLLOW
-      if (Math.abs(gap) < 0.5) current = target
-      place(current)
-      raf = Math.abs(target - current) > 0.5 ? requestAnimationFrame(tick) : 0
+      const real = window.scrollY
+      const gap = real - lag
+      lag += gap * FOLLOW
+      if (Math.abs(gap) < 0.5) lag = real
+      render(real, lag)
+      raf = Math.abs(real - lag) > 0.5 ? requestAnimationFrame(tick) : 0
     }
     const kick = () => {
-      target = targetRide()
       if (!raf) raf = requestAnimationFrame(tick)
     }
 
-    place(current)
+    render(window.scrollY, lag)
     window.addEventListener('scroll', kick, { passive: true })
     window.addEventListener('resize', kick)
     return () => {
@@ -315,13 +444,22 @@ export function TrailScene() {
     }
   }, [bands, sceneH])
 
+  const bandH = sceneH ? Math.round(sceneH * VISIBLE_FRAC) : 0
+
   return (
     <div className="trail-scene" ref={wrapRef} aria-hidden="true">
       {bands.map((b, i) => (
         <div
           key={`band-${i}`}
           className="trail-band"
-          style={{ top: `${b.top}px`, height: `${b.height}px` }}
+          style={
+            bandH
+              ? {
+                  top: `${(b.top + (b.height - bandH) / 2).toFixed(1)}px`,
+                  height: `${bandH}px`,
+                }
+              : undefined
+          }
         >
           <img
             className="trail-band-img"
@@ -335,10 +473,11 @@ export function TrailScene() {
         </div>
       ))}
 
-      <div className="trail-runner" ref={runnerRef}>
+      <div className="trail-runner is-cursor" ref={runnerRef}>
         <img
-          className="trail-runner-shoe"
-          src="/trail/shoe.png"
+          className="trail-obj"
+          ref={objRef}
+          src="/trail/obj-cursor.png"
           alt=""
           decoding="async"
         />

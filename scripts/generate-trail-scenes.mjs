@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 /**
- * Generate the watercolor trail scenes used by the Home page trail animation.
+ * Generate the five scene backgrounds used by the Home page trail animation.
  *
- * Each scene is a static, painterly landscape band that sits behind a Home
- * section. A small shoe animates horizontally (left -> right) across whichever
- * scene is in view, so every scene shares one composition rule: a soft dirt
- * trail enters from the lower-left and exits at the right, and the upper-left
- * stays pale and near-empty so heading/body text stays readable on top.
+ * Each scene is a static, clean modern illustration that sits behind a Home
+ * section and represents one chapter of the journey (Coder, Mountains, Tinkerer,
+ * Runner, Lifelong Learner). A small object (see generate-objects.mjs) animates
+ * horizontally along whichever scene is in view, so every scene shares one
+ * composition rule: a clear, continuous route runs from the lower-left across to
+ * the right within the lower third, and the left side stays pale and near-empty
+ * so heading/body text stays readable on top.
  *
  * Usage:
  *   OPENAI_API_KEY=sk-... node scripts/generate-trail-scenes.mjs
@@ -65,49 +67,51 @@ const MODEL = process.env.TRAIL_MODEL || 'gpt-image-1'
 const SIZE = process.env.TRAIL_SIZE || '1536x1024'
 
 /**
- * Shared style guidance applied to every scene. Keep the palette muted and the
- * contrast low so the site's dark text remains legible, and always reserve a
- * pale, near-empty upper-left quadrant.
+ * Shared style guidance applied to every scene, taken from the Portfolio
+ * Background Image Guide. Clean, modern, slightly cartoony technical
+ * illustration on a warm cream ground, one cohesive palette, lots of empty
+ * space on the left for text, and a single clear route across the lower third
+ * for the animated object to follow. The object itself is NEVER baked in.
  */
 const STYLE = [
-  'Loose, airy watercolor illustration on off-white paper, hand-painted look with soft washes and gentle paper texture.',
-  'Muted, calm palette only: pine green (#1c3f36), sage mist (#dde8de), warm birch/off-white paper (#f3f5ef), and small accents of jade (#0f9d76).',
-  'Very low contrast and high-key overall — like a faded, sun-bleached trail-guide watercolor. No black, no harsh saturated colors, no neon.',
-  'Wide cinematic landscape framing. The scene occupies the lower two-thirds; the top third is pale, washed-out sky/paper with almost nothing in it.',
-  'The entire UPPER-LEFT quadrant must stay nearly empty and pale (just faint paper/sky) so dark text can sit on top and stay readable.',
-  'A soft, dotted dirt hiking trail winds in from the LOWER-LEFT of the frame and exits at the RIGHT edge, staying in the lower half.',
-  'No people, no animals, no text, no words, no lettering, no watermark, no borders or frames. Flat, no strong vignette.',
+  'A clean, modern, software-product style vector illustration — sleek, minimal, and professional, with a slightly cartoony technical feel: simplified shapes, crisp clean lines, soft shadows, and subtle depth.',
+  'Cohesive muted palette only, used consistently: warm cream (#F5F3EC) background, light sage (#E9EDE6), sage (#C7D1C2), mid sage-green (#8CA28C), dark forest green (#2F4B3C), warm gray (#6B716C), taupe (#A89F90), and a small terracotta accent (#C7896A). No black, no neon, no harsh saturated colors.',
+  'Wide horizontal landscape framing with a warm cream background and gentle, even lighting. Low contrast and calm.',
+  'The entire LEFT side of the frame must stay open, pale and near-empty (just soft cream/negative space) so dark text can sit on top and stay readable; arrange the subject toward the center and right.',
+  'A single clear, continuous route runs from the LOWER-LEFT across to the RIGHT, staying within the lower 30-45% of the frame — drawn as a subtle dotted guide line/path. It is unobstructed, with 2-4 broad, smooth curves and no tight loops or intersections, leaving clean clearance (about 24-40px) for a small object to travel along it.',
+  'Keep the same horizon-line placement, perspective, and lighting mood across every scene so the five read as one cohesive set.',
+  'No people, no animals, no cars, no text, no words, no numbers, no lettering, no watermark, no logos, no borders or frames. Do NOT draw any animated character or object on the path — leave the path empty.',
 ].join(' ')
 
 /**
- * Per-scene subject matter. Ordered as a continuous descent/ascent journey so
- * the stacked scenes read as one trip down the page.
+ * Per-scene subject matter — the five chapters from the guide. Each keeps the
+ * left side open and places its subject toward the center/right.
  */
 const SCENES = [
   {
     n: 1,
     subject:
-      'A quiet trailhead meadow at the start of a hike: soft rolling grassland with a few slender birch and pine saplings scattered to the right, distant hazy foothills low on the horizon. Sparse and open.',
+      "the Coder's modern, minimalist workspace: a sleek desktop monitor displaying tidy, simplified lines of code, a small potted plant, a desk lamp, and a coffee mug arranged toward the center and right on a clean desk, with a calm window view of distant pine trees and soft hills beyond. Uncluttered and airy.",
   },
   {
     n: 2,
     subject:
-      'Forested foothills a little further along: clusters of tall pine and fir trees gathered mostly on the right side, a soft wash of layered hills behind them, the dotted trail curving gently between the trees. Left side stays open and pale.',
+      'a mountain trail in the Pacific Northwest: layered alpine peaks fading into the distance, evergreen fir and pine trees clustered mostly to the right, scattered rocks and low shrubs, and a soft dirt trail winding through the lower portion.',
   },
   {
     n: 3,
     subject:
-      'A rockier stretch climbing higher: a few loose boulders and low granite outcrops among thinning pines to the right, taller ridgelines rising in soft layered washes behind, the trail threading upward past the rocks. Left side open and pale.',
+      "the Tinkerer's electronics workshop: a workbench with a pegboard of neatly hung hand tools, a soldering iron, a small circuit board and half-built electronic projects, and a desk lamp arranged toward the center and right. Tidy and purposeful.",
   },
   {
     n: 4,
     subject:
-      'An exposed alpine ridge near the top: bare rocky ridgeline and a couple of weathered pines, distant mountain peaks in pale overlapping watercolor layers, the trail running along the crest. Airy, high, minimal. Left side open and pale.',
+      'a running track at sunrise: a curving athletic running track with clean lane lines sweeping through the lower portion, soft low golden light, distant stadium light poles and a calm treeline, evoking training and performance. Open and serene.',
   },
   {
     n: 5,
     subject:
-      'A summit valley overlook at journey’s end: a broad calm valley seen from above, soft distant ranges fading in high-key washes, the trail easing down toward a gentle basin on the right. Very serene, very pale, lots of open sky. Left side open and pale.',
+      "the Lifelong Learner's quiet library and reading nook: tall bookshelves filled with books toward the right, a neat stack of books and one open book, a small potted plant, and warm natural light from a window with a soft view of trees. Calm and studious.",
   },
 ]
 
