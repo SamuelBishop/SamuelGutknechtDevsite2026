@@ -412,7 +412,7 @@ p {
 }
 @media (prefers-reduced-motion: no-preference) {
   .trail-runner-shoe {
-    animation: shoe-run 0.5s ease-in-out infinite;
+    animation: shoe-run 0.85s ease-in-out infinite;
   }
 }
 /* A bounding gait: rock back on the heel, lift and level off, roll forward onto

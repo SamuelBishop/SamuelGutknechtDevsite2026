@@ -283,21 +283,35 @@ export function TrailScene() {
       return
     }
 
-    let ticking = false
-    const onScroll = () => {
-      if (ticking) return
-      ticking = true
-      requestAnimationFrame(() => {
-        place(window.scrollY + window.innerHeight * RIDE)
-        ticking = false
-      })
+    /* Ease the shoe toward the scroll position instead of snapping to it, so it
+       lags a little behind the scrollbar and then catches up. `target` tracks the
+       scroll ride line; `current` chases it a fraction each frame (a simple
+       critically-damped-ish lerp), and the rAF loop idles once they converge. */
+    const targetRide = () => window.scrollY + window.innerHeight * RIDE
+    let target = targetRide()
+    let current = target
+    let raf = 0
+    const FOLLOW = 0.08 // fraction of the remaining gap closed per frame (lower = more lag)
+
+    const tick = () => {
+      const gap = target - current
+      current += gap * FOLLOW
+      if (Math.abs(gap) < 0.5) current = target
+      place(current)
+      raf = Math.abs(target - current) > 0.5 ? requestAnimationFrame(tick) : 0
     }
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
+    const kick = () => {
+      target = targetRide()
+      if (!raf) raf = requestAnimationFrame(tick)
+    }
+
+    place(current)
+    window.addEventListener('scroll', kick, { passive: true })
+    window.addEventListener('resize', kick)
     return () => {
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
+      if (raf) cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', kick)
+      window.removeEventListener('resize', kick)
     }
   }, [bands, sceneH])
 
