@@ -256,7 +256,12 @@ main {
   width: 100%;
   padding: 13px 0;
   border-bottom: 1px solid var(--line);
-  font-size: 24px;
+  font-size: 1.125rem;
+}
+/* The full-width dividers already separate items, so drop the sliding
+   underline here to avoid a double line under the active/hovered item. */
+.mobile-nav .nav-link::after {
+  content: none;
 }
 
 @keyframes fade-in {
