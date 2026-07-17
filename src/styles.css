@@ -1219,7 +1219,7 @@ p {
   }
   .hero h1,
   .page-intro h1 {
-    font-size: clamp(2.8rem, 13.5vw, 3.9rem);
+    font-size: clamp(2.25rem, 10.5vw, 3rem);
   }
   .hero-actions {
     align-items: flex-start;
@@ -1260,6 +1260,25 @@ p {
     align-items: flex-start;
     flex-direction: column;
     justify-content: center;
+  }
+  h1 {
+    margin-bottom: 22px;
+    font-size: clamp(2.25rem, 10.5vw, 3rem);
+  }
+  h2 {
+    font-size: clamp(1.5rem, 6.4vw, 1.9rem);
+  }
+  .contact-callout h2,
+  .resume-row h2 {
+    font-size: 1.6rem;
+  }
+  .card-heading h2 {
+    font-size: clamp(1.4rem, 6vw, 1.8rem);
+  }
+  .hero-copy,
+  .intro-copy p,
+  .current-focus .split-copy > p {
+    font-size: 1.02rem;
   }
 }
 
