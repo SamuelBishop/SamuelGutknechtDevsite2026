@@ -1316,8 +1316,35 @@ p {
   grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.3fr);
   gap: clamp(45px, 10vw, 140px);
 }
+.resume-section .resume-row + .resume-row {
+  margin-top: 44px;
+  padding-top: 44px;
+  border-top: 1px solid var(--line);
+}
 .resume-row h2 {
   font-size: 2.1rem;
+}
+.company-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  align-self: start;
+}
+.company-mark {
+  display: inline-grid;
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--cream);
+  color: var(--forest);
+}
+.company-mark svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
 }
 .resume-row h3 {
   margin-bottom: 10px;
@@ -1325,10 +1352,6 @@ p {
 }
 .resume-row p {
   max-width: 650px;
-}
-.pending-detail {
-  font-size: 0.83rem;
-  font-style: italic;
 }
 .skills-list {
   display: grid;

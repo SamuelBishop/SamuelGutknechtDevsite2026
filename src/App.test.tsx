@@ -58,6 +58,15 @@ describe('portfolio routes', () => {
     ).toBeInTheDocument()
   })
 
+  it('renders verified resume highlights without dropping skills', () => {
+    renderAt('/resume')
+    expect(screen.getByRole('heading', { name: /garmin/i })).toBeInTheDocument()
+    expect(screen.getByText(/graduated cum laude/i)).toBeInTheDocument()
+    expect(screen.getByText('AI agent development')).toBeInTheDocument()
+    expect(screen.getByText('C++')).toBeInTheDocument()
+    expect(screen.getByText('Agent evaluations')).toBeInTheDocument()
+  })
+
   it('marks the current navigation item', () => {
     renderAt('/work')
     const currentLinks = screen.getAllByRole('link', { name: 'Work' })
