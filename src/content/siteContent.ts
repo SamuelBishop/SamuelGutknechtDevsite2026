@@ -65,6 +65,26 @@ export const workItems: WorkItem[] = [
   },
 ]
 
+export type SocialPlatform =
+  'github' | 'linkedin' | 'instagram' | 'substack' | 'strava' | 'email'
+
+export type SocialLink = {
+  platform: SocialPlatform
+  // Accessible label / visible name for the platform.
+  label: string
+  // TODO: replace these placeholders with real profile URLs before launch.
+  href: string
+}
+
+export const socialLinks: SocialLink[] = [
+  { platform: 'github', label: 'GitHub', href: '#' },
+  { platform: 'linkedin', label: 'LinkedIn', href: '#' },
+  { platform: 'instagram', label: 'Instagram', href: '#' },
+  { platform: 'substack', label: 'Substack', href: '#' },
+  { platform: 'strava', label: 'Strava', href: '#' },
+  { platform: 'email', label: 'Email', href: 'mailto:hello@example.com' },
+]
+
 export const skills = [
   'React',
   'TypeScript',
@@ -83,4 +103,3 @@ export const skills = [
   'LangChain',
   'Agent evaluations',
 ]
-

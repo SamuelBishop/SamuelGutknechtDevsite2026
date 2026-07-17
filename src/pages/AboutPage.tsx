@@ -1,5 +1,6 @@
 import { User } from 'lucide-react'
 import { SectionIntro } from '../components/SectionIntro'
+import { SocialLinks } from '../components/SocialLinks'
 
 const principles = [
   [
@@ -46,6 +47,10 @@ export function AboutPage() {
               <User size={26} aria-hidden="true" />
               <figcaption className="media-label">Portrait photo</figcaption>
             </figure>
+            <div className="about-social">
+              <p className="eyebrow">Find me around the web</p>
+              <SocialLinks />
+            </div>
           </div>
           <div className="prose-column">
             <p>

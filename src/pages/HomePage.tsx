@@ -1,6 +1,7 @@
 import { ArrowRight, User } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { ContactCallout } from '../components/ContactCallout'
+import { SocialLinks } from '../components/SocialLinks'
 import { WorkCard } from '../components/WorkCard'
 import { workItems } from '../content/siteContent'
 
@@ -29,10 +30,13 @@ export function HomePage() {
             </Link>
           </div>
         </div>
-        <figure className="hero-portrait media-placeholder portrait">
-          <User size={30} aria-hidden="true" />
-          <figcaption className="media-label">Portrait photo</figcaption>
-        </figure>
+        <div className="hero-aside">
+          <figure className="hero-portrait media-placeholder portrait">
+            <User size={30} aria-hidden="true" />
+            <figcaption className="media-label">Portrait photo</figcaption>
+          </figure>
+          <SocialLinks className="hero-social" />
+        </div>
       </section>
 
       <section
