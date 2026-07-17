@@ -13,7 +13,8 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "generate:trail": "node scripts/generate-trail-scenes.mjs",
-    "generate:objects": "node scripts/generate-objects.mjs"
+    "generate:objects": "node scripts/generate-objects.mjs",
+    "generate:posts": "node scripts/generate-posts.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
@@ -34,15 +35,18 @@
     "@types/node": "^24.10.0",
     "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",
+    "@types/sanitize-html": "^2.16.1",
     "@vitejs/plugin-react": "^5.1.0",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
+    "fast-xml-parser": "^5.9.3",
     "globals": "^16.5.0",
     "jsdom": "^27.1.0",
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
+    "sanitize-html": "^2.17.6",
     "tailwindcss": "^3.4.17",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.3",

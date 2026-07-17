@@ -28,4 +28,20 @@ describe('route manifest', () => {
       'Page not found | Samuel Gutknecht',
     )
   })
+
+  it('serves a static title for the written works index', () => {
+    const meta = getRouteMeta('/written-works')
+    expect(meta.dynamic).toBeFalsy()
+    expect(meta.title).toContain('Written Works')
+  })
+
+  it('flags article pages as dynamic so the page owns its title', () => {
+    expect(getRouteMeta('/written-works/some-post').dynamic).toBe(true)
+  })
+
+  it('exposes Written Works in the primary nav', () => {
+    expect(navRoutes.some((route) => route.nav.label === 'Written Works')).toBe(
+      true,
+    )
+  })
 })

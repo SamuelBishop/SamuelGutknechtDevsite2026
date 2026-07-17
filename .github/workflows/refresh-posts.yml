@@ -1,0 +1,55 @@
+name: Refresh Written Works
+
+# Rebuilds src/content/posts.generated.json from the Substack feed once a day (and
+# on demand) so newly published posts appear on the site. When the JSON changes it
+# is committed to main, which triggers a redeploy.
+
+on:
+  schedule:
+    - cron: '0 9 * * *' # daily at 09:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-written-works
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Regenerate posts
+        env:
+          # Optional: set a SUBSTACK_URL repository variable to point at your own
+          # publication. Falls back to the script default when unset.
+          SUBSTACK_URL: ${{ vars.SUBSTACK_URL }}
+        run: pnpm generate:posts
+
+      - name: Commit changes
+        run: |
+          if [[ -n "$(git status --porcelain src/content/posts.generated.json)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add src/content/posts.generated.json
+            git commit -m "chore: refresh written works from Substack"
+            git push
+          else
+            echo "No post changes to commit."
+          fi

@@ -5,10 +5,15 @@ import { NotFoundPage } from '../pages/NotFoundPage'
 import { ProjectsPage } from '../pages/ProjectsPage'
 import { ResumePage } from '../pages/ResumePage'
 import { WorkPage } from '../pages/WorkPage'
+import { WrittenWorkPage } from '../pages/WrittenWorkPage'
+import { WrittenWorksPage } from '../pages/WrittenWorksPage'
 
 export type RouteMeta = {
   title: string
   description: string
+  // When true the page sets its own document title/description (dynamic route),
+  // so SiteLayout should not overwrite it from the manifest.
+  dynamic?: boolean
 }
 
 export type RouteEntry = RouteMeta & {
@@ -52,6 +57,21 @@ export const routes: RouteEntry[] = [
     nav: { label: 'Projects' },
   },
   {
+    path: '/written-works',
+    title: 'Written Works | Samuel Gutknecht',
+    description:
+      'Essays and ideas by Samuel Gutknecht — on engineering, trail running, and the space between.',
+    element: <WrittenWorksPage />,
+    nav: { label: 'Written Works' },
+  },
+  {
+    path: '/written-works/:slug',
+    title: 'Written Works | Samuel Gutknecht',
+    description:
+      'Essays and ideas by Samuel Gutknecht — on engineering, trail running, and the space between.',
+    element: <WrittenWorkPage />,
+  },
+  {
     path: '/resume',
     title: 'Resume | Samuel Gutknecht',
     description: 'Experience, skills, and education for Samuel Gutknecht.',
@@ -68,11 +88,24 @@ export const routes: RouteEntry[] = [
 
 const fallback = routes.find((route) => route.path === '*')
 
-export const navRoutes: NavRoute[] = routes.filter(
-  (route): route is NavRoute => Boolean(route.nav),
+const ARTICLE_PREFIX = '/written-works/'
+
+export const navRoutes: NavRoute[] = routes.filter((route): route is NavRoute =>
+  Boolean(route.nav),
 )
 
 export function getRouteMeta(pathname: string): RouteMeta {
   const match = routes.find((route) => route.path === pathname)
-  return match ?? fallback ?? routes[0]
+  if (match) return match
+  // Article pages (/written-works/:slug) set their own title/description.
+  if (
+    pathname.startsWith(ARTICLE_PREFIX) &&
+    pathname.length > ARTICLE_PREFIX.length
+  ) {
+    const base = routes.find((route) => route.path === '/written-works/:slug')
+    if (base) {
+      return { title: base.title, description: base.description, dynamic: true }
+    }
+  }
+  return fallback ?? routes[0]
 }

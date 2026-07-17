@@ -10,10 +10,12 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const metadata = getRouteMeta(pathname)
-    document.title = metadata.title
-    document
-      .querySelector('meta[name="description"]')
-      ?.setAttribute('content', metadata.description)
+    if (!metadata.dynamic) {
+      document.title = metadata.title
+      document
+        .querySelector('meta[name="description"]')
+        ?.setAttribute('content', metadata.description)
+    }
     window.scrollTo({ top: 0 })
   }, [pathname])
 
