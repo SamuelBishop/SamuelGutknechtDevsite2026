@@ -682,6 +682,29 @@ p {
   margin-bottom: 20px;
   font-size: clamp(1.8rem, 3vw, 2.6rem);
 }
+.work-media-slot {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 30px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--cream);
+}
+.work-media-slot span {
+  position: absolute;
+  bottom: 14px;
+  left: 16px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.work-list.compact .work-media-slot {
+  display: none;
+}
 .card-context {
   max-width: 760px;
   color: var(--ink);

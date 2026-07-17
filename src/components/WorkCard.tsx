@@ -7,6 +7,9 @@ export function WorkCard({ item }: { item: WorkItem }) {
         {item.kind}
       </div>
       <div className="card-content">
+        <div className="work-media-slot" aria-hidden="true">
+          <span>Project image forthcoming</span>
+        </div>
         <h2>{item.title}</h2>
         <p className="card-context">{item.context}</p>
         <p>{item.contribution}</p>

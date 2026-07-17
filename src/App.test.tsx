@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it } from 'vitest'
 import App from './App'
 import { posts } from './content/posts'
+import { workItems } from './content/siteContent'
 
 function renderAt(route: string) {
   return render(
@@ -72,14 +73,16 @@ describe('portfolio routes', () => {
     ).toHaveAttribute('download')
   })
 
-  it('presents selected work without repeated placeholder treatments', () => {
+  it('presents selected work with quiet image slots and no status chips', () => {
     renderAt('/work')
     expect(
       screen.getByRole('heading', {
         name: /modern rich text editor experience/i,
       }),
     ).toBeInTheDocument()
-    expect(screen.queryByText(/project image/i)).not.toBeInTheDocument()
+    expect(screen.getAllByText(/project image forthcoming/i)).toHaveLength(
+      workItems.length,
+    )
     expect(
       screen.queryByText(/case study in progress/i),
     ).not.toBeInTheDocument()
