@@ -1311,6 +1311,42 @@ p {
   padding: 62px 0;
   border-top: 1px solid var(--line);
 }
+.resume-print-header {
+  display: none;
+}
+.resume-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+.resume-section-heading .eyebrow {
+  margin-bottom: 0;
+}
+.resume-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--forest);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+.resume-download:hover {
+  border-color: var(--forest);
+  background: var(--cream);
+}
 .resume-row {
   display: grid;
   grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.3fr);
@@ -1435,19 +1471,6 @@ p {
   font-size: 0.94rem;
   line-height: 1.55;
 }
-.resume-note {
-  margin-top: 20px;
-  padding: 28px;
-  border-left: 3px solid var(--clay);
-  background: var(--cream);
-}
-.resume-note p {
-  margin-bottom: 0;
-}
-.resume-note .eyebrow {
-  margin-bottom: 9px;
-}
-
 .not-found {
   padding-block: clamp(120px, 16vw, 220px);
 }
@@ -1657,6 +1680,120 @@ p {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  @media print {
+    @page {
+      size: letter;
+      margin: 0.45in 0.55in;
+    }
+
+    .site-header,
+    .site-footer,
+    .skip-link,
+    .resume-download {
+      display: none !important;
+    }
+
+    .site-frame,
+    body {
+      background: #fff;
+    }
+
+    .resume-page {
+      width: 100%;
+      max-width: none;
+      padding: 0;
+      zoom: 0.88;
+    }
+
+    .resume-print-header {
+      display: block;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .resume-print-header h1 {
+      margin-bottom: 3px;
+      font-size: 2rem;
+    }
+
+    .resume-print-header p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .resume-page > .page-intro {
+      display: none;
+    }
+
+    .resume-section {
+      break-inside: avoid;
+      padding: 20px 0;
+    }
+
+    .resume-section-heading {
+      margin-bottom: 14px;
+    }
+
+    .resume-row {
+      grid-template-columns: 170px minmax(0, 1fr);
+      gap: 28px;
+    }
+
+    .resume-section .resume-row + .resume-row {
+      margin-top: 22px;
+      padding-top: 22px;
+    }
+
+    .resume-row h2 {
+      font-size: 1.35rem;
+    }
+
+    .company-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+    }
+
+    .company-mark svg,
+    .company-mark--microsoft svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    .resume-row h3,
+    .education-degree h3 {
+      font-size: 1rem;
+    }
+
+    .resume-row p,
+    .education-major,
+    .education-facts dd {
+      font-size: 0.76rem;
+      line-height: 1.45;
+    }
+
+    .skills-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: 18px;
+    }
+
+    .skills-list li {
+      padding: 5px 0;
+      font-size: 0.68rem;
+    }
+
+    .education-degree {
+      padding-bottom: 12px;
+    }
+
+    .education-facts > div {
+      grid-template-columns: 110px minmax(0, 1fr);
+      gap: 16px;
+      padding: 9px 0;
+    }
   }
 }
 

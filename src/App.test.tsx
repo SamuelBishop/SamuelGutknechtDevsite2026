@@ -67,6 +67,9 @@ describe('portfolio routes', () => {
     expect(screen.getByText('Agent evaluations')).toBeInTheDocument()
     expect(screen.getByText('Computer architecture')).toBeInTheDocument()
     expect(screen.getByText('Microprocessor systems')).toBeInTheDocument()
+    expect(
+      screen.getByRole('link', { name: /download resume pdf/i }),
+    ).toHaveAttribute('download')
   })
 
   it('marks the current navigation item', () => {

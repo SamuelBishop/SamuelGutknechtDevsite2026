@@ -1,3 +1,4 @@
+import { Download } from 'lucide-react'
 import { SectionIntro } from '../components/SectionIntro'
 import { skills } from '../content/siteContent'
 
@@ -31,6 +32,10 @@ function CompanyMark({ company }: CompanyMarkProps) {
 export function ResumePage() {
   return (
     <div className="section-shell page-stack resume-page">
+      <header className="resume-print-header">
+        <h1>Samuel Gutknecht</h1>
+        <p>Senior Software Engineer</p>
+      </header>
       <SectionIntro eyebrow="Resume" title="Experience at a glance.">
         <p>
           Senior software engineer at Microsoft building customer experience
@@ -41,7 +46,18 @@ export function ResumePage() {
       </SectionIntro>
 
       <section className="resume-section" aria-labelledby="experience-heading">
-        <p className="eyebrow">Experience</p>
+        <div className="resume-section-heading">
+          <p className="eyebrow">Experience</p>
+          <a
+            className="resume-download"
+            href="/samuel-gutknecht-resume.pdf"
+            download
+            aria-label="Download resume PDF"
+          >
+            <Download aria-hidden="true" size={14} />
+            Resume PDF
+          </a>
+        </div>
         <div className="resume-row">
           <h2 id="experience-heading" className="company-heading">
             <CompanyMark company="microsoft" />
@@ -125,13 +141,6 @@ export function ResumePage() {
           </div>
         </div>
       </section>
-
-      <aside className="resume-note">
-        <p className="eyebrow">PDF resume</p>
-        <p>
-          A downloadable resume will be added once the current file is ready.
-        </p>
-      </aside>
     </div>
   )
 }
