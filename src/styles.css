@@ -1207,8 +1207,8 @@ p {
 /* Written Works — sanitized post body (dangerouslySetInnerHTML) */
 .post-content {
   color: var(--ink);
-  font-size: 1.1rem;
-  line-height: 1.75;
+  font-size: 1.05rem;
+  line-height: 1.72;
 }
 .post-content > *:first-child {
   margin-top: 0;
@@ -1525,14 +1525,31 @@ p {
     grid-template-columns: 1fr;
     gap: 22px;
   }
+  .post-article-head h1 {
+    font-size: clamp(1.85rem, 8vw, 2.3rem);
+  }
+  .post-cover {
+    width: 90%;
+    margin-inline: auto;
+    margin-bottom: 26px;
+    border-radius: 10px;
+  }
   .post-content {
-    font-size: 1.02rem;
+    font-size: 0.94rem;
+    line-height: 1.68;
+  }
+  .post-content p {
+    margin-bottom: 1.15em;
+  }
+  .post-content figure {
+    max-width: 90%;
+    margin-inline: auto;
   }
   .post-content h2 {
-    font-size: 1.5rem;
+    font-size: 1.42rem;
   }
   .post-content h3 {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
   }
 }
 
