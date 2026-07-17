@@ -139,6 +139,41 @@ function slugFrom(link) {
   }
 }
 
+/** Pull the Substack image id (a UUID) out of a media URL, if present. */
+function imageKeyFrom(url) {
+  if (!url) return ''
+  const decoded = decodeURIComponent(String(url))
+  const match = decoded.match(/public\/images\/([0-9a-f-]{36})/i)
+  return match ? match[1].toLowerCase() : ''
+}
+
+/**
+ * Substack repeats the lead image: it is both the RSS <enclosure> (rendered as
+ * the article cover) and the first <figure> in the body. When the first figure
+ * is that same image, drop it so it only appears once.
+ */
+function stripLeadingCoverFigure(html, coverKey) {
+  if (!coverKey) return html
+  const figStart = html.indexOf('<figure')
+  if (figStart === -1) return html
+  const closeIdx = html.indexOf('</figure>', figStart)
+  if (closeIdx === -1) return html
+  let stop = closeIdx + '</figure>'.length
+  const block = html.slice(figStart, stop)
+  if (!block.toLowerCase().includes(coverKey)) return html
+  let start = figStart
+  // Swallow a wrapping <div>...</div> that tightly encloses the figure.
+  const divOpen = html.slice(0, figStart).match(/<div\b[^>]*>\s*$/)
+  if (divOpen) {
+    const divClose = html.slice(stop).match(/^\s*<\/div>/)
+    if (divClose) {
+      start = figStart - divOpen[0].length
+      stop += divClose[0].length
+    }
+  }
+  return (html.slice(0, start) + html.slice(stop)).trim()
+}
+
 /** Allowlist sanitizer: keeps Substack's rich structure, drops anything unsafe. */
 function sanitizePostHtml(html) {
   return sanitizeHtml(html, {
@@ -232,7 +267,10 @@ function toPost(item) {
     item.enclosure && typeof item.enclosure === 'object'
       ? item.enclosure['@_url'] || null
       : null
-  const contentHtml = sanitizePostHtml(rawContent)
+  const contentHtml = stripLeadingCoverFigure(
+    sanitizePostHtml(rawContent),
+    imageKeyFrom(cover),
+  )
   return {
     slug,
     title: decodeEntities(textOf(item.title)).trim(),
