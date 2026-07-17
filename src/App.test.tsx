@@ -65,6 +65,8 @@ describe('portfolio routes', () => {
     expect(screen.getByText('AI agent development')).toBeInTheDocument()
     expect(screen.getByText('C++')).toBeInTheDocument()
     expect(screen.getByText('Agent evaluations')).toBeInTheDocument()
+    expect(screen.getByText('Computer architecture')).toBeInTheDocument()
+    expect(screen.getByText('Microprocessor systems')).toBeInTheDocument()
   })
 
   it('marks the current navigation item', () => {

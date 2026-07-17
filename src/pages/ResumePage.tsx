@@ -93,9 +93,8 @@ export function ResumePage() {
             <p>2017–2021 · Graduated cum laude</p>
             <p>Minors in Computer Science, Mathematics, and Spanish</p>
             <p>
-              Selected coursework in neural models and machine learning,
-              real-time embedded computing, computer architecture, database
-              applications, and software design in C/C++.
+              Theory-focused studies spanning computer systems, electronics,
+              embedded computing, and machine learning.
             </p>
             <p>
               Additional recognition includes Dean&apos;s List High Honors, the
