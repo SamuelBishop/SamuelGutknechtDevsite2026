@@ -1346,6 +1346,17 @@ p {
   height: 22px;
   fill: currentColor;
 }
+.company-mark--microsoft svg {
+  width: 23px;
+  height: 23px;
+}
+.company-mark--garmin {
+  color: #007cc3;
+}
+.company-mark--garmin svg {
+  width: 22px;
+  height: 22px;
+}
 .resume-row h3 {
   margin-bottom: 10px;
   font-size: 1.2rem;

@@ -8,18 +8,21 @@ type CompanyMarkProps = {
 function CompanyMark({ company }: CompanyMarkProps) {
   if (company === 'microsoft') {
     return (
-      <span className="company-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24">
-          <path d="M2 2h9v9H2zM13 2h9v9h-9zM2 13h9v9H2zM13 13h9v9h-9z" />
+      <span className="company-mark company-mark--microsoft" aria-hidden="true">
+        <svg viewBox="0 0 23 23">
+          <path fill="#f35325" d="M1 1h10v10H1z" />
+          <path fill="#81bc06" d="M12 1h10v10H12z" />
+          <path fill="#05a6f0" d="M1 12h10v10H1z" />
+          <path fill="#ffba08" d="M12 12h10v10H12z" />
         </svg>
       </span>
     )
   }
 
   return (
-    <span className="company-mark" aria-hidden="true">
-      <svg viewBox="0 0 24 24">
-        <path d="M12 3 2.5 20.5h19L12 3Zm0 6.2 4.1 7.5H7.9L12 9.2Z" />
+    <span className="company-mark company-mark--garmin" aria-hidden="true">
+      <svg viewBox="19.65 8.55 2.8 2.7">
+        <path d="M22.134 11.051h-2.165c-.079 0-.148-.039-.187-.108s-.039-.146 0-.215l1.084-1.874a.21.21 0 0 1 .187-.108.21.21 0 0 1 .187.108l1.084 1.874a.203.203 0 0 1 0 .215.22.22 0 0 1-.19.108z" />
       </svg>
     </span>
   )
