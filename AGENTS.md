@@ -106,7 +106,7 @@ description of this seam.
 - `docs/CONTENT.md` — draft copy; replace TODOs before launch.
 - `docs/SITEMAP.md` — page structure.
 - `docs/BUILD_PLAN.md` — build/roadmap notes.
-- `.skills/` — repo-scoped agent skills (frontend-design, de-ai-copy,
+- `.skills/` — repo-scoped agent skills (cap, frontend-design, de-ai-copy,
   improve-codebase-architecture).
 
 ## Pull requests
