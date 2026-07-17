@@ -91,18 +91,37 @@ export function ResumePage() {
         <p className="eyebrow">Education</p>
         <div className="resume-row">
           <h2 id="education-heading">University of Missouri</h2>
-          <div>
-            <h3>B.S. Electrical and Computer Engineering</h3>
-            <p>2017–2021 · Graduated cum laude</p>
-            <p>Minors in Computer Science, Mathematics, and Spanish</p>
-            <p>
-              Theory-focused studies spanning computer systems, electronics,
-              embedded computing, and machine learning.
-            </p>
-            <p>
-              Additional recognition includes Dean&apos;s List High Honors, the
-              Bright Flight Scholarship, and the MU Excellence Award.
-            </p>
+          <div className="education-details">
+            <div className="education-degree">
+              <h3>Bachelor of Science</h3>
+              <p className="education-major">
+                Electrical and Computer Engineering
+              </p>
+              <p className="education-meta">
+                <span>2017–2021</span>
+                <span>Graduated cum laude</span>
+              </p>
+            </div>
+            <dl className="education-facts">
+              <div>
+                <dt>Minors</dt>
+                <dd>Computer Science, Mathematics, and Spanish</dd>
+              </div>
+              <div>
+                <dt>Technical foundation</dt>
+                <dd>
+                  Theory in computer systems, electronics, embedded computing,
+                  and machine learning
+                </dd>
+              </div>
+              <div>
+                <dt>Recognition</dt>
+                <dd>
+                  Dean&apos;s List High Honors · Bright Flight Scholarship · MU
+                  Excellence Award
+                </dd>
+              </div>
+            </dl>
           </div>
         </div>
       </section>
