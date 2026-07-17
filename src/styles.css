@@ -1209,13 +1209,9 @@ p {
     gap: 34px;
     padding-top: 74px;
   }
-  .hero-portrait {
-    max-width: 260px;
-    justify-self: start;
-  }
   .hero-aside {
     max-width: 260px;
-    justify-self: start;
+    justify-self: center;
   }
   .hero h1,
   .page-intro h1 {
@@ -1257,9 +1253,12 @@ p {
     grid-template-columns: 1fr;
   }
   .footer-inner {
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
     justify-content: center;
+    gap: 18px;
+    padding-block: 40px;
+    text-align: center;
   }
   h1 {
     margin-bottom: 22px;
