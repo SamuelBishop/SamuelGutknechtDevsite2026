@@ -106,7 +106,8 @@ description of this seam.
 - `docs/CONTENT.md` — draft copy; replace TODOs before launch.
 - `docs/SITEMAP.md` — page structure.
 - `docs/BUILD_PLAN.md` — build/roadmap notes.
-- `.skills/` — repo-scoped agent skills (cap, frontend-design, de-ai-copy,
+- `.github/skills/` — GitHub Copilot app skills (`cap`).
+- `.skills/` — additional repo agent guidance (frontend-design, de-ai-copy,
   improve-codebase-architecture).
 
 ## Pull requests

@@ -1,4 +1,0 @@
-interface:
-  display_name: 'Commit and Push Main'
-  short_description: 'Quickly commit and push current changes to main'
-  default_prompt: 'Use $cap to quickly commit the current task changes and push them to origin/main.'

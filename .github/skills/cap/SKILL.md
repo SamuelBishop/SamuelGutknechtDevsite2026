@@ -1,7 +1,6 @@
 ---
 name: cap
 description: Quickly commit and push the current task's changes directly to origin/main. Invoke explicitly with /cap.
-disable-model-invocation: true
 ---
 
 # Commit and Push to Main
