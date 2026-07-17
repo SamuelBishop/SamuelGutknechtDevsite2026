@@ -3,7 +3,12 @@
 @tailwind utilities;
 
 :root {
+  --font-body: 'Inter Variable', Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Lora Variable', Lora, Georgia, 'Times New Roman', serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
   font-family:
+    'Inter Variable',
     Inter,
     ui-sans-serif,
     system-ui,
@@ -32,10 +37,6 @@
   --clay: #0f9d76;
   --line: #d7ddd0;
   --cream: #eaefe4;
-
-  /* Type roles */
-  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 * {
@@ -332,8 +333,8 @@ p {
   grid-template-columns: minmax(0, 1fr) clamp(240px, 26vw, 320px);
   align-items: center;
   gap: clamp(36px, 6vw, 84px);
-  padding-top: clamp(90px, 12vw, 166px);
-  padding-bottom: clamp(92px, 12vw, 150px);
+  padding-top: clamp(80px, 8vw, 96px);
+  padding-bottom: clamp(84px, 10vw, 120px);
 }
 .hero-text,
 .hero-aside {
@@ -588,6 +589,7 @@ p {
 
 .hero h1 {
   max-width: 720px;
+  font-size: clamp(3.2rem, 6.5vw, 5rem);
 }
 .hero-copy {
   max-width: 720px;
@@ -675,30 +677,10 @@ p {
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-.card-heading {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 24px;
-}
-.card-heading h2 {
+.card-content > h2 {
   max-width: 650px;
   margin-bottom: 20px;
   font-size: clamp(1.8rem, 3vw, 2.6rem);
-}
-.status {
-  flex: none;
-  margin-top: 6px;
-  padding: 7px 10px;
-  border: 1px solid #c4d3c6;
-  border-radius: 99px;
-  color: var(--forest);
-  background: var(--forest-light);
-  font-family: var(--font-mono);
-  font-size: 0.64rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
 }
 .card-context {
   max-width: 760px;
@@ -761,27 +743,6 @@ p {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-}
-.card-media {
-  aspect-ratio: 16 / 9;
-  margin-bottom: 26px;
-}
-.card-media {
-  aspect-ratio: 16 / 9;
-  margin-bottom: 26px;
-  transition:
-    border-color 0.25s ease,
-    transform 0.25s ease;
-}
-.work-card:hover .card-media {
-  border-color: var(--clay);
-  transform: translateY(-3px);
-}
-.card-media svg {
-  transition: transform 0.25s ease;
-}
-.work-card:hover .card-media svg {
-  transform: scale(1.08);
 }
 .media-placeholder.portrait {
   aspect-ratio: 4 / 5;
@@ -913,8 +874,12 @@ p {
   gap: 12px;
   margin-top: 22px;
 }
-.about-social .eyebrow {
+.about-social-label {
   margin-bottom: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 1.3;
 }
 
 .social-links {
@@ -1530,10 +1495,6 @@ p {
     align-items: flex-start;
     flex-direction: column;
   }
-  .card-heading {
-    flex-direction: column-reverse;
-    gap: 8px;
-  }
   .contact-callout {
     grid-template-columns: 1fr;
     padding: 34px 28px;
@@ -1586,9 +1547,6 @@ p {
   .card-number {
     padding: 0;
   }
-  .status {
-    align-self: flex-start;
-  }
   .principles-grid {
     grid-template-columns: 1fr;
   }
@@ -1632,7 +1590,7 @@ p {
   .resume-row h2 {
     font-size: 1.6rem;
   }
-  .card-heading h2 {
+  .card-content > h2 {
     font-size: clamp(1.4rem, 6vw, 1.8rem);
   }
   .hero-copy,

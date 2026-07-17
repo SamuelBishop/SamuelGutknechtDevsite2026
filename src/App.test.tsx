@@ -72,6 +72,19 @@ describe('portfolio routes', () => {
     ).toHaveAttribute('download')
   })
 
+  it('presents selected work without repeated placeholder treatments', () => {
+    renderAt('/work')
+    expect(
+      screen.getByRole('heading', {
+        name: /modern rich text editor experience/i,
+      }),
+    ).toBeInTheDocument()
+    expect(screen.queryByText(/project image/i)).not.toBeInTheDocument()
+    expect(
+      screen.queryByText(/case study in progress/i),
+    ).not.toBeInTheDocument()
+  })
+
   it('marks the current navigation item', () => {
     renderAt('/work')
     const currentLinks = screen.getAllByRole('link', { name: 'Work' })

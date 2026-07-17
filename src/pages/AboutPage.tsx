@@ -39,7 +39,6 @@ export function AboutPage() {
         className="prose-section ruled-section"
         aria-labelledby="story-heading"
       >
-        <p className="eyebrow">The work</p>
         <div className="split-copy">
           <div>
             <h2 id="story-heading">Front-end craft, widening outward.</h2>
@@ -48,7 +47,7 @@ export function AboutPage() {
               <figcaption className="media-label">Portrait photo</figcaption>
             </figure>
             <div className="about-social">
-              <p className="eyebrow">Find me around the web</p>
+              <p className="about-social-label">Find me around the web</p>
               <SocialLinks />
             </div>
           </div>
@@ -73,9 +72,7 @@ export function AboutPage() {
           </div>
         </div>
       </section>
-
       <section className="ruled-section" aria-labelledby="principles-heading">
-        <p className="eyebrow">How I work</p>
         <h2 id="principles-heading">A few durable principles.</h2>
         <ol className="principles-grid">
           {principles.map(([title, description]) => (
@@ -93,7 +90,6 @@ export function AboutPage() {
         aria-labelledby="outside-heading"
       >
         <div>
-          <p className="eyebrow">Outside work</p>
           <h2 id="outside-heading">
             Endurance, landscapes, and making things.
           </h2>

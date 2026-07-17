@@ -16,8 +16,8 @@ export function WorkPage() {
         </p>
       </SectionIntro>
       <div className="work-list" aria-label="Selected professional work">
-        {workItems.map((item, index) => (
-          <WorkCard key={item.title} item={item} index={index} />
+        {workItems.map((item) => (
+          <WorkCard key={item.title} item={item} />
         ))}
       </div>
       <p className="confidentiality-note">

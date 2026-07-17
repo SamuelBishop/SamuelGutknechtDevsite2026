@@ -60,7 +60,7 @@ export const routes: RouteEntry[] = [
     path: '/written-works',
     title: 'Written Works | Samuel Gutknecht',
     description:
-      'Essays and ideas by Samuel Gutknecht — on engineering, trail running, and the space between.',
+      'Essays and ideas by Samuel Gutknecht on engineering, trail running, and the space between.',
     element: <WrittenWorksPage />,
     nav: { label: 'Written Works' },
   },
@@ -68,7 +68,7 @@ export const routes: RouteEntry[] = [
     path: '/written-works/:slug',
     title: 'Written Works | Samuel Gutknecht',
     description:
-      'Essays and ideas by Samuel Gutknecht — on engineering, trail running, and the space between.',
+      'Essays and ideas by Samuel Gutknecht on engineering, trail running, and the space between.',
     element: <WrittenWorkPage />,
   },
   {

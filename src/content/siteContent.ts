@@ -4,7 +4,6 @@ export type WorkItem = {
   context: string
   contribution: string
   focusAreas: string[]
-  status: 'draft'
 }
 
 export const workItems: WorkItem[] = [
@@ -21,7 +20,6 @@ export const workItems: WorkItem[] = [
       'TypeScript',
       'Accessibility',
     ],
-    status: 'draft',
   },
   {
     title: 'AI-Powered Service Experiences',
@@ -36,7 +34,6 @@ export const workItems: WorkItem[] = [
       'Enterprise UI',
       'Reliability',
     ],
-    status: 'draft',
   },
   {
     title: 'Conversation Control / Agent Experience',
@@ -46,7 +43,6 @@ export const workItems: WorkItem[] = [
     contribution:
       'Details about the interface complexity and engineering contribution are being reviewed for public presentation.',
     focusAreas: ['Complex state', 'Workflow design', 'React', 'TypeScript'],
-    status: 'draft',
   },
   {
     title: 'Developer, Support, and Reliability Work',
@@ -61,7 +57,6 @@ export const workItems: WorkItem[] = [
       'Observability',
       'Reliability',
     ],
-    status: 'draft',
   },
 ]
 

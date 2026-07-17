@@ -9,8 +9,8 @@ export function WrittenWorksPage() {
       <SectionIntro eyebrow="Written Works" title="Ideas worth writing down.">
         <p>
           Essays and field notes on building software, running long, and the
-          ideas that carry between them — published on Substack and mirrored
-          here in full.
+          ideas that carry between them, published on Substack and mirrored here
+          in full.
         </p>
       </SectionIntro>
 

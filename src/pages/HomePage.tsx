@@ -16,10 +16,8 @@ export function HomePage() {
             own.
           </h1>
           <p className="hero-copy">
-            I’m Samuel, a senior software engineer at Microsoft. Front-end and
-            product engineering are my home base: React, TypeScript, and complex
-            enterprise interfaces. I also work across data, cloud, and AI
-            systems when the work calls for it.
+            I’m Samuel, a senior software engineer at Microsoft building clear
+            product experiences across front end, cloud, and AI.
           </p>
           <div className="hero-actions">
             <Link className="text-link" to="/work">
@@ -72,8 +70,8 @@ export function HomePage() {
           </Link>
         </div>
         <div className="work-list compact">
-          {workItems.slice(0, 2).map((item, index) => (
-            <WorkCard key={item.title} item={item} index={index} />
+          {workItems.slice(0, 2).map((item) => (
+            <WorkCard key={item.title} item={item} />
           ))}
         </div>
       </section>

@@ -39,7 +39,7 @@ export function ContactForm() {
       if (result.success) {
         setStatus('success')
         setFeedback(
-          'Thanks — your message is on its way. I’ll be in touch soon.',
+          'Thanks. Your message is on its way. I’ll be in touch soon.',
         )
         form.reset()
       } else {
