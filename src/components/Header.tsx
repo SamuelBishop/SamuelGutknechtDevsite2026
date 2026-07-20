@@ -29,10 +29,7 @@ export function Header() {
           to="/"
           aria-label="Samuel Gutknecht, home"
         >
-          <span className="monogram" aria-hidden="true">
-            SG
-          </span>
-          <span>Samuel Gutknecht</span>
+          <span className="wordmark">Samuel Gutknecht</span>
         </NavLink>
         <nav className="desktop-nav" aria-label="Primary navigation">
           <NavLinks />

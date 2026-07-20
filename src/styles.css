@@ -142,29 +142,32 @@ main {
 .site-name {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
   font-weight: 680;
   letter-spacing: -0.02em;
   text-decoration: none;
+  color: var(--ink);
 }
 
-.monogram {
-  width: 36px;
-  height: 36px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  color: var(--paper);
-  background: var(--forest);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  transition:
-    transform 0.25s ease,
-    background 0.25s ease;
+.wordmark {
+  position: relative;
+  padding-bottom: 3px;
 }
-.site-name:hover .monogram {
-  transform: rotate(-6deg) scale(1.06);
-  background: var(--clay);
+.wordmark::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--forest);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.25s ease;
+}
+.site-name:hover .wordmark::after,
+.site-name:focus-visible .wordmark::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 .desktop-nav {
@@ -1736,9 +1739,6 @@ p {
 }
 
 @media (max-width: 520px) {
-  .site-name > span:last-child {
-    display: none;
-  }
   .hero {
     grid-template-columns: 1fr;
     gap: 34px;
