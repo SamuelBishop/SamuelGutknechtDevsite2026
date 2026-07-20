@@ -88,6 +88,47 @@ describe('portfolio routes', () => {
     ).not.toBeInTheDocument()
   })
 
+  it('uses real photography across the portfolio story', () => {
+    renderAt('/')
+    expect(
+      screen.getByRole('img', {
+        name: /samuel visiting the microsoft campus/i,
+      }),
+    ).toHaveAttribute('src', '/photos/microsoft-campus.jpg')
+    expect(
+      screen.getByRole('img', { name: /trail running through a field/i }),
+    ).toBeInTheDocument()
+  })
+
+  it('presents the personal story as an accessible carousel', async () => {
+    const user = userEvent.setup()
+    renderAt('/about')
+
+    expect(
+      screen.getByRole('region', { name: /life beyond work/i }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { name: /graduation day/i }),
+    ).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: /show next photo/i }))
+    expect(
+      screen.getByRole('heading', { name: /an engineering foundation/i }),
+    ).toBeInTheDocument()
+  })
+
+  it('features the custom numpad PCB as a real project', () => {
+    renderAt('/projects')
+    expect(
+      screen.getByRole('heading', {
+        name: /hot-swappable numpad, built from the circuit up/i,
+      }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('img', { name: /hot-swappable numpad keyboard pcb/i }),
+    ).toBeInTheDocument()
+  })
+
   it('marks the current navigation item', () => {
     renderAt('/work')
     const currentLinks = screen.getAllByRole('link', { name: 'Work' })

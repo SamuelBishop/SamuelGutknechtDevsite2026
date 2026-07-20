@@ -1,4 +1,3 @@
-import { Wrench } from 'lucide-react'
 import { SectionIntro } from '../components/SectionIntro'
 
 export function ProjectsPage() {
@@ -14,25 +13,30 @@ export function ProjectsPage() {
         </p>
       </SectionIntro>
       <section
-        className="empty-projects"
-        aria-labelledby="projects-status-heading"
+        className="featured-project"
+        aria-labelledby="numpad-project-heading"
       >
-        <div className="empty-icon" aria-hidden="true">
-          <Wrench size={22} />
-        </div>
-        <p className="eyebrow">Workbench status</p>
-        <h2 id="projects-status-heading">
-          The projects are real. The write-ups are catching up.
-        </h2>
-        <p>
-          I’m documenting a small set of side projects with enough context to be
-          useful: why each exists, what I built, and what I learned. They’ll
-          appear here when the details and links are ready to share.
-        </p>
-        <div className="project-categories" aria-label="Future project areas">
-          <span>Software experiments</span>
-          <span>Camper / Tacoma builds</span>
-          <span>Useful little tools</span>
+        <figure className="featured-project-media">
+          <img
+            src="/photos/hotswap-numpad-pcb.jpg"
+            alt="A custom hot-swappable numpad keyboard PCB connected to a laptop"
+          />
+        </figure>
+        <div className="featured-project-copy">
+          <p className="eyebrow">Electronics project</p>
+          <h2 id="numpad-project-heading">
+            A hot-swappable numpad, built from the circuit up.
+          </h2>
+          <p>
+            A hands-on keyboard project that brought circuit design, component
+            layout, assembly, and practical debugging into one working
+            prototype.
+          </p>
+          <div className="project-categories" aria-label="Project focus areas">
+            <span>PCB design</span>
+            <span>Keyboard hardware</span>
+            <span>Prototyping</span>
+          </div>
         </div>
       </section>
     </div>

@@ -12,6 +12,7 @@
     "format:write": "prettier --write .",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "generate:asset": "node scripts/generate-asset.mjs",
     "generate:trail": "node scripts/generate-trail-scenes.mjs",
     "generate:objects": "node scripts/generate-objects.mjs",
     "generate:posts": "node scripts/generate-posts.mjs"

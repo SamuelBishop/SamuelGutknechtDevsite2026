@@ -24,16 +24,17 @@ pnpm dev          # Vite dev server (defaults to http://localhost:5173, next fre
 
 Run these from the repo root. All are defined in `package.json`.
 
-| Task | Command | Notes |
-| --- | --- | --- |
-| Dev server | `pnpm dev` | Hot-reload; open the printed URL. |
-| Type-check | `pnpm typecheck` | `tsc -b`. Must be clean before committing. |
-| Lint | `pnpm lint` | `eslint .`. Must pass. |
-| Format check | `pnpm format` | Prettier in check mode. |
-| Auto-format | `pnpm format:write` | Apply Prettier fixes. |
-| Unit tests | `pnpm test` | `vitest run`. Must be green before committing. |
-| E2E tests | `pnpm test:e2e` | Playwright. Needs a dev/preview server + browsers (`pnpm exec playwright install`). |
-| Production build | `pnpm build` | `tsc -b && vite build`. |
+| Task                 | Command                                                                 | Notes                                                                               |
+| -------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Dev server           | `pnpm dev`                                                              | Hot-reload; open the printed URL.                                                   |
+| Type-check           | `pnpm typecheck`                                                        | `tsc -b`. Must be clean before committing.                                          |
+| Lint                 | `pnpm lint`                                                             | `eslint .`. Must pass.                                                              |
+| Format check         | `pnpm format`                                                           | Prettier in check mode.                                                             |
+| Auto-format          | `pnpm format:write`                                                     | Apply Prettier fixes.                                                               |
+| Unit tests           | `pnpm test`                                                             | `vitest run`. Must be green before committing.                                      |
+| E2E tests            | `pnpm test:e2e`                                                         | Playwright. Needs a dev/preview server + browsers (`pnpm exec playwright install`). |
+| Production build     | `pnpm build`                                                            | `tsc -b && vite build`.                                                             |
+| Generate image asset | `pnpm generate:asset -- --prompt "..." --output public/assets/name.png` | Add repeatable `--reference` paths for image editing.                               |
 
 **Before you commit or open a PR:** `pnpm typecheck`, `pnpm lint`, and `pnpm test`
 must all pass. Add or update tests for code you change, even if not asked.
@@ -55,6 +56,8 @@ src/
   App.test.tsx          Route-level integration tests.
   content/routes.test.ts Manifest integrity tests.
   test/setup.ts         Vitest setup.
+scripts/
+  generate-asset.mjs    OpenAI text-to-image and reference-image generator.
 ```
 
 There are no `hooks/`, `utils/`, or `lib/` folders yet — add them only when a real
@@ -106,7 +109,7 @@ description of this seam.
 - `docs/CONTENT.md` — draft copy; replace TODOs before launch.
 - `docs/SITEMAP.md` — page structure.
 - `docs/BUILD_PLAN.md` — build/roadmap notes.
-- `.github/skills/` — GitHub Copilot app skills (`cap`).
+- `.github/skills/` — GitHub Copilot app skills (`cap`, `generate-asset`).
 - `.skills/` — additional repo agent guidance (frontend-design, de-ai-copy,
   improve-codebase-architecture).
 

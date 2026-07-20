@@ -32,3 +32,18 @@ test('mobile menu is keyboard operable', async ({ page, isMobile }) => {
     page.getByRole('dialog', { name: 'Navigation' }),
   ).not.toBeVisible()
 })
+
+test('personal photo carousel changes stories', async ({ page }) => {
+  await page.goto('/about')
+
+  const carousel = page.getByRole('region', { name: 'Life beyond work' })
+  await expect(carousel.getByRole('img')).toBeVisible()
+  await expect(
+    carousel.getByRole('heading', { name: 'Graduation day' }),
+  ).toBeVisible()
+
+  await carousel.getByRole('button', { name: 'Show next photo' }).click()
+  await expect(
+    carousel.getByRole('heading', { name: 'An engineering foundation' }),
+  ).toBeVisible()
+})

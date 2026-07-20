@@ -1,4 +1,4 @@
-import { User } from 'lucide-react'
+import { PhotoCarousel, type PhotoStoryItem } from '../components/PhotoCarousel'
 import { SectionIntro } from '../components/SectionIntro'
 import { SocialLinks } from '../components/SocialLinks'
 
@@ -19,6 +19,57 @@ const principles = [
     'Stay close to implementation',
     'Good judgment depends on understanding the real tradeoffs.',
   ],
+]
+
+const personalMoments: [PhotoStoryItem, ...PhotoStoryItem[]] = [
+  {
+    src: '/photos/graduation-selfie.jpg',
+    alt: 'Samuel in his graduation cap and gown',
+    title: 'Graduation day',
+    description:
+      'Electrical and computer engineering gave me a practical foundation across software, systems, and electronics.',
+    fit: 'contain',
+  },
+  {
+    src: '/photos/engineering-graduation.jpg',
+    alt: 'Samuel outside the University of Missouri engineering laboratories after graduation',
+    title: 'An engineering foundation',
+    description:
+      'Graduating from the University of Missouri marked the start of a career built around useful systems.',
+    fit: 'contain',
+  },
+  {
+    src: '/photos/microsoft-campus.jpg',
+    alt: 'Samuel visiting the Microsoft campus',
+    title: 'Building at scale',
+    description:
+      'My work at Microsoft has widened from front-end craft into product engineering, cloud systems, and AI.',
+    objectPosition: '50% 54%',
+  },
+  {
+    src: '/photos/sunflower-trail-race.jpg',
+    alt: 'Samuel running a trail race through a sunflower field',
+    title: 'Miles outside',
+    description:
+      'Trail running and ultrarunning keep me close to the landscapes I want to understand and protect.',
+    objectPosition: '50% 52%',
+  },
+  {
+    src: '/photos/coastal-trail-family.jpg',
+    alt: 'Samuel with his wife and their dog on a coastal trail',
+    title: 'My favorite crew',
+    description:
+      'The best days usually include my wife, our dog, and enough trail to make the destination feel earned.',
+    fit: 'contain',
+  },
+  {
+    src: '/photos/hotswap-numpad-pcb.jpg',
+    alt: 'A custom hot-swappable numpad keyboard PCB connected to a laptop',
+    title: 'At the workbench',
+    description:
+      'I like making physical things too, including a hot-swappable numpad PCB built as a hands-on electronics project.',
+    fit: 'contain',
+  },
 ]
 
 export function AboutPage() {
@@ -42,9 +93,12 @@ export function AboutPage() {
         <div className="split-copy">
           <div>
             <h2 id="story-heading">Front-end craft, widening outward.</h2>
-            <figure className="about-portrait media-placeholder portrait">
-              <User size={26} aria-hidden="true" />
-              <figcaption className="media-label">Portrait photo</figcaption>
+            <figure className="about-portrait">
+              <img
+                src="/photos/coastal-trail-family.jpg"
+                alt="Samuel with his wife and their dog on a coastal trail"
+                loading="lazy"
+              />
             </figure>
             <div className="about-social">
               <p className="about-social-label">Find me around the web</p>
@@ -86,20 +140,19 @@ export function AboutPage() {
       </section>
 
       <section
-        className="outside-section ruled-section"
+        className="life-section ruled-section"
         aria-labelledby="outside-heading"
       >
-        <div>
+        <div className="life-section-intro">
           <h2 id="outside-heading">
             Endurance, landscapes, and making things.
           </h2>
+          <p>
+            Running, exploring, and building with my hands keep the rest of life
+            connected to the work.
+          </p>
         </div>
-        <p>
-          Trail running and ultrarunning keep me curious about endurance,
-          landscapes, and incremental progress. I also enjoy mountains, skiing,
-          camper and Tacoma projects, and building side projects for the
-          pleasure of learning how things work.
-        </p>
+        <PhotoCarousel items={personalMoments} label="Life beyond work" />
       </section>
     </div>
   )

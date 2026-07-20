@@ -1,4 +1,4 @@
-import { ArrowRight, User } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { ContactCallout } from '../components/ContactCallout'
 import { SocialLinks } from '../components/SocialLinks'
@@ -29,9 +29,12 @@ export function HomePage() {
           </div>
         </div>
         <div className="hero-aside">
-          <figure className="hero-portrait media-placeholder portrait">
-            <User size={30} aria-hidden="true" />
-            <figcaption className="media-label">Portrait photo</figcaption>
+          <figure className="hero-portrait">
+            <img
+              src="/photos/microsoft-campus.jpg"
+              alt="Samuel visiting the Microsoft campus"
+              fetchPriority="high"
+            />
           </figure>
           <SocialLinks className="hero-social" />
         </div>
@@ -77,18 +80,27 @@ export function HomePage() {
       </section>
 
       <section className="personal-band" data-trail-scene="2">
-        <div className="section-shell personal-copy">
-          <p className="eyebrow">Away from the screen</p>
-          <h2>Usually headed toward higher ground.</h2>
-          <p>
-            I’m usually drawn toward trails, mountains, skiing, or a
-            camper/Tacoma project. Home is life with my wife and dog, plus an
-            ever-changing list of side projects.
-          </p>
-          <Link className="text-link" to="/about">
-            More about life outside work{' '}
-            <ArrowRight aria-hidden="true" size={17} />
-          </Link>
+        <div className="section-shell personal-feature">
+          <div className="personal-copy">
+            <p className="eyebrow">Away from the screen</p>
+            <h2>Usually headed toward higher ground.</h2>
+            <p>
+              I’m usually drawn toward trails, mountains, skiing, or a
+              camper/Tacoma project. Home is life with my wife and dog, plus an
+              ever-changing list of side projects.
+            </p>
+            <Link className="text-link" to="/about">
+              More about life outside work{' '}
+              <ArrowRight aria-hidden="true" size={17} />
+            </Link>
+          </div>
+          <figure className="personal-photo">
+            <img
+              src="/photos/sunflower-trail-race.jpg"
+              alt="Samuel trail running through a field of sunflowers"
+              loading="lazy"
+            />
+          </figure>
         </div>
       </section>
 

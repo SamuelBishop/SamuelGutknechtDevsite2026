@@ -11,14 +11,13 @@ export default defineConfig({
   projects: [
     {
       name: 'desktop',
-      use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+      use: { ...devices['Desktop Chrome'] },
     },
     {
       name: 'mobile',
       use: {
         ...devices['iPhone 13'],
         browserName: 'chromium',
-        channel: 'chrome',
       },
     },
   ],

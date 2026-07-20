@@ -114,7 +114,7 @@ export function ResumePage() {
                 Electrical and Computer Engineering
               </p>
               <p className="education-meta">
-                <span>2017–2021</span>
+                <span>2017-2021</span>
                 <span>Graduated cum laude</span>
               </p>
             </div>
@@ -133,8 +133,8 @@ export function ResumePage() {
               <div>
                 <dt>Recognition</dt>
                 <dd>
-                  Dean&apos;s List High Honors · Bright Flight Scholarship · MU
-                  Excellence Award
+                  Dean&apos;s List High Honors, Bright Flight Scholarship, and
+                  MU Excellence Award
                 </dd>
               </div>
             </dl>
