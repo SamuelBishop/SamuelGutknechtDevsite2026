@@ -81,8 +81,13 @@ describe('portfolio routes', () => {
       }),
     ).toBeInTheDocument()
     expect(screen.getAllByText(/project image forthcoming/i)).toHaveLength(
-      workItems.length,
+      workItems.filter((item) => !item.image).length,
     )
+    expect(
+      screen.getByRole('img', {
+        name: /modern rich text editor with a full formatting toolbar/i,
+      }),
+    ).toBeInTheDocument()
     expect(
       screen.queryByText(/case study in progress/i),
     ).not.toBeInTheDocument()

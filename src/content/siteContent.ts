@@ -4,6 +4,12 @@ export type WorkItem = {
   context: string
   contribution: string
   focusAreas: string[]
+  image?: {
+    src: string
+    alt: string
+    objectPosition?: string
+    fit?: 'cover' | 'contain'
+  }
 }
 
 export const workItems: WorkItem[] = [
@@ -11,15 +17,20 @@ export const workItems: WorkItem[] = [
     title: 'Modern Rich Text Editor Experience',
     kind: 'Front-end',
     context:
-      'A modern editing experience within a complex product environment.',
+      'A modernization of the rich text editing surface for a large model-driven app platform, built on CKEditor 5.',
     contribution:
-      'A case study about front-end architecture, interaction details, and accessibility is being prepared for public sharing.',
+      'The work rested on web fundamentals — semantic HTML, CSS layout, and vanilla JavaScript — beneath a Model–View–Controller renderer that keeps the editing model and the live DOM in sync. Targeted DOM manipulation and lazy-loaded editor plugins keep the toolbar fast, with AI-assisted authoring enabled directly in the editing flow.',
     focusAreas: [
-      'Front-end engineering',
-      'React',
-      'TypeScript',
-      'Accessibility',
+      'CKEditor 5',
+      'MVC rendering',
+      'DOM & performance',
+      'AI-assisted authoring',
     ],
+    image: {
+      src: '/photos/rich-text-editor-demo.png',
+      alt: 'A modern rich text editor with a full formatting toolbar above a document being edited, showing a heading, formatted paragraphs, a bulleted list, and a link.',
+      objectPosition: 'top',
+    },
   },
   {
     title: 'AI-Powered Service Experiences',

@@ -7,9 +7,25 @@ export function WorkCard({ item }: { item: WorkItem }) {
         {item.kind}
       </div>
       <div className="card-content">
-        <div className="work-media-slot" aria-hidden="true">
-          <span>Project image forthcoming</span>
-        </div>
+        {item.image ? (
+          <figure className="work-media-slot has-image">
+            <img
+              src={item.image.src}
+              alt={item.image.alt}
+              loading="lazy"
+              data-fit={item.image.fit ?? 'cover'}
+              style={
+                item.image.objectPosition
+                  ? { objectPosition: item.image.objectPosition }
+                  : undefined
+              }
+            />
+          </figure>
+        ) : (
+          <div className="work-media-slot" aria-hidden="true">
+            <span>Project image forthcoming</span>
+          </div>
+        )}
         <h2>{item.title}</h2>
         <p className="card-context">{item.context}</p>
         <p>{item.contribution}</p>

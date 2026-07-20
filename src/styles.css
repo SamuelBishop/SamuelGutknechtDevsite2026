@@ -707,6 +707,19 @@ p {
   border-radius: 2px;
   background: var(--cream);
 }
+.work-media-slot.has-image {
+  background: var(--paper);
+}
+.work-media-slot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+.work-media-slot img[data-fit='contain'] {
+  object-fit: contain;
+}
 .work-media-slot span {
   position: absolute;
   bottom: 14px;
