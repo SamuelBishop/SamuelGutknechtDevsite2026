@@ -10,9 +10,48 @@ export type WorkItem = {
     objectPosition?: string
     fit?: 'cover' | 'contain'
   }
+  video?: {
+    src: string
+    poster: string
+    title: string
+  }
+  links?: {
+    label: string
+    href: string
+  }[]
 }
 
 export const workItems: WorkItem[] = [
+  {
+    title: 'M365 Copilot, Service Agent',
+    kind: 'AI UX',
+    context:
+      'Service Agent — a declarative agent inside Microsoft 365 Copilot for Dynamics 365 Customer Service, bringing its customer-service workflows into the Copilot surface teams already use.',
+    contribution:
+      "Under the hood it orchestrates MCP tools to understand cases, retrieve knowledge, and take in-app actions, with custom interactive UI surfaces built on OpenAI's Apps SDK. The experience unifies Dynamics 365 and Microsoft 365 data so representatives keep context across Teams, Outlook, and Dynamics.",
+    focusAreas: [
+      'M365 Copilot',
+      'Declarative agents',
+      'MCP tools',
+      'OpenAI Apps SDK',
+    ],
+    video: {
+      src: '/videos/service-agent-launch.mp4',
+      poster: '/videos/service-agent-launch-poster.jpg',
+      title:
+        'Service Agent launch video: customer service inside Microsoft 365 Copilot.',
+    },
+    links: [
+      {
+        label: 'Launch announcement — Rushil Vora',
+        href: 'https://www.linkedin.com/posts/rushilvora_service-work-now-starts-in-microsoft-365-activity-7444848417861914625-W8RD',
+      },
+      {
+        label: 'Customer service integration — Alan Ross',
+        href: 'https://www.linkedin.com/posts/alandross_customer-service-professionals-now-get-the-share-7477786451431084033-N_8-',
+      },
+    ],
+  },
   {
     title: 'Modern Rich Text Editor Experience',
     kind: 'Front-end',
@@ -31,43 +70,6 @@ export const workItems: WorkItem[] = [
       alt: 'A modern rich text editor with a full formatting toolbar above a document being edited, showing a heading, formatted paragraphs, a bulleted list, and a link.',
       objectPosition: 'top',
     },
-  },
-  {
-    title: 'AI-Powered Service Experiences',
-    kind: 'AI UX',
-    context:
-      'AI-assisted experiences intended to help customer-service users work more effectively.',
-    contribution:
-      'A public account of the product and engineering work is in development, with care taken around customer and product confidentiality.',
-    focusAreas: [
-      'Product engineering',
-      'AI UX',
-      'Enterprise UI',
-      'Reliability',
-    ],
-  },
-  {
-    title: 'Conversation Control / Agent Experience',
-    kind: 'Agent UX',
-    context:
-      'Interfaces for managing conversations and agent workflows in a demanding service environment.',
-    contribution:
-      'Details about the interface complexity and engineering contribution are being reviewed for public presentation.',
-    focusAreas: ['Complex state', 'Workflow design', 'React', 'TypeScript'],
-  },
-  {
-    title: 'Developer, Support, and Reliability Work',
-    kind: 'Reliability',
-    context:
-      'Tools and improvements that make complex systems easier to diagnose, support, and operate.',
-    contribution:
-      'A concrete, non-confidential example will be added when it can be represented accurately.',
-    focusAreas: [
-      'Diagnostics',
-      'Maintainability',
-      'Observability',
-      'Reliability',
-    ],
   },
 ]
 

@@ -87,9 +87,9 @@ Selected examples of product and engineering work. These are intentionally conci
 
 <!-- TODO: Confirm the public product name, scope, dates, collaborators, screenshots, and approved outcomes. -->
 
-### AI-Powered Service Experiences
+### M365 Copilot, Service Agent
 
-**Context:** AI-assisted experiences intended to help customer-service users work more effectively.
+**Context:** A declarative agent inside Microsoft 365 Copilot for Dynamics 365 Customer Service, bringing its customer-service workflows into the Copilot surface teams already use.
 
 **Contribution:** Explain how Samuel helped translate emerging AI capabilities into understandable, trustworthy product interactions.
 

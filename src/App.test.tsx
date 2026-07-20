@@ -80,14 +80,34 @@ describe('portfolio routes', () => {
         name: /modern rich text editor experience/i,
       }),
     ).toBeInTheDocument()
-    expect(screen.getAllByText(/project image forthcoming/i)).toHaveLength(
-      workItems.filter((item) => !item.image).length,
+    expect(screen.queryAllByText(/project image forthcoming/i)).toHaveLength(
+      workItems.filter((item) => !item.image && !item.video).length,
     )
     expect(
       screen.getByRole('img', {
         name: /modern rich text editor with a full formatting toolbar/i,
       }),
     ).toBeInTheDocument()
+    const serviceVideo = document.querySelector('.has-video video')
+    expect(serviceVideo).not.toBeNull()
+    expect(serviceVideo).toHaveAttribute(
+      'src',
+      '/videos/service-agent-launch.mp4',
+    )
+    expect(
+      screen.getByRole('link', { name: /launch announcement — rushil vora/i }),
+    ).toHaveAttribute(
+      'href',
+      expect.stringContaining('linkedin.com/posts/rushilvora'),
+    )
+    expect(
+      screen.getByRole('link', {
+        name: /customer service integration — alan ross/i,
+      }),
+    ).toHaveAttribute(
+      'href',
+      expect.stringContaining('linkedin.com/posts/alandross'),
+    )
     expect(
       screen.queryByText(/case study in progress/i),
     ).not.toBeInTheDocument()

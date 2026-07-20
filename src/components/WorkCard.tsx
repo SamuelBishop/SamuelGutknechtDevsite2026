@@ -7,7 +7,18 @@ export function WorkCard({ item }: { item: WorkItem }) {
         {item.kind}
       </div>
       <div className="card-content">
-        {item.image ? (
+        {item.video ? (
+          <figure className="work-media-slot has-video">
+            <video
+              src={item.video.src}
+              poster={item.video.poster}
+              controls
+              preload="none"
+              playsInline
+              aria-label={item.video.title}
+            />
+          </figure>
+        ) : item.image ? (
           <figure className="work-media-slot has-image">
             <img
               src={item.image.src}
@@ -34,6 +45,17 @@ export function WorkCard({ item }: { item: WorkItem }) {
             <li key={area}>{area}</li>
           ))}
         </ul>
+        {item.links ? (
+          <ul className="card-links" aria-label="References">
+            {item.links.map((link) => (
+              <li key={link.href}>
+                <a href={link.href} target="_blank" rel="noopener noreferrer">
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </div>
     </article>
   )
