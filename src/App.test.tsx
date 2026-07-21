@@ -137,6 +137,18 @@ describe('portfolio routes', () => {
     ).toBeInTheDocument()
   })
 
+  it('shows selected work as a carousel that links into the Work page', () => {
+    renderAt('/')
+    const firstItem = workItems[0]
+    const slide = screen.getByRole('link', {
+      name: new RegExp(`${escapeRegExp(firstItem.title)} — view in Work`),
+    })
+    expect(slide).toHaveAttribute('href', '/work')
+    expect(
+      screen.getByRole('button', { name: /show next work/i }),
+    ).toBeInTheDocument()
+  })
+
   it('presents the personal story as an accessible carousel', async () => {
     const user = userEvent.setup()
     renderAt('/about')

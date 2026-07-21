@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { ConsistencyBand } from '../components/ConsistencyBand'
 import { ContactCallout } from '../components/ContactCallout'
 import { SocialLinks } from '../components/SocialLinks'
-import { WorkCard } from '../components/WorkCard'
+import { WorkCarousel } from '../components/WorkCarousel'
 import { workItems } from '../content/siteContent'
 
 export function HomePage() {
@@ -41,6 +41,8 @@ export function HomePage() {
         </div>
       </section>
 
+      <ConsistencyBand />
+
       <section
         className="current-focus section-shell ruled-section"
         aria-labelledby="focus-heading"
@@ -73,11 +75,7 @@ export function HomePage() {
             See all work <ArrowRight aria-hidden="true" size={17} />
           </Link>
         </div>
-        <div className="work-list compact">
-          {workItems.slice(0, 2).map((item) => (
-            <WorkCard key={item.title} item={item} />
-          ))}
-        </div>
+        <WorkCarousel items={workItems} label="Selected work" />
       </section>
 
       <section className="personal-band" data-trail-scene="2">
@@ -104,8 +102,6 @@ export function HomePage() {
           </figure>
         </div>
       </section>
-
-      <ConsistencyBand />
 
       <div className="section-shell callout-wrap" data-trail-scene="5">
         <ContactCallout />
