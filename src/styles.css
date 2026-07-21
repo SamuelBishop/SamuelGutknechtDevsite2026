@@ -295,7 +295,7 @@ h1 {
   margin-bottom: 30px;
   font-family: var(--font-display);
   font-optical-sizing: auto;
-  font-size: clamp(3.2rem, 7.2vw, 5.5rem);
+  font-size: clamp(3.2rem, 7.2vw, 4.5rem);
   font-weight: 400;
   line-height: 0.98;
   letter-spacing: -0.055em;
@@ -304,7 +304,7 @@ h2 {
   margin-bottom: 20px;
   font-family: var(--font-display);
   font-optical-sizing: auto;
-  font-size: clamp(2rem, 3.7vw, 3rem);
+  font-size: clamp(2rem, 3.7vw, 2.55rem);
   font-weight: 400;
   line-height: 1.07;
   letter-spacing: -0.035em;
@@ -333,11 +333,11 @@ p {
 .hero {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(320px, 34vw, 400px);
+  grid-template-columns: minmax(0, 1fr) clamp(320px, 34vw, 360px);
   align-items: center;
   gap: clamp(36px, 6vw, 84px);
-  padding-top: clamp(80px, 8vw, 96px);
-  padding-bottom: clamp(84px, 10vw, 120px);
+  padding-top: clamp(80px, 8vw, 84px);
+  padding-bottom: clamp(84px, 10vw, 100px);
 }
 .hero-text,
 .hero-aside {
@@ -605,12 +605,12 @@ p {
 
 .hero h1 {
   max-width: 720px;
-  font-size: clamp(3.2rem, 6.5vw, 5rem);
+  font-size: clamp(3.2rem, 6.5vw, 4.2rem);
 }
 .hero-copy {
   max-width: 720px;
   margin-bottom: 35px;
-  font-size: clamp(1.08rem, 1.5vw, 1.3rem);
+  font-size: clamp(1.08rem, 1.5vw, 1.18rem);
   line-height: 1.7;
 }
 .hero-actions {
@@ -641,13 +641,13 @@ p {
 }
 
 .ruled-section {
-  padding-block: clamp(72px, 9vw, 116px);
+  padding-block: clamp(72px, 9vw, 96px);
   border-top: 1px solid var(--line);
 }
 .split-copy {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: clamp(50px, 9vw, 132px);
+  gap: clamp(50px, 9vw, 100px);
   align-items: start;
 }
 .split-copy h2,
@@ -696,7 +696,7 @@ p {
 .card-content > h2 {
   max-width: 650px;
   margin-bottom: 20px;
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-size: clamp(1.8rem, 3vw, 2.25rem);
 }
 .work-media-slot {
   position: relative;
@@ -857,13 +857,13 @@ p {
    dark fill and returns to the default dark-on-light text; the paper veil keeps
    the left-aligned copy readable over the artwork. */
 .personal-band {
-  padding-block: clamp(72px, 9vw, 116px);
+  padding-block: clamp(72px, 9vw, 96px);
   border-top: 1px solid var(--line);
 }
 .personal-feature {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 460px);
-  gap: clamp(42px, 8vw, 96px);
+  gap: clamp(42px, 8vw, 80px);
   align-items: center;
 }
 .personal-copy {
@@ -897,12 +897,12 @@ p {
   object-position: center;
 }
 .callout-wrap {
-  padding-block: clamp(85px, 10vw, 128px);
+  padding-block: clamp(85px, 10vw, 104px);
 }
 
 /* Consistency band: GitHub + Strava contribution heatmaps */
 .activity-band {
-  padding-block: clamp(72px, 9vw, 116px);
+  padding-block: clamp(72px, 9vw, 96px);
   border-top: 1px solid var(--line);
 }
 .activity-intro {
@@ -1202,21 +1202,21 @@ p {
 }
 
 .page-stack {
-  padding-top: clamp(80px, 10vw, 130px);
-  padding-bottom: clamp(90px, 11vw, 140px);
+  padding-top: clamp(80px, 10vw, 108px);
+  padding-bottom: clamp(90px, 11vw, 116px);
 }
 .page-intro {
-  padding-bottom: clamp(80px, 10vw, 130px);
+  padding-bottom: clamp(80px, 10vw, 108px);
 }
 .page-intro h1 {
   max-width: 900px;
-  font-size: clamp(3.1rem, 6.5vw, 5.2rem);
+  font-size: clamp(3.1rem, 6.5vw, 4.4rem);
 }
 .intro-copy {
   max-width: 690px;
 }
 .intro-copy p {
-  font-size: 1.18rem;
+  font-size: 1.1rem;
 }
 .prose-column p {
   margin-bottom: 24px;
@@ -1283,7 +1283,7 @@ p {
 .photo-carousel-slide {
   display: grid;
   grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.65fr);
-  gap: clamp(28px, 6vw, 72px);
+  gap: clamp(28px, 6vw, 60px);
   align-items: end;
   margin: 0;
 }
@@ -1329,7 +1329,7 @@ p {
 .photo-carousel-caption h3 {
   margin-bottom: 12px;
   font-family: var(--font-display);
-  font-size: clamp(1.65rem, 3vw, 2.35rem);
+  font-size: clamp(1.65rem, 3vw, 2.05rem);
   font-weight: 400;
   letter-spacing: -0.025em;
 }
@@ -1429,7 +1429,7 @@ p {
 .work-carousel-caption h3 {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  font-size: clamp(1.5rem, 2.6vw, 1.9rem);
   font-weight: 400;
   letter-spacing: -0.025em;
 }
@@ -1526,7 +1526,7 @@ p {
 .featured-project {
   display: grid;
   grid-template-columns: minmax(280px, 0.7fr) minmax(0, 1.3fr);
-  gap: clamp(34px, 7vw, 84px);
+  gap: clamp(34px, 7vw, 72px);
   align-items: center;
 }
 .featured-project-media {
@@ -1706,7 +1706,7 @@ p {
 .post-article-head h1 {
   max-width: 760px;
   margin: 4px 0 0;
-  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-size: clamp(2.4rem, 5vw, 3.1rem);
   line-height: 1.04;
 }
 .post-article-head .post-meta {
@@ -1874,7 +1874,7 @@ p {
 .resume-row {
   display: grid;
   grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.3fr);
-  gap: clamp(45px, 10vw, 140px);
+  gap: clamp(45px, 10vw, 108px);
 }
 .resume-section .resume-row + .resume-row {
   margin-top: 44px;
@@ -1996,7 +1996,7 @@ p {
   line-height: 1.55;
 }
 .not-found {
-  padding-block: clamp(120px, 16vw, 220px);
+  padding-block: clamp(120px, 16vw, 160px);
 }
 .not-found h1 {
   max-width: 800px;
