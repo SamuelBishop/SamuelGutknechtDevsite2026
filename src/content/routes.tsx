@@ -47,14 +47,14 @@ export const routes: RouteEntry[] = [
     title: 'Professional Work | Samuel Gutknecht',
     description: 'Selected product and engineering work from Samuel Gutknecht.',
     element: <WorkPage />,
-    nav: { label: 'Professional Work' },
+    nav: { label: 'Career' },
   },
   {
     path: '/projects',
     title: 'Personal Projects | Samuel Gutknecht',
     description: 'Side projects and practical experiments by Samuel Gutknecht.',
     element: <ProjectsPage />,
-    nav: { label: 'Personal Projects' },
+    nav: { label: 'Projects' },
   },
   {
     path: '/written-works',

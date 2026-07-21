@@ -196,9 +196,7 @@ describe('portfolio routes', () => {
 
   it('marks the current navigation item', () => {
     renderAt('/work')
-    const currentLinks = screen.getAllByRole('link', {
-      name: 'Professional Work',
-    })
+    const currentLinks = screen.getAllByRole('link', { name: 'Career' })
     expect(currentLinks.some((link) => link.classList.contains('active'))).toBe(
       true,
     )
