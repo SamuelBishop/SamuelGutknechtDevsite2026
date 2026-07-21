@@ -996,8 +996,8 @@ p {
   gap: 3px;
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.03em;
+  font-size: 0.55rem;
+  letter-spacing: 0;
 }
 .activity-month {
   flex: 1 1 0;
