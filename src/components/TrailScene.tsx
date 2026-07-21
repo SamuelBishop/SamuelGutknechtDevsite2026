@@ -392,6 +392,7 @@ function sampleByT(
 
 export function TrailScene() {
   const wrapRef = useRef<HTMLDivElement>(null)
+  const stageRef = useRef<HTMLDivElement>(null)
   const runnerRef = useRef<HTMLDivElement>(null)
   const objRef = useRef<HTMLImageElement>(null)
   /* Remember which object is mounted so we only swap the <img> when the active
@@ -421,15 +422,20 @@ export function TrailScene() {
      positioned trail-scene layer. */
   useEffect(() => {
     const wrap = wrapRef.current
+    const stage = stageRef.current
     const frame = wrap?.parentElement
-    if (!wrap || !frame) return
+    if (!wrap || !stage || !frame) return
 
     let raf = 0
     const measure = () => {
       cancelAnimationFrame(raf)
       raf = requestAnimationFrame(() => {
         const aspect = isPortrait ? SCENE_ASPECT_PORTRAIT : SCENE_ASPECT
-        const sceneHpx = Math.round(wrap.clientWidth * aspect)
+        /* Measure the centered stage, whose width is capped by CSS max-width so
+           the art (and every value derived from it: band height, section
+           min-height, object x) stops growing past the stage cap on large
+           monitors. */
+        const sceneHpx = Math.round(stage.clientWidth * aspect)
         const bandHpx = Math.round(sceneHpx * VISIBLE_FRAC)
         /* Guarantee each mapped section is at least as tall as its band, so the
            band (centered on the section) is fully contained and neighbouring
@@ -492,14 +498,23 @@ export function TrailScene() {
   useEffect(() => {
     const runner = runnerRef.current
     const wrap = wrapRef.current
+    const stage = stageRef.current
     const obj = objRef.current
-    if (!runner || !wrap || !obj || bands.length === 0 || sceneH === 0) return
+    if (
+      !runner ||
+      !wrap ||
+      !stage ||
+      !obj ||
+      bands.length === 0 ||
+      sceneH === 0
+    )
+      return
 
     const frame = wrap.parentElement
     if (!frame) return
 
     const bandEls = Array.from(
-      wrap.querySelectorAll<HTMLElement>('.trail-band'),
+      stage.querySelectorAll<HTMLElement>('.trail-band'),
     )
     const bandH = Math.round(sceneH * VISIBLE_FRAC)
     const arcPaths = isPortrait ? ARC_PATHS_PORTRAIT : ARC_PATHS
@@ -543,7 +558,7 @@ export function TrailScene() {
       staticP?: number,
     ) => {
       const vh = window.innerHeight
-      const width = wrap.clientWidth
+      const width = stage.clientWidth
       const frameTop = frame.getBoundingClientRect().top + realScroll
       const centerVp = FOCUS * vh
 
@@ -673,39 +688,41 @@ export function TrailScene() {
 
   return (
     <div className="trail-scene" ref={wrapRef} aria-hidden="true">
-      {bands.map((b, i) => (
-        <div
-          key={`band-${i}`}
-          className="trail-band"
-          style={
-            bandH
-              ? {
-                  top: `${(b.top + (b.height - bandH) / 2).toFixed(1)}px`,
-                  height: `${bandH}px`,
-                }
-              : undefined
-          }
-        >
-          <img
-            className="trail-band-img"
-            src={`/trail/scene-0${b.scene}${isPortrait ? '-portrait' : ''}.jpg`}
-            alt=""
-            loading="eager"
-            decoding="async"
-            style={sceneH ? { height: `${sceneH}px` } : undefined}
-          />
-          <span className="trail-band-veil" />
-        </div>
-      ))}
+      <div className="trail-stage" ref={stageRef}>
+        {bands.map((b, i) => (
+          <div
+            key={`band-${i}`}
+            className="trail-band"
+            style={
+              bandH
+                ? {
+                    top: `${(b.top + (b.height - bandH) / 2).toFixed(1)}px`,
+                    height: `${bandH}px`,
+                  }
+                : undefined
+            }
+          >
+            <img
+              className="trail-band-img"
+              src={`/trail/scene-0${b.scene}${isPortrait ? '-portrait' : ''}.jpg`}
+              alt=""
+              loading="eager"
+              decoding="async"
+              style={sceneH ? { height: `${sceneH}px` } : undefined}
+            />
+            <span className="trail-band-veil" />
+          </div>
+        ))}
 
-      <div className="trail-runner is-cursor" ref={runnerRef}>
-        <img
-          className="trail-obj"
-          ref={objRef}
-          src="/trail/obj-cursor.png"
-          alt=""
-          decoding="async"
-        />
+        <div className="trail-runner is-cursor" ref={runnerRef}>
+          <img
+            className="trail-obj"
+            ref={objRef}
+            src="/trail/obj-cursor.png"
+            alt=""
+            decoding="async"
+          />
+        </div>
       </div>
     </div>
   )

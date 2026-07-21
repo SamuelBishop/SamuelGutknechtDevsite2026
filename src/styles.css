@@ -37,6 +37,13 @@
   --clay: #0f9d76;
   --line: #d7ddd0;
   --cream: #eaefe4;
+
+  /* Max width the Home trail-scene art anchors to. Past this, the full-bleed
+     art stops growing and centers with paper margins, so band height (and each
+     section's min-height) stops ballooning on large monitors. Downscaled from
+     the 1536px native raster, so it stays crisp. Tunable — if you change it,
+     update the `min-width` on the .trail-stage edge-fade media query to match. */
+  --trail-stage-max: 1280px;
 }
 
 * {
@@ -388,6 +395,48 @@ p {
   z-index: 0;
   pointer-events: none;
   overflow: clip;
+}
+/* Centered stage the art is measured against. Its width is capped at
+   --trail-stage-max, so on monitors wider than that the scene anchors to a fixed
+   size (with paper margins) instead of scaling up and forcing ever-taller
+   sections. The bands + travelling object live inside it, so all geometry stays
+   aligned to the art. */
+.trail-stage {
+  position: absolute;
+  inset: 0;
+  max-width: var(--trail-stage-max);
+  margin-inline: auto;
+}
+/* Once the stage is capped and paper margins appear (viewports wider than the
+   cap), dissolve the art's left/right edges into the paper so it reads as a
+   deliberate centered canvas rather than a hard-edged box. A wide, eased
+   multi-stop ramp keeps the transition soft and gradual. Below the cap there are
+   no margins and no mask, so narrow/mid desktop is unchanged. */
+@media (min-width: 1281px) {
+  .trail-stage {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      rgba(0, 0, 0, 0.12) 64px,
+      rgba(0, 0, 0, 0.55) 140px,
+      #000 216px,
+      #000 calc(100% - 216px),
+      rgba(0, 0, 0, 0.55) calc(100% - 140px),
+      rgba(0, 0, 0, 0.12) calc(100% - 64px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      rgba(0, 0, 0, 0.12) 64px,
+      rgba(0, 0, 0, 0.55) 140px,
+      #000 216px,
+      #000 calc(100% - 216px),
+      rgba(0, 0, 0, 0.55) calc(100% - 140px),
+      rgba(0, 0, 0, 0.12) calc(100% - 64px),
+      transparent 100%
+    );
+  }
 }
 /* Each mapped Home section is held to at least its band's height (set from JS as
    --trail-band-h). This makes short sections grow to fit their background scene,
