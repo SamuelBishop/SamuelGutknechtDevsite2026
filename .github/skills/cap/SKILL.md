@@ -15,6 +15,9 @@ them directly to `origin/main` with minimal overhead.
 - Never commit secrets or files unrelated to the current task.
 - Do not run tests, lint, type-checks, builds, fetches, or ancestry checks unless
   the user explicitly asks for them.
+- Never deploy, release, or publish (e.g. `vercel deploy`). Committing and pushing
+  is where this skill ends — production deploys are a separate, explicit step via
+  the `/deploy` skill. A push to `main` does not require a prod redeploy.
 
 ## Process
 
