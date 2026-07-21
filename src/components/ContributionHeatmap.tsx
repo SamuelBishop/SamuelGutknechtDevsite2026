@@ -46,18 +46,29 @@ function formatDate(iso: string): string {
   })
 }
 
-/** A month abbreviation per week column, blank unless the month changes. */
+/** A month abbreviation per week column, blank unless the month changes.
+ *  Two guards keep adjacent month names (e.g. Jul/Aug at a boundary) from
+ *  overlapping: the leading column is only labeled when the window actually
+ *  starts near the month's beginning (otherwise it's a trailing sliver we skip
+ *  in favor of the first full month), and any label closer than MIN_LABEL_GAP
+ *  columns to the previous one is suppressed. */
 function monthLabels(weeks: (ActivityDay | null)[][]): string[] {
+  const MIN_LABEL_GAP = 3
   let lastMonth = -1
-  return weeks.map((week) => {
+  let lastLabeledIndex = -Infinity
+  return weeks.map((week, index) => {
     const firstDay = week.find((day): day is ActivityDay => day !== null)
     if (!firstDay) return ''
-    const month = new Date(`${firstDay.date}T00:00:00.000Z`).getUTCMonth()
-    if (month !== lastMonth) {
-      lastMonth = month
-      return MONTHS[month]
-    }
-    return ''
+    const date = new Date(`${firstDay.date}T00:00:00.000Z`)
+    const month = date.getUTCMonth()
+    if (month === lastMonth) return ''
+    lastMonth = month
+    // Skip a partial leading month (a trailing sliver) so the first full month
+    // becomes the first label instead of crowding it.
+    if (index === 0 && date.getUTCDate() > 7) return ''
+    if (index - lastLabeledIndex < MIN_LABEL_GAP) return ''
+    lastLabeledIndex = index
+    return MONTHS[month]
   })
 }
 
