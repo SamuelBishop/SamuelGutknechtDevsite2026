@@ -85,16 +85,32 @@ export type SocialLink = {
 }
 
 export const socialLinks: SocialLink[] = [
-  { platform: 'github', label: 'GitHub', href: '#' },
-  { platform: 'linkedin', label: 'LinkedIn', href: '#' },
-  { platform: 'instagram', label: 'Instagram', href: '#' },
+  {
+    platform: 'github',
+    label: 'GitHub',
+    href: 'https://github.com/SamuelBishop',
+  },
+  {
+    platform: 'linkedin',
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/samuel-bishop-938212171/',
+  },
+  {
+    platform: 'instagram',
+    label: 'Instagram',
+    href: 'https://www.instagram.com/sgutknecht15/',
+  },
   {
     platform: 'substack',
     label: 'Substack',
     href: 'https://samgutknecht.substack.com',
   },
-  { platform: 'strava', label: 'Strava', href: '#' },
-  { platform: 'email', label: 'Email', href: 'mailto:hello@example.com' },
+  {
+    platform: 'strava',
+    label: 'Strava',
+    href: 'https://www.strava.com/athletes/23012268',
+  },
+  { platform: 'email', label: 'Email', href: 'mailto:samgutknecht@gmail.com' },
 ]
 
 export const skills = [

@@ -1,5 +1,6 @@
 import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { ConsistencyBand } from '../components/ConsistencyBand'
 import { ContactCallout } from '../components/ContactCallout'
 import { SocialLinks } from '../components/SocialLinks'
 import { WorkCard } from '../components/WorkCard'
@@ -103,6 +104,8 @@ export function HomePage() {
           </figure>
         </div>
       </section>
+
+      <ConsistencyBand />
 
       <div className="section-shell callout-wrap" data-trail-scene="5">
         <ContactCallout />

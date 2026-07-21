@@ -1,0 +1,62 @@
+name: Refresh Activity Heatmaps
+
+# Rebuilds the GitHub + Strava contribution heatmaps
+# (src/content/github-activity.generated.json and strava-activity.generated.json)
+# once a day (and on demand) so the "Consistency & commitment" band stays current.
+# When either JSON changes it is committed to main, which triggers a redeploy.
+#
+# GitHub data needs no secret (public contributions endpoint). Strava needs the
+# three STRAVA_* repository secrets; without them the Strava snapshot is left as-is.
+
+on:
+  schedule:
+    - cron: '30 9 * * *' # daily at 09:30 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-activity-heatmaps
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Regenerate activity heatmaps
+        env:
+          # Optional: set a GITHUB_USERNAME repository variable to override the
+          # default. Falls back to the script default when unset.
+          GITHUB_USERNAME: ${{ vars.GITHUB_USERNAME }}
+          STRAVA_CLIENT_ID: ${{ secrets.STRAVA_CLIENT_ID }}
+          STRAVA_CLIENT_SECRET: ${{ secrets.STRAVA_CLIENT_SECRET }}
+          STRAVA_REFRESH_TOKEN: ${{ secrets.STRAVA_REFRESH_TOKEN }}
+        run: pnpm generate:activity
+
+      - name: Commit changes
+        run: |
+          if [[ -n "$(git status --porcelain src/content/github-activity.generated.json src/content/strava-activity.generated.json)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add src/content/github-activity.generated.json src/content/strava-activity.generated.json
+            git commit -m "chore: refresh activity heatmaps"
+            git push
+          else
+            echo "No activity changes to commit."
+          fi

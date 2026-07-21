@@ -125,6 +125,18 @@ describe('portfolio routes', () => {
     ).toBeInTheDocument()
   })
 
+  it('surfaces the consistency band with a GitHub contribution heatmap', () => {
+    renderAt('/')
+    expect(
+      screen.getByRole('heading', {
+        name: /showing up, on the keyboard and the trail/i,
+      }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('img', { name: /GitHub activity heatmap/i }),
+    ).toBeInTheDocument()
+  })
+
   it('presents the personal story as an accessible carousel', async () => {
     const user = userEvent.setup()
     renderAt('/about')
