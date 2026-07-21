@@ -16,10 +16,7 @@ export function ConsistencyBand() {
         <div className="activity-intro">
           <p className="eyebrow">Receipts</p>
           <h2 id="consistency-heading">Green Squares. Both Kinds.</h2>
-          <p>
-            Nothing here happened quickly, and that’s kind of the point. Running
-            an experiment to see what happens if I keep showing up.
-          </p>
+          <p>Nothing here happened quickly, and that’s kind of the point.</p>
         </div>
         <div className="activity-grid-wrap">
           <ContributionHeatmap
