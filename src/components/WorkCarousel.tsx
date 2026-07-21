@@ -3,11 +3,17 @@ import { useState, type KeyboardEvent } from 'react'
 import { Link } from 'react-router-dom'
 import type { WorkItem } from '../content/siteContent'
 
+// A carousel slide pairs a work/project item with the page it links to and the
+// call-to-action shown on its slide.
+export type CarouselSlide = {
+  item: WorkItem
+  to: string
+  cta: string
+}
+
 type WorkCarouselProps = {
-  items: readonly WorkItem[]
+  slides: readonly CarouselSlide[]
   label: string
-  // Destination every slide links to (defaults to the Work page).
-  to?: string
 }
 
 type SlideImage = {
@@ -33,17 +39,14 @@ function slideImage(item: WorkItem): SlideImage | null {
   return null
 }
 
-export function WorkCarousel({
-  items,
-  label,
-  to = '/work',
-}: WorkCarouselProps) {
+export function WorkCarousel({ slides, label }: WorkCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0)
 
-  if (items.length === 0) return null
+  if (slides.length === 0) return null
 
-  const count = items.length
-  const activeItem = items[activeIndex]
+  const count = slides.length
+  const activeSlide = slides[activeIndex]
+  const activeItem = activeSlide.item
   const image = slideImage(activeItem)
 
   function move(direction: -1 | 1) {
@@ -72,8 +75,8 @@ export function WorkCarousel({
     >
       <Link
         className="work-carousel-slide"
-        to={to}
-        aria-label={`${activeItem.title} — view in Work`}
+        to={activeSlide.to}
+        aria-label={`${activeItem.title} — ${activeSlide.cta}`}
       >
         <div className="work-carousel-frame" data-fit={image?.fit ?? 'cover'}>
           {image ? (
@@ -99,7 +102,7 @@ export function WorkCarousel({
           <h3>{activeItem.title}</h3>
           <p className="work-carousel-summary">{activeItem.context}</p>
           <span className="work-carousel-cue">
-            View in Work <ArrowRight aria-hidden="true" size={16} />
+            {activeSlide.cta} <ArrowRight aria-hidden="true" size={16} />
           </span>
         </div>
       </Link>
@@ -107,13 +110,13 @@ export function WorkCarousel({
       {count > 1 ? (
         <div className="work-carousel-footer">
           <div className="work-carousel-dots">
-            {items.map((item, index) => (
+            {slides.map((slide, index) => (
               <button
-                key={item.title}
+                key={slide.item.title}
                 type="button"
                 className="work-carousel-dot"
                 data-active={index === activeIndex}
-                aria-label={`Show ${item.title}`}
+                aria-label={`Show ${slide.item.title}`}
                 aria-current={index === activeIndex}
                 onClick={() => setActiveIndex(index)}
               />

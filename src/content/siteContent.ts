@@ -73,6 +73,24 @@ export const workItems: WorkItem[] = [
   },
 ]
 
+// Personal projects: side builds and experiments, shaped like WorkItem so they
+// can share the carousel and the Personal Projects page.
+export const projectItems: WorkItem[] = [
+  {
+    title: 'A hot-swappable numpad, built from the circuit up.',
+    kind: 'Electronics project',
+    context:
+      'A hands-on keyboard project that brought circuit design, component layout, assembly, and practical debugging into one working prototype.',
+    contribution:
+      'Designing the PCB, laying out components, hand-assembling the board, and debugging it into a numpad I actually use — a full pass from schematic to working hardware.',
+    focusAreas: ['PCB design', 'Keyboard hardware', 'Prototyping'],
+    image: {
+      src: '/photos/hotswap-numpad-pcb.jpg',
+      alt: 'A custom hot-swappable numpad keyboard PCB connected to a laptop',
+    },
+  },
+]
+
 export type SocialPlatform =
   'github' | 'linkedin' | 'instagram' | 'substack' | 'strava' | 'email'
 

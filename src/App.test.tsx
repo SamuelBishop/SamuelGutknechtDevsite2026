@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it } from 'vitest'
 import App from './App'
 import { posts } from './content/posts'
-import { workItems } from './content/siteContent'
+import { projectItems, workItems } from './content/siteContent'
 
 function renderAt(route: string) {
   return render(
@@ -141,12 +141,28 @@ describe('portfolio routes', () => {
     renderAt('/')
     const firstItem = workItems[0]
     const slide = screen.getByRole('link', {
-      name: new RegExp(`${escapeRegExp(firstItem.title)} — view in Work`),
+      name: new RegExp(
+        `${escapeRegExp(firstItem.title)} — View in Professional Work`,
+      ),
     })
     expect(slide).toHaveAttribute('href', '/work')
     expect(
       screen.getByRole('button', { name: /show next work/i }),
     ).toBeInTheDocument()
+  })
+
+  it('includes personal projects in the home carousel linking to Personal Projects', async () => {
+    const user = userEvent.setup()
+    renderAt('/')
+    const project = projectItems[0]
+    const dot = screen.getByRole('button', { name: `Show ${project.title}` })
+    await user.click(dot)
+    const slide = screen.getByRole('link', {
+      name: new RegExp(
+        `${escapeRegExp(project.title)} — View in Personal Projects`,
+      ),
+    })
+    expect(slide).toHaveAttribute('href', '/projects')
   })
 
   it('presents the personal story as an accessible carousel', async () => {
@@ -180,7 +196,9 @@ describe('portfolio routes', () => {
 
   it('marks the current navigation item', () => {
     renderAt('/work')
-    const currentLinks = screen.getAllByRole('link', { name: 'Work' })
+    const currentLinks = screen.getAllByRole('link', {
+      name: 'Professional Work',
+    })
     expect(currentLinks.some((link) => link.classList.contains('active'))).toBe(
       true,
     )

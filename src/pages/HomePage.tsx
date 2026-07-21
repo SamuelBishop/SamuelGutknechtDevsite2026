@@ -3,8 +3,22 @@ import { Link } from 'react-router-dom'
 import { ConsistencyBand } from '../components/ConsistencyBand'
 import { ContactCallout } from '../components/ContactCallout'
 import { SocialLinks } from '../components/SocialLinks'
-import { WorkCarousel } from '../components/WorkCarousel'
-import { workItems } from '../content/siteContent'
+import { WorkCarousel, type CarouselSlide } from '../components/WorkCarousel'
+import { projectItems, workItems } from '../content/siteContent'
+
+// Professional work leads the carousel, then personal projects fill in after.
+const selectedSlides: CarouselSlide[] = [
+  ...workItems.map((item) => ({
+    item,
+    to: '/work',
+    cta: 'View in Professional Work',
+  })),
+  ...projectItems.map((item) => ({
+    item,
+    to: '/projects',
+    cta: 'View in Personal Projects',
+  })),
+]
 
 export function HomePage() {
   return (
@@ -75,7 +89,7 @@ export function HomePage() {
             See all work <ArrowRight aria-hidden="true" size={17} />
           </Link>
         </div>
-        <WorkCarousel items={workItems} label="Selected work" />
+        <WorkCarousel slides={selectedSlides} label="Selected work" />
       </section>
 
       <section className="personal-band" data-trail-scene="2">

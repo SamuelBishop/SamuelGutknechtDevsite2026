@@ -6,7 +6,7 @@ export function WorkPage() {
   return (
     <div className="section-shell page-stack">
       <SectionIntro
-        eyebrow="Selected work"
+        eyebrow="Professional work"
         title="Complex products, made more understandable."
       >
         <p>

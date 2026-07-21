@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it } from 'vitest'
 import type { WorkItem } from '../content/siteContent'
-import { WorkCarousel } from './WorkCarousel'
+import { WorkCarousel, type CarouselSlide } from './WorkCarousel'
 
 const items: WorkItem[] = [
   {
@@ -28,16 +28,21 @@ const items: WorkItem[] = [
   },
 ]
 
+const slides: CarouselSlide[] = [
+  { item: items[0], to: '/work', cta: 'View in Professional Work' },
+  { item: items[1], to: '/projects', cta: 'View in Personal Projects' },
+]
+
 function renderCarousel() {
   return render(
     <MemoryRouter>
-      <WorkCarousel items={items} label="Selected work" />
+      <WorkCarousel slides={slides} label="Selected work" />
     </MemoryRouter>,
   )
 }
 
 describe('WorkCarousel', () => {
-  it('shows the first slide with its image (falling back to the video poster) and links to /work', () => {
+  it('shows the first slide with its image (falling back to the video poster) and links to its destination', () => {
     renderCarousel()
 
     const image = screen.getByRole('img', {
@@ -50,12 +55,12 @@ describe('WorkCarousel', () => {
     ).toBeInTheDocument()
 
     const slide = screen.getByRole('link', {
-      name: /Video Work — view in Work/,
+      name: /Video Work — View in Professional Work/,
     })
     expect(slide).toHaveAttribute('href', '/work')
   })
 
-  it('advances to the next slide when Next is pressed', async () => {
+  it('advances to the next slide when Next is pressed, using that slide’s destination', async () => {
     const user = userEvent.setup()
     renderCarousel()
 
@@ -65,8 +70,10 @@ describe('WorkCarousel', () => {
       screen.getByRole('img', { name: 'Example project screenshot.' }),
     ).toHaveAttribute('src', '/photos/example.png')
     expect(
-      screen.getByRole('link', { name: /Image Work — view in Work/ }),
-    ).toHaveAttribute('href', '/work')
+      screen.getByRole('link', {
+        name: /Image Work — View in Personal Projects/,
+      }),
+    ).toHaveAttribute('href', '/projects')
   })
 
   it('wraps around to the last slide when Previous is pressed from the first', async () => {

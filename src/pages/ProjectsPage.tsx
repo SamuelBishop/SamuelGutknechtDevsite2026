@@ -4,7 +4,7 @@ export function ProjectsPage() {
   return (
     <div className="section-shell page-stack">
       <SectionIntro
-        eyebrow="Projects"
+        eyebrow="Personal projects"
         title="Built from curiosity, utility, or both."
       >
         <p>
