@@ -25,18 +25,18 @@ export function HomePage() {
     <>
       <section className="hero section-shell" data-trail-scene="1">
         <div className="hero-text">
-          <p className="eyebrow">Senior software engineer · Microsoft</p>
-          <h1>
-            Building software consistently to solve real problems, including my
-            own.
-          </h1>
+          <p className="eyebrow">
+            Makes Things · Runs Stupid Distances · Rarely Sits Still
+          </p>
+          <h1>“Someone should build this.” So I usually do.</h1>
           <p className="hero-copy">
-            I’m Samuel, a senior software engineer at Microsoft building clear
-            product experiences across front end, cloud, and AI.
+            I’m Sam, a software engineer with 5+ years of experience. I have a
+            hard time leaving questions unanswered, so most of my free time
+            turns into projects, rabbit holes, and learning how things work.
           </p>
           <div className="hero-actions">
-            <Link className="text-link" to="/work">
-              View selected work <ArrowRight aria-hidden="true" size={17} />
+            <Link className="text-link" to="/projects">
+              See what I’m building <ArrowRight aria-hidden="true" size={17} />
             </Link>
             <Link className="quiet-link" to="/about">
               Learn more about me
