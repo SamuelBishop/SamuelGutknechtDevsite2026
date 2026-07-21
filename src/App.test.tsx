@@ -129,7 +129,7 @@ describe('portfolio routes', () => {
     renderAt('/')
     expect(
       screen.getByRole('heading', {
-        name: /showing up, on the keyboard and the trail/i,
+        name: /green squares\. both kinds\./i,
       }),
     ).toBeInTheDocument()
     expect(

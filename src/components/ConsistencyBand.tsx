@@ -14,13 +14,11 @@ export function ConsistencyBand() {
     <section className="activity-band" aria-labelledby="consistency-heading">
       <div className="section-shell">
         <div className="activity-intro">
-          <p className="eyebrow">Consistency &amp; commitment</p>
-          <h2 id="consistency-heading">
-            Showing up, on the keyboard and the trail.
-          </h2>
+          <p className="eyebrow">Receipts</p>
+          <h2 id="consistency-heading">Green Squares. Both Kinds.</h2>
           <p>
-            A year of daily habits — commits shipped and miles logged. Steady
-            reps are how both good software and long distances get built.
+            Nothing here happened quickly, and that’s kind of the point. Running
+            an experiment to see what happens if I keep showing up.
           </p>
         </div>
         <div className="activity-grid-wrap">
