@@ -93,7 +93,7 @@ export const socialLinks: SocialLink[] = [
   {
     platform: 'linkedin',
     label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/samuel-bishop-938212171/',
+    href: 'https://www.linkedin.com/in/samuel-bishop-gutknecht-938212171/',
   },
   {
     platform: 'instagram',
