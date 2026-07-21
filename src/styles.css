@@ -38,6 +38,20 @@
   --line: #d7ddd0;
   --cream: #eaefe4;
 
+  /* Shared photo system. One source of truth for every framed photo/screenshot
+     so imagery reads as a deliberate, art-directed set instead of ad-hoc frames.
+     Tune these to adjust every photo at once. */
+  --photo-radius: 10px;
+  --photo-border: 1px solid var(--line);
+  --photo-surface: var(--cream); /* backing / empty / letterboxed state */
+  --photo-shadow: 0 14px 34px -22px rgba(28, 63, 54, 0.42);
+  --photo-shadow-hover: 0 20px 44px -22px rgba(28, 63, 54, 0.5);
+  /* Gentle tonal harmonization so bright snapshots settle into the muted
+     paper/forest palette while staying clearly recognizable. */
+  --photo-filter: saturate(0.9) contrast(1.02);
+  --photo-tint: rgba(28, 63, 54, 0.14); /* forest, low opacity, soft-light */
+  --photo-tint-warm: rgba(214, 179, 122, 0.08); /* faint warm paper cast */
+
   /* Max width the Home trail-scene art anchors to. Past this, the full-bleed
      art stops growing and centers with paper margins, so band height (and each
      section's min-height) stops ballooning on large monitors. Downscaled from
@@ -360,15 +374,68 @@ p {
   margin: 0;
   justify-self: end;
 }
+/* One shared frame for every photograph on the site: same border, radius,
+   backing surface, and one subtle shadow. Individual rules below only set
+   layout (size, aspect-ratio, position) so this stays the single source of
+   truth for how a framed photo looks. */
+.hero-portrait,
+.personal-photo,
+.about-portrait,
+.photo-carousel-frame,
+.work-carousel-frame,
+.work-media-slot,
+.featured-project-media,
+.post-cover {
+  position: relative;
+  border: var(--photo-border);
+  border-radius: var(--photo-radius);
+  background: var(--photo-surface);
+  box-shadow: var(--photo-shadow);
+}
+/* Gentle tonal harmonization so bright snapshots and moody trail shots settle
+   into the muted paper/forest palette without looking obviously filtered. */
+.hero-portrait img,
+.personal-photo img,
+.about-portrait img,
+.photo-carousel-frame img,
+.work-carousel-frame img,
+.work-media-slot img,
+.featured-project-media img,
+.post-card-media img,
+.post-cover {
+  filter: var(--photo-filter);
+}
+/* Product/UI screenshots stay crisper than photographs. */
+.photo-carousel-frame[data-fit='contain'] img,
+.work-carousel-frame[data-fit='contain'] img,
+.work-media-slot img[data-fit='contain'] {
+  filter: saturate(0.96);
+}
+/* Low-opacity paper-warm + forest tint (soft-light) sits above the image but
+   below sibling captions/controls, so text contrast is untouched. */
+.hero-portrait::after,
+.personal-photo::after,
+.about-portrait::after,
+.photo-carousel-frame::after,
+.work-carousel-frame::after,
+.work-media-slot::after,
+.featured-project-media::after,
+.post-card-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    linear-gradient(0deg, var(--photo-tint-warm), var(--photo-tint-warm)),
+    linear-gradient(0deg, var(--photo-tint), var(--photo-tint));
+  mix-blend-mode: soft-light;
+}
 .hero-portrait {
   width: 100%;
   aspect-ratio: 4 / 3;
   margin: 0;
   overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--cream);
-  box-shadow: 0 22px 60px rgba(28, 63, 54, 0.14);
 }
 .hero-portrait img {
   display: block;
@@ -752,9 +819,6 @@ p {
   aspect-ratio: 16 / 9;
   margin-bottom: 30px;
   overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 2px;
-  background: var(--cream);
 }
 .work-media-slot.has-image {
   background: var(--paper);
@@ -890,9 +954,6 @@ p {
   margin-top: 30px;
   overflow: hidden;
   aspect-ratio: 3 / 4;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--cream);
 }
 .about-portrait img {
   display: block;
@@ -933,10 +994,6 @@ p {
   max-width: 460px;
   aspect-ratio: 3 / 2;
   justify-self: end;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--cream);
-  box-shadow: 0 20px 55px rgba(28, 63, 54, 0.12);
 }
 .personal-photo img {
   display: block;
@@ -1342,9 +1399,6 @@ p {
   place-items: center;
   overflow: hidden;
   aspect-ratio: 16 / 10;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--cream);
 }
 .photo-carousel-frame img {
   display: block;
@@ -1437,9 +1491,6 @@ p {
   position: relative;
   overflow: hidden;
   aspect-ratio: 16 / 10;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--cream);
   transition:
     border-color 0.25s ease,
     box-shadow 0.25s ease,
@@ -1459,7 +1510,7 @@ p {
 .work-carousel-slide:hover .work-carousel-frame,
 .work-carousel-slide:focus-visible .work-carousel-frame {
   border-color: var(--forest);
-  box-shadow: 0 22px 55px rgba(28, 63, 54, 0.14);
+  box-shadow: var(--photo-shadow-hover);
   transform: translateY(-3px);
 }
 .work-carousel-caption {
@@ -1584,9 +1635,6 @@ p {
   margin: 0;
   overflow: hidden;
   aspect-ratio: 3 / 4;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--cream);
 }
 .featured-project-media img {
   display: block;
@@ -1673,6 +1721,7 @@ p {
   box-shadow: 0 14px 34px -20px rgba(28, 63, 54, 0.55);
 }
 .post-card-media {
+  position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: var(--cream);
@@ -1765,8 +1814,6 @@ p {
   width: 100%;
   height: auto;
   margin-bottom: 40px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
 }
 .post-footer-links {
   display: flex;
@@ -2245,7 +2292,7 @@ p {
     width: 90%;
     margin-inline: auto;
     margin-bottom: 26px;
-    border-radius: 10px;
+    border-radius: var(--photo-radius);
   }
   .post-content {
     font-size: 0.94rem;
