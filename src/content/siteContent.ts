@@ -88,7 +88,11 @@ export const socialLinks: SocialLink[] = [
   { platform: 'github', label: 'GitHub', href: '#' },
   { platform: 'linkedin', label: 'LinkedIn', href: '#' },
   { platform: 'instagram', label: 'Instagram', href: '#' },
-  { platform: 'substack', label: 'Substack', href: '#' },
+  {
+    platform: 'substack',
+    label: 'Substack',
+    href: 'https://samgutknecht.substack.com',
+  },
   { platform: 'strava', label: 'Strava', href: '#' },
   { platform: 'email', label: 'Email', href: 'mailto:hello@example.com' },
 ]

@@ -68,7 +68,7 @@ function loadDotEnv() {
 
 loadDotEnv()
 
-const DEFAULT_SUBSTACK = 'https://www.chasing-trail.com'
+const DEFAULT_SUBSTACK = 'https://samgutknecht.substack.com'
 
 function feedUrlFrom(input) {
   const base = (input || DEFAULT_SUBSTACK).trim().replace(/\/+$/, '')
