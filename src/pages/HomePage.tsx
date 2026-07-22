@@ -127,10 +127,10 @@ export function HomePage() {
             <p className="eyebrow">Away from the screen</p>
             <h2>Some of my favorite projects don’t involve a computer.</h2>
             <p>
-              Trail running has become my favorite excuse to explore new
-              places, but I’m just as happy working with power tools in my
-              garage, teaching myself an instrument, or hanging out with my wife
-              and our two dogs.
+              Trail running has become my favorite excuse to explore new places,
+              but I’m just as happy working with power tools in my garage,
+              teaching myself an instrument, or hanging out with my wife and our
+              two dogs.
             </p>
             <Link className="text-link" to="/about">
               More about life outside work{' '}
