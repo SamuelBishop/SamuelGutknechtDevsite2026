@@ -778,6 +778,51 @@ p {
   padding-top: 8px;
   font-size: 1.15rem;
 }
+.focus-list {
+  padding-top: 8px;
+  margin: 0;
+  list-style: none;
+  display: grid;
+  gap: 0;
+  max-width: 620px;
+}
+.focus-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 20px;
+  padding: 26px 0;
+  border-top: 1px solid var(--line);
+}
+.focus-item:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.focus-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--forest);
+}
+.focus-body h3 {
+  margin: 0 0 6px;
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.focus-body p {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.focus-body a {
+  color: var(--forest);
+  font-weight: 600;
+  text-underline-offset: 4px;
+}
 .section-heading-row {
   display: flex;
   align-items: end;

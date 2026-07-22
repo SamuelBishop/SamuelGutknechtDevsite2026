@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Cpu, Mountain } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { ConsistencyBand } from '../components/ConsistencyBand'
 import { ContactCallout } from '../components/ContactCallout'
@@ -64,12 +64,41 @@ export function HomePage() {
       >
         <p className="eyebrow">Current focus</p>
         <div className="split-copy">
-          <h2 id="focus-heading">Product judgment backed by working code.</h2>
-          <p>
-            I enjoy the part of engineering where product judgment and technical
-            depth meet: shaping an interaction, finding the right abstraction,
-            and making sure the experience holds up in real use.
-          </p>
+          <h2 id="focus-heading">What’s on my mind lately.</h2>
+          <ol className="focus-list">
+            <li className="focus-item">
+              <span className="focus-icon" aria-hidden="true">
+                <Cpu size={20} strokeWidth={1.75} />
+              </span>
+              <div className="focus-body">
+                <h3>Building software &amp; hardware.</h3>
+                <p>
+                  Trying to build in the spaces that I care about: computing,
+                  outdoor/fitness, and day-to-day life.
+                </p>
+              </div>
+            </li>
+            <li className="focus-item">
+              <span className="focus-icon" aria-hidden="true">
+                <Mountain size={20} strokeWidth={1.75} />
+              </span>
+              <div className="focus-body">
+                <h3>Chasing a top-10 at the Kodiak 50k.</h3>
+                <p>
+                  A top-10 finish would qualify me for the{' '}
+                  <a
+                    href="https://montblanc.utmb.world/races/OCC"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    OCC 50k
+                  </a>
+                  , a storied alpine race in Chamonix under UTMB. One of the
+                  biggest stages in trail running.
+                </p>
+              </div>
+            </li>
+          </ol>
         </div>
       </section>
 
