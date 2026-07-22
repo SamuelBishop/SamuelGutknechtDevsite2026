@@ -26,7 +26,7 @@ export const workItems: WorkItem[] = [
     title: 'M365 Copilot, Service Agent',
     kind: 'AI UX',
     context:
-      'Service Agent — a declarative agent inside Microsoft 365 Copilot for Dynamics 365 Customer Service, bringing its customer-service workflows into the Copilot surface teams already use.',
+      'Service Agent, a declarative agent inside Microsoft 365 Copilot for Dynamics 365 Customer Service, bringing its customer-service workflows into the Copilot surface teams already use.',
     contribution:
       "Under the hood it orchestrates MCP tools to understand cases, retrieve knowledge, and take in-app actions, with custom interactive UI surfaces built on OpenAI's Apps SDK. The experience unifies Dynamics 365 and Microsoft 365 data so representatives keep context across Teams, Outlook, and Dynamics.",
     focusAreas: [
@@ -43,11 +43,11 @@ export const workItems: WorkItem[] = [
     },
     links: [
       {
-        label: 'Launch announcement — Rushil Vora',
+        label: 'Launch announcement by Rushil Vora',
         href: 'https://www.linkedin.com/posts/rushilvora_service-work-now-starts-in-microsoft-365-activity-7444848417861914625-W8RD',
       },
       {
-        label: 'Customer service integration — Alan Ross',
+        label: 'Customer service integration by Alan Ross',
         href: 'https://www.linkedin.com/posts/alandross_customer-service-professionals-now-get-the-share-7477786451431084033-N_8-',
       },
     ],
@@ -56,9 +56,9 @@ export const workItems: WorkItem[] = [
     title: 'Modern Rich Text Editor Experience',
     kind: 'Front-end',
     context:
-      'A modernization of the rich text editing surface for a large model-driven app platform, built on CKEditor 5.',
+      'A modernization of the rich text editing surface in use by millions on Dynamics 365, built on CKEditor 5. It handles composing notes, emails, and scheduling appointments, and can be extended for custom use cases.',
     contribution:
-      'The work rested on web fundamentals — semantic HTML, CSS layout, and vanilla JavaScript — beneath a Model–View–Controller renderer that keeps the editing model and the live DOM in sync. Targeted DOM manipulation and lazy-loaded editor plugins keep the toolbar fast, with AI-assisted authoring enabled directly in the editing flow.',
+      'The work rested on web fundamentals: semantic HTML, CSS layout, and vanilla JavaScript, beneath a Model-View-Controller renderer that keeps the editing model and the live DOM in sync. Targeted DOM manipulation and lazy-loaded editor plugins keep the toolbar fast, with AI-assisted authoring enabled directly in the editing flow.',
     focusAreas: [
       'CKEditor 5',
       'MVC rendering',
@@ -77,13 +77,13 @@ export const workItems: WorkItem[] = [
 // can share the carousel and the Personal Projects page.
 export const projectItems: WorkItem[] = [
   {
-    title: 'A hot-swappable numpad, built from the circuit up.',
+    title: 'A mechanical keyboard with a hot-swappable numpad.',
     kind: 'Electronics project',
     context:
-      'A hands-on keyboard project that brought circuit design, component layout, assembly, and practical debugging into one working prototype.',
+      'A mechanical keyboard whose numpad hot-swaps to the left or right side, built for accessibility and for faster, more efficient input.',
     contribution:
-      'Designing the PCB, laying out components, hand-assembling the board, and debugging it into a numpad I actually use — a full pass from schematic to working hardware.',
-    focusAreas: ['PCB design', 'Keyboard hardware', 'Prototyping'],
+      'A full pass from schematic to working hardware: PCB design, soldering, and the microcontroller and firmware that bring it to life.',
+    focusAreas: ['PCB design', 'Soldering', 'Firmware', 'Microcontroller'],
     image: {
       src: '/photos/hotswap-numpad-pcb.jpg',
       alt: 'A custom hot-swappable numpad keyboard PCB connected to a laptop',
