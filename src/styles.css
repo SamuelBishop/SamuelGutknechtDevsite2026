@@ -774,6 +774,11 @@ p {
 .prose-column {
   max-width: 590px;
 }
+.current-focus .split-copy {
+  grid-template-columns: minmax(0, 580px);
+  gap: 4px;
+  justify-content: start;
+}
 .current-focus .split-copy > p {
   padding-top: 8px;
   font-size: 1.15rem;
