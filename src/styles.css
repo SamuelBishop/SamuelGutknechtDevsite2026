@@ -1060,6 +1060,9 @@ p {
   max-width: 620px;
   margin-bottom: clamp(30px, 5vw, 52px);
 }
+.activity-intro .eyebrow {
+  margin-bottom: 14px;
+}
 .activity-intro h2 {
   margin-bottom: 16px;
 }
