@@ -18,7 +18,7 @@ const options = {
   turdSize: 4,
   optCurve: true,
   optTolerance: 0.4,
-  color: '#2a2512',
+  color: '#2f6b4f',
   background: 'transparent',
 }
 

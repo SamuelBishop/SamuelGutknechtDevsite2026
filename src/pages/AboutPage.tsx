@@ -124,7 +124,7 @@ export function AboutPage() {
               I grew up in a small city just outside Madison, Wisconsin, called{' '}
               <strong className="hl">Fitchburg</strong>, mostly known for its{' '}
               <span className="term">
-                <strong className="hl">dairy farms</strong>
+                <strong className="hl">dairy</strong>
                 <Doodle name="cow" />
               </span>{' '}
               and rolling farmland. I was fortunate enough to attend high school
