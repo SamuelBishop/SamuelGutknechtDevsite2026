@@ -26,9 +26,9 @@ export function HomePage() {
       <section className="hero section-shell" data-trail-scene="1">
         <div className="hero-text">
           <p className="eyebrow">
-            Makes Things · Runs Stupid Distances · Rarely Sits Still
+            Makes · Runs Stupid Distances · Rarely Sits Still
           </p>
-          <h1>“Someone should build this.” So I usually do.</h1>
+          <h1>“Someone should build this.”</h1>
           <p className="hero-copy">
             I’m Sam, a software engineer with 5+ years of experience. I have a
             hard time leaving questions unanswered, so most of my free time

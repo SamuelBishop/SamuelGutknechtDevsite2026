@@ -20,8 +20,8 @@ function escapeRegExp(value: string) {
 
 describe('portfolio routes', () => {
   it.each([
-    ['/', 'So I usually do'],
-    ['/about', 'Curious by default, technical by trade'],
+    ['/', 'Someone should build this'],
+    ['/about', 'Who’s this guy?'],
     ['/work', 'Complex products, made more understandable'],
     ['/projects', 'Built from curiosity, utility, or both'],
     ['/written-works', 'Ideas worth writing down'],

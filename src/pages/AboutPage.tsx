@@ -1,4 +1,5 @@
 import { Footprints, MapPin, Music, Users, type LucideIcon } from 'lucide-react'
+import { Doodle } from '../components/Doodles'
 import { PhotoCarousel, type PhotoStoryItem } from '../components/PhotoCarousel'
 import { SectionIntro } from '../components/SectionIntro'
 import { SocialLinks } from '../components/SocialLinks'
@@ -90,15 +91,12 @@ const personalMoments: [PhotoStoryItem, ...PhotoStoryItem[]] = [
 export function AboutPage() {
   return (
     <div className="section-shell page-stack">
-      <SectionIntro
-        eyebrow="About"
-        title="Curious by default, technical by trade."
-      >
+      <SectionIntro eyebrow="About" title="Who’s this guy?">
         <p>
-          I’m a software engineer who never really outgrew taking things apart to
-          see how they work. I get paid to build software, and on my own time I’m
-          usually chasing some new idea, tool, or hobby just to understand it
-          better.
+          Below you’ll find a little about who I am and what I enjoy doing.
+          Lately I’ve been thinking less about collecting accomplishments and
+          more about building things that matter, giving back where I can, and
+          staying curious.
         </p>
       </SectionIntro>
 
@@ -108,7 +106,7 @@ export function AboutPage() {
       >
         <div className="split-copy">
           <div>
-            <h2 id="story-heading">A little about me.</h2>
+            <h2 id="story-heading">Background</h2>
             <figure className="about-portrait">
               <img
                 src="/photos/coastal-trail-family.jpg"
@@ -123,16 +121,60 @@ export function AboutPage() {
           </div>
           <div className="prose-column">
             <p>
-              Most of what I care about lives at the intersection of curiosity and
-              making something real. I like understanding a problem well enough to
-              build a thing that actually solves it, whether that’s software, a
-              circuit board, or a better way to do something around the house.
+              I grew up in a small city just outside Madison, Wisconsin, called{' '}
+              <strong className="hl">Fitchburg</strong>, mostly known for its{' '}
+              <span className="term">
+                <strong className="hl">dairy farms</strong>
+                <Doodle name="cow" />
+              </span>{' '}
+              and rolling farmland. I was fortunate enough to attend high school
+              in the{' '}
+              <span className="term">
+                <strong className="hl">“big city” of Madison, Wisconsin</strong>
+                <Doodle name="capitol" />
+              </span>
+              , which, to me at the time, felt like the center of the universe.
+              It was where I first found teachers, coaches, and friends who
+              challenged me to think bigger and showed me there were far more
+              possibilities than I’d imagined. Growing up, I spent my time
+              outdoors, in Boy Scouts,{' '}
+              <span className="term">
+                <strong className="hl">youth orchestras</strong>
+                <Doodle name="violin" />
+              </span>
+              , and on cross country and track teams. Many of the things I still
+              care most about today can be traced back to those years.
             </p>
             <p>
-              The rest of my life happens outside. I spend a lot of time in the
-              mountains, I’ve been an athlete for as long as I can remember, and
-              I’m slowly finding my way back to playing music. Here’s a bit more
-              of that.
+              College was split between{' '}
+              <span className="term">
+                <strong className="hl">engineering labs</strong>
+                <Doodle name="solder" />
+              </span>{' '}
+              and long bike rides. I studied electrical and computer engineering
+              at the <strong className="hl">University of Missouri</strong>{' '}
+              while competing for the{' '}
+              <span className="term">
+                <strong className="hl">club triathlon team</strong>
+                <Doodle name="bike" />
+              </span>
+              . Along the way, I was fortunate to intern at both{' '}
+              <strong className="hl">Garmin and Microsoft</strong>, where I
+              discovered I genuinely liked building software and hardware as
+              much as I liked learning about it. After university,{' '}
+              <span className="term">
+                <strong className="hl">Seattle</strong>
+                <Doodle name="needle" />
+              </span>{' '}
+              became home for the next four years as I started my career at
+              Microsoft’s headquarters. A few years later, my wife Shane and I
+              moved to{' '}
+              <span className="term">
+                <strong className="hl">Lakewood, Colorado</strong>
+                <Doodle name="mountains" />
+              </span>
+              , trading city life for easier access to trails, mountains, and
+              the outdoors we already spent most of our free time chasing.
             </p>
           </div>
         </div>
@@ -163,7 +205,8 @@ export function AboutPage() {
         <div className="life-section-intro">
           <h2 id="outside-heading">A few snapshots.</h2>
           <p>
-            Running, the mountains, tinkering, and the people I share it all with.
+            Running, the mountains, tinkering, and the people I share it all
+            with.
           </p>
         </div>
         <PhotoCarousel items={personalMoments} label="Life beyond work" />
