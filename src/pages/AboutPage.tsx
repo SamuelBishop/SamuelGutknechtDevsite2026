@@ -1,24 +1,39 @@
+import { Footprints, MapPin, Music, Users, type LucideIcon } from 'lucide-react'
 import { PhotoCarousel, type PhotoStoryItem } from '../components/PhotoCarousel'
 import { SectionIntro } from '../components/SectionIntro'
 import { SocialLinks } from '../components/SocialLinks'
 
-const principles = [
-  [
-    'Start with the user’s task',
-    'The technology matters most when it makes the work clearer.',
-  ],
-  [
-    'Treat quality as product work',
-    'Accessibility, performance, and reliability belong in the experience.',
-  ],
-  [
-    'Prefer clarity over cleverness',
-    'Clear systems and steady collaboration tend to outlast novelty.',
-  ],
-  [
-    'Stay close to implementation',
-    'Good judgment depends on understanding the real tradeoffs.',
-  ],
+type Chapter = {
+  title: string
+  description: string
+  icon: LucideIcon
+}
+
+const chapters: Chapter[] = [
+  {
+    title: 'Home base',
+    description:
+      'Home is Lakewood, Colorado, with my wife Shane and our two dogs, Addie and Daisy. We spend hours every week up in the alpine and out on the trail.',
+    icon: MapPin,
+  },
+  {
+    title: 'Always an athlete',
+    description:
+      'I’ve thought of myself as an athlete since I was 13, competing at a decent level in cross country, track and field, and triathlon, and now in trail and mountain running.',
+    icon: Footprints,
+  },
+  {
+    title: 'Coaching',
+    description:
+      'I’m the assistant cross country coach at Green Mountain High School, which is a great excuse to stay around the sport and pass some of it on.',
+    icon: Users,
+  },
+  {
+    title: 'Back to music',
+    description:
+      'I grew up in orchestras and chamber groups playing violin and viola. I recently bought a piano off Facebook Marketplace and I’m trying to practice every single day.',
+    icon: Music,
+  },
 ]
 
 const personalMoments: [PhotoStoryItem, ...PhotoStoryItem[]] = [
@@ -27,31 +42,31 @@ const personalMoments: [PhotoStoryItem, ...PhotoStoryItem[]] = [
     alt: 'Samuel in his graduation cap and gown',
     title: 'Graduation day',
     description:
-      'Electrical and computer engineering gave me a practical foundation across software, systems, and electronics.',
+      'Studying electrical and computer engineering gave me a way to be curious about hardware and software at the same time.',
     fit: 'contain',
   },
   {
     src: '/photos/engineering-graduation.jpg',
     alt: 'Samuel outside the University of Missouri engineering laboratories after graduation',
-    title: 'An engineering foundation',
+    title: 'Where it started',
     description:
-      'Graduating from the University of Missouri marked the start of a career built around useful systems.',
+      'Wrapping up at the University of Missouri, still not entirely sure what I wanted to build, just that I wanted to build.',
     fit: 'contain',
   },
   {
     src: '/photos/microsoft-campus.jpg',
     alt: 'Samuel visiting the Microsoft campus',
-    title: 'Building at scale',
+    title: 'The day job',
     description:
-      'My work at Microsoft has widened from front-end craft into product engineering, cloud systems, and AI.',
+      'I write software for a living, which mostly means I get to stay curious and figure things out for a job.',
     objectPosition: '50% 54%',
   },
   {
     src: '/photos/sunflower-trail-race.jpg',
     alt: 'Samuel running a trail race through a sunflower field',
-    title: 'Miles outside',
+    title: 'On the trail',
     description:
-      'Trail running and ultrarunning keep me close to the landscapes I want to understand and protect.',
+      'I’ve been an athlete since I was 13, and these days that means a lot of miles on trails and up in the mountains.',
     objectPosition: '50% 52%',
   },
   {
@@ -59,7 +74,7 @@ const personalMoments: [PhotoStoryItem, ...PhotoStoryItem[]] = [
     alt: 'Samuel with his wife and their dog on a coastal trail',
     title: 'My favorite crew',
     description:
-      'The best days usually include my wife, our dog, and enough trail to make the destination feel earned.',
+      'The best days usually involve my wife Shane, the dogs, and enough trail to make it feel like we earned dinner.',
     fit: 'contain',
   },
   {
@@ -67,7 +82,7 @@ const personalMoments: [PhotoStoryItem, ...PhotoStoryItem[]] = [
     alt: 'A custom hot-swappable numpad keyboard PCB connected to a laptop',
     title: 'At the workbench',
     description:
-      'I like making physical things too, including a hot-swappable numpad PCB built as a hands-on electronics project.',
+      'When an idea won’t leave me alone, it usually ends up here. This one became a hot-swappable numpad I designed and built from scratch.',
     fit: 'contain',
   },
 ]
@@ -77,12 +92,13 @@ export function AboutPage() {
     <div className="section-shell page-stack">
       <SectionIntro
         eyebrow="About"
-        title="Engineering with a wide lens and a close eye."
+        title="Curious by default, technical by trade."
       >
         <p>
-          I’m a software engineer who cares about useful products, clear
-          interfaces, and teams that turn complicated constraints into calm
-          experiences.
+          I’m a software engineer who never really outgrew taking things apart to
+          see how they work. I get paid to build software, and on my own time I’m
+          usually chasing some new idea, tool, or hobby just to understand it
+          better.
         </p>
       </SectionIntro>
 
@@ -92,7 +108,7 @@ export function AboutPage() {
       >
         <div className="split-copy">
           <div>
-            <h2 id="story-heading">Front-end craft, widening outward.</h2>
+            <h2 id="story-heading">A little about me.</h2>
             <figure className="about-portrait">
               <img
                 src="/photos/coastal-trail-family.jpg"
@@ -107,36 +123,37 @@ export function AboutPage() {
           </div>
           <div className="prose-column">
             <p>
-              My work has centered on front-end architecture, React, TypeScript,
-              and product engineering for enterprise and customer-service
-              software. It has been widening as AI changes how software gets
-              built.
+              Most of what I care about lives at the intersection of curiosity and
+              making something real. I like understanding a problem well enough to
+              build a thing that actually solves it, whether that’s software, a
+              circuit board, or a better way to do something around the house.
             </p>
             <p>
-              Front-end remains my strongest craft, but I’m comfortable moving
-              across the stack and into AI tooling when it helps ship the right
-              thing.
-            </p>
-            <p>
-              At Microsoft, I’ve contributed to experiences spanning rich-text
-              editing, AI-assisted service workflows, agent and conversation
-              controls, and the diagnostic or reliability work that supports
-              complex products.
+              The rest of my life happens outside. I spend a lot of time in the
+              mountains, I’ve been an athlete for as long as I can remember, and
+              I’m slowly finding my way back to playing music. Here’s a bit more
+              of that.
             </p>
           </div>
         </div>
       </section>
       <section className="ruled-section" aria-labelledby="principles-heading">
-        <h2 id="principles-heading">A few durable principles.</h2>
-        <ol className="principles-grid">
-          {principles.map(([title, description]) => (
-            <li key={title}>
-              <span className="waypoint" aria-hidden="true" />
-              <h3>{title}</h3>
-              <p>{description}</p>
-            </li>
+        <h2 id="principles-heading">The parts that aren’t code.</h2>
+        <div className="about-chapters">
+          {chapters.map(({ title, description, icon: Icon }) => (
+            <article className="about-chapter" key={title}>
+              <div className="about-chapter-media">
+                <div className="about-chapter-placeholder">
+                  <Icon size={40} strokeWidth={1.5} aria-hidden={true} />
+                </div>
+              </div>
+              <div className="about-chapter-copy">
+                <h3>{title}</h3>
+                <p>{description}</p>
+              </div>
+            </article>
           ))}
-        </ol>
+        </div>
       </section>
 
       <section
@@ -144,12 +161,9 @@ export function AboutPage() {
         aria-labelledby="outside-heading"
       >
         <div className="life-section-intro">
-          <h2 id="outside-heading">
-            Endurance, landscapes, and making things.
-          </h2>
+          <h2 id="outside-heading">A few snapshots.</h2>
           <p>
-            Running, exploring, and building with my hands keep the rest of life
-            connected to the work.
+            Running, the mountains, tinkering, and the people I share it all with.
           </p>
         </div>
         <PhotoCarousel items={personalMoments} label="Life beyond work" />

@@ -1380,49 +1380,62 @@ p {
 .prose-column p {
   margin-bottom: 24px;
 }
-.principles-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  margin: 45px 0 0;
-  padding: 0;
+.about-chapters {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 6vw, 64px);
+  margin-top: 48px;
+}
+.about-chapter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(28px, 5vw, 56px);
+}
+.about-chapter:nth-child(even) {
+  flex-direction: row-reverse;
+}
+.about-chapter:not(:first-child) {
+  padding-top: clamp(40px, 6vw, 64px);
   border-top: 1px solid var(--line);
-  list-style: none;
 }
-.principles-grid li {
-  min-height: 250px;
-  padding: 28px 26px 34px 0;
-  border-right: 1px solid var(--line);
+.about-chapter-copy {
+  flex: 1 1 0;
+  max-width: 560px;
 }
-.principles-grid li:not(:first-child) {
-  padding-left: 26px;
+.about-chapter-media {
+  flex: 0 0 auto;
+  width: 320px;
+  max-width: 40%;
 }
-.principles-grid li:last-child {
-  border-right: 0;
-}
-.principles-grid .waypoint {
-  display: block;
-  width: 11px;
-  height: 11px;
-  margin-bottom: 54px;
-  border-radius: 50%;
-  background: var(--clay);
-  box-shadow: 0 0 0 4px var(--forest-light);
-  transition:
-    box-shadow 0.25s ease,
-    transform 0.25s ease;
-}
-.principles-grid li:hover .waypoint {
-  transform: scale(1.15);
-  box-shadow: 0 0 0 6px var(--forest-light);
-}
-.principles-grid h3 {
+.about-chapter-copy h3 {
   margin-bottom: 12px;
+  font-size: 1.5rem;
 }
-.principles-grid p {
+.about-chapter-copy p {
   margin-bottom: 0;
-  font-size: 0.92rem;
-  line-height: 1.65;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+.about-chapter-placeholder {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  border: var(--photo-border);
+  border-radius: var(--photo-radius);
+  background:
+    radial-gradient(
+      120% 120% at 50% 0%,
+      var(--forest-light),
+      transparent 70%
+    ),
+    var(--photo-surface);
+  box-shadow: var(--photo-shadow);
+  color: var(--forest);
+}
+.about-chapter-placeholder svg {
+  opacity: 0.85;
 }
 .life-section-intro {
   max-width: 680px;
@@ -2229,15 +2242,8 @@ p {
     grid-template-columns: 1fr;
     padding: 34px 28px;
   }
-  .principles-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .principles-grid li:nth-child(2) {
-    border-right: 0;
-  }
-  .principles-grid li:nth-child(3),
-  .principles-grid li:nth-child(4) {
-    border-top: 1px solid var(--line);
+  .about-chapter {
+    gap: clamp(28px, 5vw, 44px);
   }
   .outside-section > p {
     padding-top: 0;
@@ -2283,21 +2289,15 @@ p {
   .card-number {
     padding: 0;
   }
-  .principles-grid {
-    grid-template-columns: 1fr;
+  .about-chapter,
+  .about-chapter:nth-child(even) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 22px;
   }
-  .principles-grid li,
-  .principles-grid li:not(:first-child) {
-    min-height: 0;
-    padding: 25px 0;
-    border-right: 0;
-    border-top: 1px solid var(--line);
-  }
-  .principles-grid li:first-child {
-    border-top: 0;
-  }
-  .principles-grid .waypoint {
-    margin-bottom: 30px;
+  .about-chapter-media {
+    width: 100%;
+    max-width: none;
   }
   .skills-list {
     grid-template-columns: 1fr;
@@ -2511,7 +2511,7 @@ p {
 
   @supports (animation-timeline: view()) {
     .work-card,
-    .principles-grid li,
+    .about-chapter,
     .current-focus .split-copy,
     .personal-copy,
     .contact-callout,

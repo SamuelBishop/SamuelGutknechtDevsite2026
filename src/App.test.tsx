@@ -21,7 +21,7 @@ function escapeRegExp(value: string) {
 describe('portfolio routes', () => {
   it.each([
     ['/', 'So I usually do'],
-    ['/about', 'Engineering with a wide lens'],
+    ['/about', 'Curious by default, technical by trade'],
     ['/work', 'Complex products, made more understandable'],
     ['/projects', 'Built from curiosity, utility, or both'],
     ['/written-works', 'Ideas worth writing down'],
@@ -178,7 +178,7 @@ describe('portfolio routes', () => {
 
     await user.click(screen.getByRole('button', { name: /show next photo/i }))
     expect(
-      screen.getByRole('heading', { name: /an engineering foundation/i }),
+      screen.getByRole('heading', { name: /where it started/i }),
     ).toBeInTheDocument()
   })
 
