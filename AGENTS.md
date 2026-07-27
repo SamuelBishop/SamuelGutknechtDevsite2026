@@ -35,6 +35,7 @@ Run these from the repo root. All are defined in `package.json`.
 | E2E tests            | `pnpm test:e2e`                                                         | Playwright. Needs a dev/preview server + browsers (`pnpm exec playwright install`). |
 | Production build     | `pnpm build`                                                            | `tsc -b && vite build`.                                                             |
 | Generate image asset | `pnpm generate:asset -- --prompt "..." --output public/assets/name.png` | Add repeatable `--reference` paths for image editing.                               |
+| About page icons     | `pnpm generate:about-icons`                                             | Generates PNGs to `/tmp/about-icons`, traces them to `public/icons/*.svg`.          |
 
 **Before you commit or open a PR:** `pnpm typecheck`, `pnpm lint`, and `pnpm test`
 must all pass. Add or update tests for code you change, even if not asked.

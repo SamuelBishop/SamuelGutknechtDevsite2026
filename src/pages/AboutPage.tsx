@@ -1,14 +1,16 @@
-import { Footprints, MapPin, Music, Users, type LucideIcon } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { Doodle } from '../components/Doodles'
 import { PhotoCarousel, type PhotoStoryItem } from '../components/PhotoCarousel'
 import { SectionIntro } from '../components/SectionIntro'
 import { SocialLinks } from '../components/SocialLinks'
 
+/** Traced icon in public/icons/ used as the chapter's mask image. */
+type ChapterIcon = 'home' | 'movement' | 'coaching' | 'music'
+
 type Chapter = {
   title: string
   description: ReactNode
-  icon: LucideIcon
+  icon: ChapterIcon
 }
 
 const chapters: Chapter[] = [
@@ -16,7 +18,7 @@ const chapters: Chapter[] = [
     title: 'Home',
     description:
       'My wife Shane and I live in Lakewood, Colorado, with our two dogs, Addie and Daisy.',
-    icon: MapPin,
+    icon: 'home',
   },
   {
     title: 'Movement',
@@ -52,7 +54,7 @@ const chapters: Chapter[] = [
         .
       </>
     ),
-    icon: Footprints,
+    icon: 'movement',
   },
   {
     title: 'Coaching',
@@ -71,7 +73,7 @@ const chapters: Chapter[] = [
         much, and to become involved in the community that I live in.
       </>
     ),
-    icon: Users,
+    icon: 'coaching',
   },
   {
     title: 'Music',
@@ -91,7 +93,7 @@ const chapters: Chapter[] = [
         habit of practicing again.
       </>
     ),
-    icon: Music,
+    icon: 'music',
   },
 ]
 
@@ -239,13 +241,13 @@ export function AboutPage() {
       </section>
       <section className="ruled-section">
         <div className="about-chapters">
-          {chapters.map(({ title, description, icon: Icon }) => (
+          {chapters.map(({ title, description, icon }) => (
             <article className="about-chapter" key={title}>
-              <div className="about-chapter-media">
-                <div className="about-chapter-placeholder">
-                  <Icon size={40} strokeWidth={1.5} aria-hidden={true} />
-                </div>
-              </div>
+              <span
+                className="about-chapter-icon"
+                data-icon={icon}
+                aria-hidden={true}
+              />
               <div className="about-chapter-copy">
                 <h3>{title}</h3>
                 <p>{description}</p>

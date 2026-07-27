@@ -15,6 +15,7 @@
     "generate:asset": "node scripts/generate-asset.mjs",
     "generate:trail": "node scripts/generate-trail-scenes.mjs",
     "generate:objects": "node scripts/generate-objects.mjs",
+    "generate:about-icons": "node scripts/generate-about-icons.mjs",
     "generate:posts": "node scripts/generate-posts.mjs",
     "generate:github": "node scripts/generate-github-activity.mjs",
     "generate:strava": "node scripts/generate-strava-activity.mjs",
