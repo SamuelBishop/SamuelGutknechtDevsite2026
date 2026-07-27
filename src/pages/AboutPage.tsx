@@ -1,4 +1,5 @@
 import { Footprints, MapPin, Music, Users, type LucideIcon } from 'lucide-react'
+import type { ReactNode } from 'react'
 import { Doodle } from '../components/Doodles'
 import { PhotoCarousel, type PhotoStoryItem } from '../components/PhotoCarousel'
 import { SectionIntro } from '../components/SectionIntro'
@@ -6,33 +7,90 @@ import { SocialLinks } from '../components/SocialLinks'
 
 type Chapter = {
   title: string
-  description: string
+  description: ReactNode
   icon: LucideIcon
 }
 
 const chapters: Chapter[] = [
   {
-    title: 'Home base',
+    title: 'Home',
     description:
-      'Home is Lakewood, Colorado, with my wife Shane and our two dogs, Addie and Daisy. We spend hours every week up in the alpine and out on the trail.',
+      'My wife Shane and I live in Lakewood, Colorado, with our two dogs, Addie and Daisy.',
     icon: MapPin,
   },
   {
-    title: 'Always an athlete',
-    description:
-      'I’ve thought of myself as an athlete since I was 13, competing at a decent level in cross country, track and field, and triathlon, and now in trail and mountain running.',
+    title: 'Movement',
+    description: (
+      <>
+        I’ve spent most of my life in endurance sports.{' '}
+        <a
+          className="text-link"
+          href="https://madwestcc.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Cross country
+        </a>{' '}
+        came first, then track and field,{' '}
+        <a
+          className="text-link"
+          href="https://www.instagram.com/mizclubtriathlon/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          triathlon
+        </a>
+        , and eventually{' '}
+        <a
+          className="text-link"
+          href="https://ultrasignup.com/m_results_participant.aspx?fname=Samuel&lname=Bishop"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          trail and mountain running
+        </a>
+        .
+      </>
+    ),
     icon: Footprints,
   },
   {
     title: 'Coaching',
-    description:
-      'I’m the assistant cross country coach at Green Mountain High School, which is a great excuse to stay around the sport and pass some of it on.',
+    description: (
+      <>
+        I volunteer as an assistant cross country coach at{' '}
+        <a
+          className="text-link"
+          href="https://sites.google.com/jeffcoschools.us/greenmountainxc/home"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Green Mountain High School
+        </a>
+        . It’s been a fun way to stay connected to a sport that’s given me so
+        much, and to become involved in the community that I live in.
+      </>
+    ),
     icon: Users,
   },
   {
-    title: 'Back to music',
-    description:
-      'I grew up in orchestras and chamber groups playing violin and viola. I recently bought a piano off Facebook Marketplace and I’m trying to practice every single day.',
+    title: 'Music',
+    description: (
+      <>
+        Music was a big part of my childhood. I spent years playing violin and
+        viola in the{' '}
+        <a
+          className="text-link"
+          href="https://wysomusic.org/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Wisconsin Youth Symphony Orchestra
+        </a>
+        . Recently, I’ve been trying to learn the piano and building back up the
+        habit of practicing again.
+      </>
+    ),
     icon: Music,
   },
 ]
@@ -179,8 +237,7 @@ export function AboutPage() {
           </div>
         </div>
       </section>
-      <section className="ruled-section" aria-labelledby="principles-heading">
-        <h2 id="principles-heading">The parts that aren’t code.</h2>
+      <section className="ruled-section">
         <div className="about-chapters">
           {chapters.map(({ title, description, icon: Icon }) => (
             <article className="about-chapter" key={title}>
