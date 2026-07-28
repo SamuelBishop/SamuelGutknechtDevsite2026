@@ -99,12 +99,32 @@ const chapters: Chapter[] = [
 
 const personalMoments: [PhotoStoryItem, ...PhotoStoryItem[]] = [
   {
-    src: '/photos/graduation-selfie.jpg',
-    alt: 'Samuel in his graduation cap and gown',
-    title: 'Graduation day',
+    src: '/photos/maroon-bells-run.jpg',
+    alt: 'Samuel and his wife Shane in running vests below the Maroon Bells in Colorado',
+    title: 'My favorite crew',
     description:
-      'Studying electrical and computer engineering gave me a way to be curious about hardware and software at the same time.',
-    fit: 'contain',
+      'Shane and me a few miles into a run below the Maroon Bells. Most of our weekends look roughly like this.',
+  },
+  {
+    src: '/photos/addie-tulip-fields.jpg',
+    alt: 'Addie, a black lab, sitting on a path running through rows of tulips',
+    title: 'Addie',
+    description:
+      'Our black lab, completely unbothered by the tulip fields we drove her out to see.',
+  },
+  {
+    src: '/photos/daisy-autumn.jpg',
+    alt: 'Daisy, a young silver-brown lab, sitting on a stone patio covered in fallen leaves',
+    title: 'Daisy',
+    description:
+      'The other half of the pack, holding a sit just long enough for one photo.',
+  },
+  {
+    src: '/photos/forest-trail-race.jpg',
+    alt: 'Samuel running a forest trail race through mossy trees wearing race bib 652',
+    title: 'Race day',
+    description:
+      'A trail race in the woods outside Seattle. I have been pinning on a number since I was 13 and it still feels the same.',
   },
   {
     src: '/photos/engineering-graduation.jpg',
@@ -112,39 +132,7 @@ const personalMoments: [PhotoStoryItem, ...PhotoStoryItem[]] = [
     title: 'Where it started',
     description:
       'Wrapping up at the University of Missouri, still not entirely sure what I wanted to build, just that I wanted to build.',
-    fit: 'contain',
-  },
-  {
-    src: '/photos/microsoft-campus.jpg',
-    alt: 'Samuel visiting the Microsoft campus',
-    title: 'The day job',
-    description:
-      'I write software for a living, which mostly means I get to stay curious and figure things out for a job.',
-    objectPosition: '50% 54%',
-  },
-  {
-    src: '/photos/sunflower-trail-race.jpg',
-    alt: 'Samuel running a trail race through a sunflower field',
-    title: 'On the trail',
-    description:
-      'I’ve been an athlete since I was 13, and these days that means a lot of miles on trails and up in the mountains.',
-    objectPosition: '50% 52%',
-  },
-  {
-    src: '/photos/coastal-trail-family.jpg',
-    alt: 'Samuel with his wife and their dog on a coastal trail',
-    title: 'My favorite crew',
-    description:
-      'The best days usually involve my wife Shane, the dogs, and enough trail to make it feel like we earned dinner.',
-    fit: 'contain',
-  },
-  {
-    src: '/photos/hotswap-numpad-pcb.jpg',
-    alt: 'A custom hot-swappable numpad keyboard PCB connected to a laptop',
-    title: 'At the workbench',
-    description:
-      'When an idea won’t leave me alone, it usually ends up here. This one became a hot-swappable numpad I designed and built from scratch.',
-    fit: 'contain',
+    objectPosition: '50% 62%',
   },
 ]
 

@@ -173,13 +173,11 @@ describe('portfolio routes', () => {
       screen.getByRole('region', { name: /life beyond work/i }),
     ).toBeInTheDocument()
     expect(
-      screen.getByRole('heading', { name: /graduation day/i }),
+      screen.getByRole('heading', { name: /my favorite crew/i }),
     ).toBeInTheDocument()
 
     await user.click(screen.getByRole('button', { name: /show next photo/i }))
-    expect(
-      screen.getByRole('heading', { name: /where it started/i }),
-    ).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /addie/i })).toBeInTheDocument()
   })
 
   it('features the custom numpad PCB as a real project', () => {
