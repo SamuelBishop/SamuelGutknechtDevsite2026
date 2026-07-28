@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-27T12:42:27.521Z",
+  "generatedAt": "2026-07-28T11:35:39.309Z",
   "source": "https://www.strava.com",
   "label": "Strava",
   "metricLabel": "active day",
@@ -8,11 +8,7 @@
   "weeks": [
     [
       null,
-      {
-        "date": "2025-07-21",
-        "level": 0,
-        "count": 0
-      },
+      null,
       {
         "date": "2025-07-22",
         "level": 2,
