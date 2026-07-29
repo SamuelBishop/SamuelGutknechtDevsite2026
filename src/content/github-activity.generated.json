@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-28T11:35:29.537Z",
+  "generatedAt": "2026-07-29T11:39:11.493Z",
   "source": "https://github.com/SamuelBishop",
   "label": "GitHub",
   "metricLabel": "contribution",
-  "total": 197,
-  "totalLabel": "197 contributions in the last year",
+  "total": 205,
+  "totalLabel": "205 contributions in the last year",
   "weeks": [
     [
       {
@@ -1943,10 +1943,14 @@
       },
       {
         "date": "2026-07-28",
+        "level": 2,
+        "count": 8
+      },
+      {
+        "date": "2026-07-29",
         "level": 0,
         "count": 0
       },
-      null,
       null,
       null,
       null
