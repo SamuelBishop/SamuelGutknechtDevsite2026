@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T20:58:00.881Z",
+  "generatedAt": "2026-08-29T14:38:19.670Z",
   "source": "https://www.strava.com",
   "label": "Strava",
   "metricLabel": "active day",
@@ -12,11 +12,7 @@
       null,
       null,
       null,
-      {
-        "date": "2025-08-22",
-        "level": 0,
-        "count": 0
-      },
+      null,
       {
         "date": "2025-08-23",
         "level": 0,
