@@ -1,48 +1,11 @@
 {
-  "generatedAt": "2026-09-12T13:00:11.585Z",
+  "generatedAt": "2026-09-13T13:51:40.964Z",
   "source": "https://github.com/SamuelBishop",
   "label": "GitHub",
   "metricLabel": "contribution",
-  "total": 219,
-  "totalLabel": "219 contributions in the last year",
+  "total": 214,
+  "totalLabel": "214 contributions in the last year",
   "weeks": [
-    [
-      {
-        "date": "2025-09-07",
-        "level": 0,
-        "count": 0
-      },
-      {
-        "date": "2025-09-08",
-        "level": 0,
-        "count": 0
-      },
-      {
-        "date": "2025-09-09",
-        "level": 1,
-        "count": 2
-      },
-      {
-        "date": "2025-09-10",
-        "level": 1,
-        "count": 1
-      },
-      {
-        "date": "2025-09-11",
-        "level": 1,
-        "count": 2
-      },
-      {
-        "date": "2025-09-12",
-        "level": 0,
-        "count": 0
-      },
-      {
-        "date": "2025-09-13",
-        "level": 0,
-        "count": 0
-      }
-    ],
     [
       {
         "date": "2025-09-14",
@@ -1966,6 +1929,19 @@
         "level": 0,
         "count": 0
       }
+    ],
+    [
+      {
+        "date": "2026-09-13",
+        "level": 0,
+        "count": 0
+      },
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
     ]
   ]
 }
