@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-14T14:36:28.153Z",
+  "generatedAt": "2026-10-15T14:18:13.615Z",
   "source": "https://www.strava.com",
   "label": "Strava",
   "metricLabel": "active day",
@@ -10,11 +10,7 @@
       null,
       null,
       null,
-      {
-        "date": "2025-10-08",
-        "level": 2,
-        "count": 1
-      },
+      null,
       {
         "date": "2025-10-09",
         "level": 0,
@@ -1954,6 +1950,31 @@
         "level": 4,
         "count": 2
       }
+    ],
+    [
+      {
+        "date": "2026-10-11",
+        "level": 0,
+        "count": 0
+      },
+      {
+        "date": "2026-10-12",
+        "level": 0,
+        "count": 0
+      },
+      {
+        "date": "2026-10-13",
+        "level": 0,
+        "count": 0
+      },
+      {
+        "date": "2026-10-14",
+        "level": 2,
+        "count": 1
+      },
+      null,
+      null,
+      null
     ]
   ]
 }
