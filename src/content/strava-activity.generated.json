@@ -1,24 +1,11 @@
 {
-  "generatedAt": "2026-11-07T15:49:46.795Z",
+  "generatedAt": "2026-11-08T16:09:46.793Z",
   "source": "https://www.strava.com",
   "label": "Strava",
   "metricLabel": "active day",
   "total": 252,
   "totalLabel": "252 active days · 2,590 mi in the last year",
   "weeks": [
-    [
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      {
-        "date": "2025-11-01",
-        "level": 0,
-        "count": 0
-      }
-    ],
     [
       {
         "date": "2025-11-02",
