@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-09T19:57:04.120Z",
+  "generatedAt": "2026-11-10T17:12:19.085Z",
   "source": "https://github.com/SamuelBishop",
   "label": "GitHub",
   "metricLabel": "contribution",
-  "total": 221,
-  "totalLabel": "221 contributions in the last year",
+  "total": 243,
+  "totalLabel": "243 contributions in the last year",
   "weeks": [
     [
       {
@@ -61,7 +61,7 @@
       },
       {
         "date": "2025-11-19",
-        "level": 2,
+        "level": 1,
         "count": 5
       },
       {
@@ -717,7 +717,7 @@
       },
       {
         "date": "2026-03-23",
-        "level": 4,
+        "level": 3,
         "count": 13
       },
       {
@@ -732,7 +732,7 @@
       },
       {
         "date": "2026-03-26",
-        "level": 2,
+        "level": 1,
         "count": 5
       },
       {
@@ -860,7 +860,7 @@
     [
       {
         "date": "2026-04-19",
-        "level": 2,
+        "level": 1,
         "count": 5
       },
       {
@@ -1272,12 +1272,12 @@
       },
       {
         "date": "2026-07-06",
-        "level": 4,
+        "level": 3,
         "count": 14
       },
       {
         "date": "2026-07-07",
-        "level": 3,
+        "level": 2,
         "count": 10
       },
       {
@@ -1329,7 +1329,7 @@
       },
       {
         "date": "2026-07-17",
-        "level": 4,
+        "level": 3,
         "count": 16
       },
       {
@@ -1351,7 +1351,7 @@
       },
       {
         "date": "2026-07-21",
-        "level": 4,
+        "level": 3,
         "count": 16
       },
       {
@@ -1383,7 +1383,7 @@
       },
       {
         "date": "2026-07-27",
-        "level": 4,
+        "level": 3,
         "count": 13
       },
       {
@@ -1398,7 +1398,7 @@
       },
       {
         "date": "2026-07-30",
-        "level": 4,
+        "level": 3,
         "count": 16
       },
       {
@@ -1420,7 +1420,7 @@
       },
       {
         "date": "2026-08-03",
-        "level": 3,
+        "level": 2,
         "count": 9
       },
       {
@@ -1906,7 +1906,7 @@
       },
       {
         "date": "2026-11-03",
-        "level": 2,
+        "level": 1,
         "count": 5
       },
       {
@@ -1938,10 +1938,14 @@
       },
       {
         "date": "2026-11-09",
+        "level": 4,
+        "count": 22
+      },
+      {
+        "date": "2026-11-10",
         "level": 0,
         "count": 0
       },
-      null,
       null,
       null,
       null,
