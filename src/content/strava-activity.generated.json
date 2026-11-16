@@ -1,26 +1,22 @@
 {
-  "generatedAt": "2026-11-15T16:29:56.411Z",
+  "generatedAt": "2026-11-16T19:45:31.487Z",
   "source": "https://www.strava.com",
   "label": "Strava",
   "metricLabel": "active day",
-  "total": 250,
-  "totalLabel": "250 active days · 2,572 mi in the last year",
+  "total": 249,
+  "totalLabel": "249 active days · 2,570 mi in the last year",
   "weeks": [
     [
+      null,
       {
-        "date": "2025-11-09",
+        "date": "2025-11-10",
         "level": 0,
         "count": 0
       },
       {
-        "date": "2025-11-10",
-        "level": 2,
-        "count": 1
-      },
-      {
         "date": "2025-11-11",
-        "level": 2,
-        "count": 1
+        "level": 0,
+        "count": 0
       },
       {
         "date": "2025-11-12",
@@ -1896,6 +1892,80 @@
     [
       {
         "date": "2026-11-01",
+        "level": 2,
+        "count": 1
+      },
+      {
+        "date": "2026-11-02",
+        "level": 0,
+        "count": 0
+      },
+      {
+        "date": "2026-11-03",
+        "level": 0,
+        "count": 0
+      },
+      {
+        "date": "2026-11-04",
+        "level": 0,
+        "count": 0
+      },
+      {
+        "date": "2026-11-05",
+        "level": 0,
+        "count": 0
+      },
+      {
+        "date": "2026-11-06",
+        "level": 0,
+        "count": 0
+      },
+      {
+        "date": "2026-11-07",
+        "level": 0,
+        "count": 0
+      }
+    ],
+    [
+      {
+        "date": "2026-11-08",
+        "level": 0,
+        "count": 0
+      },
+      {
+        "date": "2026-11-09",
+        "level": 0,
+        "count": 0
+      },
+      {
+        "date": "2026-11-10",
+        "level": 0,
+        "count": 0
+      },
+      {
+        "date": "2026-11-11",
+        "level": 0,
+        "count": 0
+      },
+      {
+        "date": "2026-11-12",
+        "level": 0,
+        "count": 0
+      },
+      {
+        "date": "2026-11-13",
+        "level": 0,
+        "count": 0
+      },
+      {
+        "date": "2026-11-14",
+        "level": 0,
+        "count": 0
+      }
+    ],
+    [
+      {
+        "date": "2026-11-15",
         "level": 2,
         "count": 1
       },
